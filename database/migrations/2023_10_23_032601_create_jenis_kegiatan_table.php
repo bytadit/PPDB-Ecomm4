@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jenis_kegiatan', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('nama')->comment('Sosialisasi, Pendaftaran, Wawancara, Verifikasi, Pengumuman');
             $table->timestamps();
         });
     }

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_jenjang');
             $table->unsignedBigInteger('id_jalur');
             $table->year('periode');
-            $table->boolean('is_open');
+            $table->boolean('is_open')->comment('{0: No, 1: Yes}');
             $table->foreign('id_jenjang')->references('id')->on('jenjang')->onDelete('cascade');
             $table->foreign('id_jalur')->references('id')->on('jalur')->onDelete('cascade');
 

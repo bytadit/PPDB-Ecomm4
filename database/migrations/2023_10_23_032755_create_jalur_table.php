@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('jalur', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
+            $table->string('nama')->comment('afirmasi, reguler, prestasi');
             $table->timestamps();
         });
     }

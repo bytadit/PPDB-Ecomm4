@@ -24,6 +24,18 @@ class Penerimaan extends Model
     }
     public function biayas(): HasMany
     {
-        return $this->hasMany(Biaya::class, 'id_biaya');
+        return $this->hasMany(Biaya::class, 'id_penerimaan');
+    }
+    public function dokumens(): HasMany
+    {
+        return $this->hasMany(Dokumen::class, 'id_penerimaan');
+    }
+    public function kegiatans(): HasMany
+    {
+        return $this->hasMany(Kegiatan::class, 'id_penerimaan');
+    }
+    public function pendaftars(): HasMany
+    {
+        return $this->hasMany(Pendaftar::class, 'id_penerimaan');
     }
 }
