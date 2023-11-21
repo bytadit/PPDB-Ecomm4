@@ -17,6 +17,10 @@ class Pendaftar extends Model
     {
         return $this->belongsTo(Penerimaan::class, 'id_penerimaan');
     }
+    public function dokumenPendaftaran(): HasMany
+    {
+        return $this->hasMany(DokumenPendaftar::class, 'id_pendaftar');
+    }
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_user');
