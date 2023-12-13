@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+<<<<<<< HEAD
     return view('non-dashboard/home');
 });
 
@@ -64,3 +65,7 @@ Route::get('/pendaftaran6', function () {
 Route::get('/login', function () {
     return view('non-dashboard/auth/login');
 });
+=======
+    return view('welcome');
+});
+>>>>>>> be1b31460443e765af3f961fca0c8e0076fd14d9
