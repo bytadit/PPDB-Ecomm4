@@ -1,432 +1,642 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipes HTML</title>
-    <link rel="shortcut icon" href="/img/logo.png">
+@extends('layouts.master')
+@section('title') @lang('translation.analytics') @endsection
+@section('css')
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,200;0,400;0,700;1,400;1,700;1,900&display=swap"
-          rel="stylesheet">
-    <!-- End of Google Fonts -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="fontawesome/css/all.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{ URL::asset('assets/libs/jsvectormap/jsvectormap.min.css') }}" rel="stylesheet">
 
-</head>
-<body>
-<header class="mc-header" id="mc-header">
-    <div class="mc-header-wrapper">
-        <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
-            <i class="fas fa-bars"></i>
-        </button>
-        <div class="mc-site-header">
-            <a href="index.html" class="mb-3 mx-auto site-logo">
-                <img src="img/logo.png" alt="Logo" width="70px">
-            </a>
-            <h1 class="text-center site-title">Lara<span class="fw-light">Recipes</span></h1>
-        </div>
-        <nav class="mc-nav" id="mc-nav">
-            <ul>
-                <li class="mc-nav-item active"><a href="index.html" class="mc-nav-link">
-                    <i class="fas fa-carrot"></i>
-                    Home
-                </a></li>
-                <li class="mc-nav-item"><a href="categories.html" class="mc-nav-link">
-                    <i class="fas fa-cubes-stacked"></i>
-                    Categories
-                </a></li>
-                <li class="mc-nav-item"><a href="single-category.html" class="mc-nav-link">
-                    <i class="fas fa-cubes-stacked"></i>
-                    Single Category
-                </a></li>
-                <li class="mc-nav-item"><a href="single-recipe.html" class="mc-nav-link">
-                    <i class="fas fa-bowl-food"></i>
-                    Single Recipe
-                </a></li>
-                <li class="mc-nav-item"><a href="about.html" class="mc-nav-link">
-                    <i class="fas fa-lemon"></i>
-                    About Us
-                </a></li>
-                <li class="mc-nav-item"><a href="contact.html" class="mc-nav-link">
-                    <i class="fas fa-utensils"></i>
-                    Contact Us
-                </a></li>
-            </ul>
-        </nav>
-        <div class="mc-mb-65">
-            <a href="https://x.com/mkwsra" class="mc-social-link">
-                <i class="fab fa-x-twitter mc-social-icon"></i>
-            </a>
-            <a href="https://linkedin.com/in/mkwsra" class="mc-social-link">
-                <i class="fab fa-linkedin-in mc-social-icon"></i>
-            </a>
-            <a rel="nofollow" href="https://fb.com/mkwsra" class="mc-social-link">
-                <i class="fab fa-facebook-f mc-social-icon"></i>
-            </a>
-            <a href="https://instagram.com/multicaret" class="mc-social-link">
-                <i class="fab fa-instagram mc-social-icon"></i>
-            </a>
-        </div>
-        <p class="pr-5 text-white">
-            Lara Recipes a demo of a Laravel tutorial created by
-            <a href="https://mkwsra.com" class="text-dark">Mo Kawsara</a>
-            using the Xtra Blog html5 theme as a
-            foundation, this theme got tweaked for the purposes of this tutorial.
-        </p>
-        <p class="mc-mb-80 text-white">If you liked this tutorial, consider helping me out by sharing this video series
-            with others and perhaps by
-            liking my <a href="https://www.youtube.com/@multi-caret" target="_blank" class="text-dark">YouTube
-                videos</a></p>
-    </div>
-</header>
-<div class="mc-main-full">
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0"
-                    aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2" class="active"
-                    aria-current="true"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"
-            ></button>
-        </div>
-        <div class="carousel-inner">
-            <div class="carousel-item">
-                <img class="w-100" src="img/3.jpeg" alt="">
-                <div class="container carousel-item-content img-overlay">
-                    <div class="carousel-caption text-start">
-                        <h1>Chocolate Chip Cookies</h1>
-                        <p>Some representative placeholder content for the first slide of the
-                            carousel.</p>
-                        <a class="btn btn-outline-light px-4" href="#">Get Cooking</a>
+@endsection
+@section('content')
+
+    @component('components.breadcrumb')
+        @slot('li_1') Dashboards @endslot
+        @slot('title') Analytics @endslot
+    @endcomponent
+
+    <div class="row">
+        <div class="col-xxl-5">
+            <div class="d-flex flex-column h-100">
+                <div class="row h-100">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body p-0">
+                                <div class="alert alert-warning border-0 rounded-0 m-0 d-flex align-items-center"
+                                    role="alert">
+                                    <i data-feather="alert-triangle"
+                                        class="text-warning me-2 icon-sm"></i>
+                                    <div class="flex-grow-1 text-truncate">
+                                        Your free trial expired in <b>17</b> days.
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <a href="pages-pricing"
+                                            class="text-reset text-decoration-underline"><b>Upgrade</b></a>
+                                    </div>
+                                </div>
+
+                                <div class="row align-items-end">
+                                    <div class="col-sm-8">
+                                        <div class="p-3">
+                                            <p class="fs-16 lh-base">Upgrade your plan from a <span
+                                                    class="fw-semibold">Free
+                                                    trial</span>, to ‘Premium Plan’ <i
+                                                    class="mdi mdi-arrow-right"></i></p>
+                                            <div class="mt-3">
+                                                <a href="pages-pricing"
+                                                    class="btn btn-success">Upgrade Account!</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="px-3">
+                                            <img src="{{ URL::asset('assets/images/user-illustarator-2.png') }}"
+                                                class="img-fluid" alt="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- end card-body-->
+                        </div>
+                    </div> <!-- end col-->
+                </div> <!-- end row-->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-animate">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <p class="fw-medium text-muted mb-0">Users</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span
+                                                class="counter-value" data-target="28.05">0</span>k</h2>
+                                        <p class="mb-0 text-muted"><span
+                                                class="badge bg-light text-success mb-0">
+                                                <i class="ri-arrow-up-line align-middle"></i> 16.24 %
+                                            </span> vs. previous month</p>
+                                    </div>
+                                    <div>
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
+                                                <i data-feather="users" class="text-info"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end card body -->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+
+                    <div class="col-md-6">
+                        <div class="card card-animate">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <p class="fw-medium text-muted mb-0">Sessions</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span
+                                                class="counter-value" data-target="97.66">0</span>k</h2>
+                                        <p class="mb-0 text-muted"><span
+                                                class="badge bg-light text-danger mb-0">
+                                                <i class="ri-arrow-down-line align-middle"></i> 3.96 %
+                                            </span> vs. previous month</p>
+                                    </div>
+                                    <div>
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
+                                                <i data-feather="activity" class="text-info"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end card body -->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+                </div> <!-- end row-->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card card-animate">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <p class="fw-medium text-muted mb-0">Avg. Visit Duration</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span
+                                                class="counter-value" data-target="3">0</span>m
+                                            <span class="counter-value" data-target="40">0</span>sec
+                                        </h2>
+                                        <p class="mb-0 text-muted"><span
+                                                class="badge bg-light text-danger mb-0">
+                                                <i class="ri-arrow-down-line align-middle"></i> 0.24 %
+                                            </span> vs. previous month</p>
+                                    </div>
+                                    <div>
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
+                                                <i data-feather="clock" class="text-info"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end card body -->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+
+                    <div class="col-md-6">
+                        <div class="card card-animate">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <p class="fw-medium text-muted mb-0">Bounce Rate</p>
+                                        <h2 class="mt-4 ff-secondary fw-semibold"><span
+                                                class="counter-value" data-target="33.48">0</span>%</h2>
+                                        <p class="mb-0 text-muted"><span
+                                                class="badge bg-light text-success mb-0">
+                                                <i class="ri-arrow-up-line align-middle"></i> 7.05 %
+                                            </span> vs. previous month</p>
+                                    </div>
+                                    <div>
+                                        <div class="avatar-sm flex-shrink-0">
+                                            <span class="avatar-title bg-soft-info rounded-circle fs-2">
+                                                <i data-feather="external-link" class="text-info"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- end card body -->
+                        </div> <!-- end card-->
+                    </div> <!-- end col-->
+                </div> <!-- end row-->
+            </div>
+        </div> <!-- end col-->
+
+        <div class="col-xxl-7">
+            <div class="row h-100">
+                <div class="col-xl-6">
+                    <div class="card card-height-100">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Live Users By Country</h4>
+                            <div class="flex-shrink-0">
+                                <button type="button" class="btn btn-soft-primary btn-sm">
+                                    Export Report
+                                </button>
+                            </div>
+                        </div><!-- end card header -->
+
+                        <!-- card body -->
+                        <div class="card-body">
+
+                            <div id="users-by-country" data-colors='["--vz-light"]' class="text-center"
+                                style="height: 252px"></div>
+
+                            <div class="table-responsive table-card mt-3">
+                                <table
+                                    class="table table-borderless table-sm table-centered align-middle table-nowrap mb-1">
+                                    <thead
+                                        class="text-muted border-dashed border border-start-0 border-end-0 bg-soft-light">
+                                        <tr>
+                                            <th>Duration (Secs)</th>
+                                            <th style="width: 30%;">Sessions</th>
+                                            <th style="width: 30%;">Views</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="border-0">
+                                        <tr>
+                                            <td>0-30</td>
+                                            <td>2,250</td>
+                                            <td>4,250</td>
+                                        </tr>
+                                        <tr>
+                                            <td>31-60</td>
+                                            <td>1,501</td>
+                                            <td>2,050</td>
+                                        </tr>
+                                        <tr>
+                                            <td>61-120</td>
+                                            <td>750</td>
+                                            <td>1,600</td>
+                                        </tr>
+                                        <tr>
+                                            <td>121-240</td>
+                                            <td>540</td>
+                                            <td>1,040</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <!-- end card body -->
+                    </div><!-- end card -->
+                </div><!-- end col -->
+
+                <div class="col-xl-6">
+                    <div class="card card-height-100">
+                        <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">Sessions by Countries</h4>
+                            <div>
+                                <button type="button" class="btn btn-soft-secondary btn-sm">
+                                    ALL
+                                </button>
+                                <button type="button" class="btn btn-soft-primary btn-sm">
+                                    1M
+                                </button>
+                                <button type="button" class="btn btn-soft-secondary btn-sm">
+                                    6M
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div>
+                                <div id="countries_charts"
+                                    data-colors='["--vz-info", "--vz-info", "--vz-info", "--vz-info", "--vz-danger", "--vz-info", "--vz-info", "--vz-info", "--vz-info", "--vz-info"]'
+                                    class="apex-charts" dir="ltr"></div>
+                            </div>
+                        </div><!-- end card body -->
+                    </div><!-- end card -->
+                </div> <!-- end col-->
+
+            </div> <!-- end row-->
+        </div><!-- end col -->
+    </div> <!-- end row-->
+
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header border-0 align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Audiences Metrics</h4>
+                    <div>
+                        <button type="button" class="btn btn-soft-secondary btn-sm">
+                            ALL
+                        </button>
+                        <button type="button" class="btn btn-soft-secondary btn-sm">
+                            1M
+                        </button>
+                        <button type="button" class="btn btn-soft-secondary btn-sm">
+                            6M
+                        </button>
+                        <button type="button" class="btn btn-soft-primary btn-sm">
+                            1Y
+                        </button>
+                    </div>
+                </div><!-- end card header -->
+                <div class="card-header p-0 border-0 bg-soft-light">
+                    <div class="row g-0 text-center">
+                        <div class="col-6 col-sm-4">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="854">0</span>
+                                    <span class="text-success ms-1 fs-12">49%<i
+                                            class="ri-arrow-right-up-line ms-1 align-middle"></i></span>
+                                </h5>
+                                <p class="text-muted mb-0">Avg. Session</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-6 col-sm-4">
+                            <div class="p-3 border border-dashed border-start-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="1278">0</span>
+                                    <span class="text-success ms-1 fs-12">60%<i
+                                            class="ri-arrow-right-up-line ms-1 align-middle"></i></span>
+                                </h5>
+                                <p class="text-muted mb-0">Conversion Rate</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                        <div class="col-6 col-sm-4">
+                            <div class="p-3 border border-dashed border-start-0 border-end-0">
+                                <h5 class="mb-1"><span class="counter-value" data-target="3">0</span>m
+                                    <span class="counter-value" data-target="40">0</span>sec
+                                    <span class="text-success ms-1 fs-12">37%<i
+                                            class="ri-arrow-right-up-line ms-1 align-middle"></i></span>
+                                </h5>
+                                <p class="text-muted mb-0">Avg. Session Duration</p>
+                            </div>
+                        </div>
+                        <!--end col-->
+                    </div>
+                </div><!-- end card header -->
+                <div class="card-body p-0 pb-2">
+                    <div>
+                        <div id="audiences_metrics_charts"
+                            data-colors='["--vz-success", "--vz-gray-300"]' class="apex-charts"
+                            dir="ltr"></div>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+
+        <div class="col-xl-6">
+            <div class="card card-height-100">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Audiences Sessions by Country</h4>
+                    <div class="flex-shrink-0">
+                        <div class="dropdown card-header-dropdown">
+                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <span class="fw-semibold text-uppercase fs-12">Sort by: </span><span
+                                    class="text-muted">Current Week<i
+                                        class="mdi mdi-chevron-down ms-1"></i></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#">Today</a>
+                                <a class="dropdown-item" href="#">Last Week</a>
+                                <a class="dropdown-item" href="#">Last Month</a>
+                                <a class="dropdown-item" href="#">Current Year</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end card header -->
+                <div class="card-body p-0">
+                    <div>
+                        <div id="audiences-sessions-country-charts"
+                            data-colors='["--vz-success", "--vz-info"]' class="apex-charts" dir="ltr">
+                        </div>
+                    </div>
+                </div><!-- end cardbody -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+    </div><!-- end row -->
+
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card card-height-100">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Users by Device</h4>
+                    <div class="flex-shrink-0">
+                        <div class="dropdown card-header-dropdown">
+                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <span class="text-muted fs-16"><i
+                                        class="mdi mdi-dots-vertical align-middle"></i></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#">Today</a>
+                                <a class="dropdown-item" href="#">Last Week</a>
+                                <a class="dropdown-item" href="#">Last Month</a>
+                                <a class="dropdown-item" href="#">Current Year</a>
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- end card header -->
+                <div class="card-body">
+                    <div id="user_device_pie_charts"
+                        data-colors='["--vz-primary", "--vz-warning", "--vz-info"]' class="apex-charts"
+                        dir="ltr"></div>
+
+                    <div class="table-responsive mt-3">
+                        <table
+                            class="table table-borderless table-sm table-centered align-middle table-nowrap mb-0">
+                            <tbody class="border-0">
+                                <tr>
+                                    <td>
+                                        <h4 class="text-truncate fs-14 fs-medium mb-0"><i
+                                                class="ri-stop-fill align-middle fs-18 text-primary me-2"></i>Desktop
+                                            Users</h4>
+                                    </td>
+                                    <td>
+                                        <p class="text-muted mb-0"><i data-feather="users"
+                                                class="me-2 icon-sm"></i>78.56k</p>
+                                    </td>
+                                    <td class="text-end">
+                                        <p class="text-success fw-medium fs-12 mb-0"><i
+                                                class="ri-arrow-up-s-fill fs-5 align-middle"></i>2.08%
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h4 class="text-truncate fs-14 fs-medium mb-0"><i
+                                                class="ri-stop-fill align-middle fs-18 text-warning me-2"></i>Mobile
+                                            Users</h4>
+                                    </td>
+                                    <td>
+                                        <p class="text-muted mb-0"><i data-feather="users"
+                                                class="me-2 icon-sm"></i>105.02k</p>
+                                    </td>
+                                    <td class="text-end">
+                                        <p class="text-danger fw-medium fs-12 mb-0"><i
+                                                class="ri-arrow-down-s-fill fs-5 align-middle"></i>10.52%
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h4 class="text-truncate fs-14 fs-medium mb-0"><i
+                                                class="ri-stop-fill align-middle fs-18 text-info me-2"></i>Tablet
+                                            Users</h4>
+                                    </td>
+                                    <td>
+                                        <p class="text-muted mb-0"><i data-feather="users"
+                                                class="me-2 icon-sm"></i>42.89k</p>
+                                    </td>
+                                    <td class="text-end">
+                                        <p class="text-danger fw-medium fs-12 mb-0"><i
+                                                class="ri-arrow-down-s-fill fs-5 align-middle"></i>7.36%
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+
+        <div class="col-xl-4 col-md-6">
+            <div class="card card-height-100">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Top Referrals Pages</h4>
+                    <div class="flex-shrink-0">
+                        <button type="button" class="btn btn-soft-primary btn-sm">
+                            Export Report
+                        </button>
                     </div>
                 </div>
-            </div>
-            <div class="carousel-item active">
-                <img class="w-100" src="img/4.jpeg" alt="">
-                <div class="container carousel-item-content img-overlay">
-                    <div class="carousel-caption">
-                        <h1>Delicious Falafel Recipe (Fried or Baked)</h1>
-                        <p>Some representative placeholder content for the second slide of the carousel.</p>
-                        <a class="btn btn-outline-light px-4" href="#">Get Cooking</a>
+
+                <div class="card-body">
+
+                    <div class="row align-items-center">
+                        <div class="col-6">
+                            <h6 class="text-muted text-uppercase fw-semibold text-truncate fs-12 mb-3">
+                                Total Referrals Page</h6>
+                            <h4 class="fs- mb-0">725,800</h4>
+                            <p class="mb-0 mt-2 text-muted"><span class="badge badge-soft-success mb-0">
+                                    <i class="ri-arrow-up-line align-middle"></i> 15.72 %
+                                </span> vs. previous month</p>
+                        </div><!-- end col -->
+                        <div class="col-6">
+                            <div class="text-center">
+                                <img src="{{ URL::asset('assets/images/illustrator-1.png') }}" class="img-fluid" alt="">
+                            </div>
+                        </div><!-- end col -->
+                    </div><!-- end row -->
+                    <div class="mt-3 pt-2">
+                        <div class="progress progress-lg rounded-pill">
+                            <div class="progress-bar bg-primary" role="progressbar" style="width: 25%"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-info" role="progressbar" style="width: 18%"
+                                aria-valuenow="18" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 22%"
+                                aria-valuenow="22" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: 16%"
+                                aria-valuenow="16" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: 19%"
+                                aria-valuenow="19" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div><!-- end -->
+
+                    <div class="mt-3 pt-2">
+                        <div class="d-flex mb-2">
+                            <div class="flex-grow-1">
+                                <p class="text-truncate text-muted fs-14 mb-0"><i
+                                        class="mdi mdi-circle align-middle text-primary me-2"></i>www.google.com
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <p class="mb-0">24.58%</p>
+                            </div>
+                        </div><!-- end -->
+                        <div class="d-flex mb-2">
+                            <div class="flex-grow-1">
+                                <p class="text-truncate text-muted fs-14 mb-0"><i
+                                        class="mdi mdi-circle align-middle text-info me-2"></i>www.youtube.com
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <p class="mb-0">17.51%</p>
+                            </div>
+                        </div><!-- end -->
+                        <div class="d-flex mb-2">
+                            <div class="flex-grow-1">
+                                <p class="text-truncate text-muted fs-14 mb-0"><i
+                                        class="mdi mdi-circle align-middle text-success me-2"></i>www.meta.com
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <p class="mb-0">23.05%</p>
+                            </div>
+                        </div><!-- end -->
+                        <div class="d-flex mb-2">
+                            <div class="flex-grow-1">
+                                <p class="text-truncate text-muted fs-14 mb-0"><i
+                                        class="mdi mdi-circle align-middle text-warning me-2"></i>www.medium.com
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <p class="mb-0">12.22%</p>
+                            </div>
+                        </div><!-- end -->
+                        <div class="d-flex">
+                            <div class="flex-grow-1">
+                                <p class="text-truncate text-muted fs-14 mb-0"><i
+                                        class="mdi mdi-circle align-middle text-danger me-2"></i>Other
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <p class="mb-0">17.58%</p>
+                            </div>
+                        </div><!-- end -->
+                    </div><!-- end -->
+
+                    <div class="mt-2 text-center">
+                        <a href="javascript:void(0);" class="text-muted text-decoration-underline">Show
+                            All</a>
                     </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img class="w-100" src="img/1.jpeg" alt="">
-                <div class="container carousel-item-content img-overlay">
-                    <div class="carousel-caption text-end">
-                        <h1>Peanut Butter and Jelly</h1>
-                        <p>Some representative placeholder content for the third slide of this carousel.</p>
-                        <a class="btn btn-outline-light px-4" href="#">Get Cooking</a>
+
+                </div><!-- end card body -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+
+        <div class="col-xl-4 col-md-6">
+            <div class="card card-height-100">
+                <div class="card-header align-items-center d-flex">
+                    <h4 class="card-title mb-0 flex-grow-1">Top Pages</h4>
+                    <div class="flex-shrink-0">
+                        <div class="dropdown card-header-dropdown">
+                            <a class="text-reset dropdown-btn" href="#" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <span class="text-muted fs-16"><i
+                                        class="mdi mdi-dots-vertical align-middle"></i></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#">Today</a>
+                                <a class="dropdown-item" href="#">Last Week</a>
+                                <a class="dropdown-item" href="#">Last Month</a>
+                                <a class="dropdown-item" href="#">Current Year</a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</div>
+                </div><!-- end card header -->
+                <div class="card-body">
+                    <div class="table-responsive table-card">
+                        <table
+                            class="table align-middle table-borderless table-centered table-nowrap mb-0">
+                            <thead class="text-muted table-light">
+                                <tr>
+                                    <th scope="col" style="width: 62;">Active Page</th>
+                                    <th scope="col">Active</th>
+                                    <th scope="col">Users</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0);">/themesbrand/skote-25867</a>
+                                    </td>
+                                    <td>99</td>
+                                    <td>25.3%</td>
+                                </tr><!-- end -->
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0);">/dashonic/chat-24518</a>
+                                    </td>
+                                    <td>86</td>
+                                    <td>22.7%</td>
+                                </tr><!-- end -->
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0);">/skote/timeline-27391</a>
+                                    </td>
+                                    <td>64</td>
+                                    <td>18.7%</td>
+                                </tr><!-- end -->
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0);">/themesbrand/minia-26441</a>
+                                    </td>
+                                    <td>53</td>
+                                    <td>14.2%</td>
+                                </tr><!-- end -->
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0);">/dashon/dashboard-29873</a>
+                                    </td>
+                                    <td>33</td>
+                                    <td>12.6%</td>
+                                </tr><!-- end -->
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0);">/doot/chats-29964</a>
+                                    </td>
+                                    <td>20</td>
+                                    <td>10.9%</td>
+                                </tr><!-- end -->
+                                <tr>
+                                    <td>
+                                        <a href="javascript:void(0);">/minton/pages-29739</a>
+                                    </td>
+                                    <td>10</td>
+                                    <td>07.3%</td>
+                                </tr><!-- end -->
+                            </tbody><!-- end tbody -->
+                        </table><!-- end table -->
+                    </div><!-- end -->
+                </div><!-- end cardbody -->
+            </div><!-- end card -->
+        </div><!-- end col -->
+    </div><!-- end row -->
+@endsection
+@section('script')
+    <!-- apexcharts -->
+    <script src="{{ URL::asset('/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/libs/jsvectormap/jsvectormap.min.js') }}"></script>
+    {{-- <script src="{{ URL::asset('assets/libs/jsvectormap//world-merc.js') }}"></script> --}}
 
-<div class="container-fluid">
-    <main class="mc-main">
-
-        <!-- Search form -->
-        <div class="row">
-            <div class="col-12">
-                <form method="GET" class="form-inline mc-mb-20 mc-search-form">
-                    <input class="form-control mc-search-input w-100" name="query" type="text" placeholder="Search..."
-                           aria-label="Search">
-                    <button class="mc-search-button" type="submit">
-                        <i class="fas fa-search mc-search-icon" aria-hidden="true"></i>
-                    </button>
-                </form>
-            </div>
-        </div>
-
-
-        <div class="container px-4 py-5">
-            <h2 class="pb-2 mb-2 border-bottom d-flex justify-content-between">
-                LATEST RECIPES
-            </h2>
-            <div class="row">
-                <article class="col-12 col-md-6 col-lg-3">
-                    <a href="single-recipe.html" class="effect-lily mc-post-link">
-                        <div class="mc-post-link-inner">
-                            <img src="img/5.jpeg" alt="Image" class="img-fluid">
-                        </div>
-                        <h2 class="mc-pt-30 mc-post-title">Macaroni & cheese</h2>
-                    </a>
-                    <div class="d-flex justify-content-between">
-                        <span class="mc-color-primary">Side Dish</span>
-                    </div>
-                </article>
-
-                <article class="col-12 col-md-6 col-lg-3">
-                    <a href="single-recipe.html" class="effect-lily mc-post-link">
-                        <div class="mc-post-link-inner">
-                            <img src="img/3.jpeg" alt="Image" class="img-fluid">
-                        </div>
-                        <h2 class="mc-pt-30 mc-post-title">Chocolate Chip Cookies</h2>
-                    </a>
-                    <div class="d-flex justify-content-between">
-                        <span class="mc-color-primary">Must Have</span>
-                    </div>
-                </article>
-
-
-            </div>
-        </div>
-
-        <div class="container px-4 py-5">
-            <h2 class="pb-2 mb-2 border-bottom d-flex justify-content-between">
-                Quick & Easy
-                <a href="#!" class="btn btn-outline-dark">Browse All</a>
-            </h2>
-            <div class="row">
-                <article class="col-12 col-md-6 col-lg-3">
-                    <a href="single-recipe.html" class="effect-lily mc-post-link">
-                        <div class="mc-post-link-inner">
-                            <img src="img/1.jpeg" alt="Peanut Butter and Jelly" class="img-fluid">
-                        </div>
-                        <span class="position-absolute mc-new-badge">
-                        <i class="fas fa-certificate"></i>
-                        Featured
-                    </span>
-                    </a>
-                    <a href="single-recipe.html">
-                        <h2 class="mc-pt-20 mc-post-title">Peanut Butter and Jelly</h2>
-                    </a>
-                </article>
-
-                <article class="col-12 col-md-6 col-lg-3">
-                    <a href="single-recipe.html" class="effect-lily mc-post-link">
-                        <div class="mc-post-link-inner">
-                            <img src="img/2.jpeg" alt="Image" class="img-fluid">
-                        </div>
-                        <h2 class="mc-pt-30 mc-post-title">Buffalo Wings</h2>
-                    </a>
-                </article>
-
-                <article class="col-12 col-md-6 col-lg-3">
-                    <a href="single-recipe.html" class="effect-lily mc-post-link">
-                        <div class="mc-post-link-inner">
-                            <img src="img/3.jpeg" alt="Image" class="img-fluid">
-                        </div>
-                        <h2 class="mc-pt-30 mc-post-title">Chocolate Chip Cookies</h2>
-                    </a>
-                </article>
-
-                <article class="col-12 col-md-6 col-lg-3">
-                    <a href="single-recipe.html" class="effect-lily mc-post-link">
-                        <div class="mc-post-link-inner">
-                            <img src="img/5.jpeg" alt="Image" class="img-fluid">
-                        </div>
-                        <h2 class="mc-pt-30 mc-post-title">Macaroni & cheese</h2>
-                    </a>
-                </article>
-
-            </div>
-        </div>
-
-        <div class="container px-4 py-5">
-            <h2 class="pb-2 mb-2 border-bottom d-flex justify-content-between">
-                Middle Eastern
-                <a href="#!" class="btn btn-outline-dark">Browse All</a>
-            </h2>
-            <div class="row">
-                <article class="col-12 col-md-6 col-lg-3">
-                    <a href="single-recipe.html" class="effect-lily mc-post-link mc-pt-20">
-                        <div class="mc-post-link-inner">
-                            <img src="img/6.jpeg" alt="Image" class="img-fluid">
-                        </div>
-                        <h2 class="mc-pt-30 mc-post-title">Chicken Shawarma (Middle Eastern)</h2>
-                    </a>
-                </article>
-
-                <article class="col-12 col-md-6 col-lg-3">
-                    <a href="single-recipe.html" class="effect-lily mc-post-link mc-pt-20">
-                        <div class="mc-post-link-inner">
-                            <img src="img/4.jpeg" alt="Image" class="img-fluid">
-                        </div>
-                        <h2 class="mc-pt-30 mc-post-title">Delicious Falafel Recipe (Fried or Baked)</h2>
-                    </a>
-                </article>
-
-            </div>
-
-            <div class="row mt-5">
-                <a href="#!" class="btn w-100 btn-outline-dark btn-xs px-4">View All Categories</a>
-            </div>
-        </div>
-
-
-        <div class="container my-5">
-            <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
-                <div class="col-lg-6 p-3 p-lg-5 pt-lg-3">
-                    <h1 class="display-4 fw-bold lh-1 text-body-emphasis">DID YOU MAKE THIS RECIPE?</h1>
-                    <p class="lead">I love hearing how you went with my recipes! Tag me on Instagram at
-                        <a href="https://instagram.com/multicaret" target="_blank">@multicaret</a>.
-                    </p>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
-                        <a href="https://instagram.com/multicaret" target="_blank"
-                           class="btn btn-outline-secondary px-4">
-                            <i class="fab fa-instagram"></i>
-                            Instagram
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-5 offset-lg-1 p-0 overflow-hidden shadow-lg">
-                    <img class="rounded-lg-3" src="img/instagram-cta.avif" alt="" width="520">
-                </div>
-            </div>
-        </div>
-
-
-        <!--<footer class="row">
-            <hr class="col-12">
-            <div class="col-md-6 col-12 mc-color-gray">
-                Developed with 🤩️ by <a rel="nofollow" target="_parent" href="#!" class="mc-external-link">Your Name
-                Here Dear Laravel Developer</a>
-            </div>
-            <div class="col-md-6 col-12 mc-color-gray mc-copyright">
-                Copyleft 2023 Lara Recipes Ltd.
-            </div>
-        </footer>-->
-    </main>
-    <footer class="mc-main pt-5 mt-5 border-top">
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5">
-            <div class="col">
-                <a href="#!"
-                   class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none site-logo">
-                    <div class="mc-site-header">
-                        <img src="img/logo.png" alt="Logo" width="70px">
-                        <h3 class="text-center site-title">
-                            Lara<span class="fw-light">Recipes</span>
-                        </h3>
-                    </div>
-                </a>
-                <p class="text-body-secondary">
-                    Laravel Tutorial by <a href="https://x.com/mkwsra" target="_blank">
-                    Mo Kawsara
-                </a>
-                </p>
-            </div>
-
-            <div class="col mb-3">
-
-            </div>
-
-            <div class="col mb-3">
-                <h5>Categories</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 text-body-secondary">
-                            Category 1 <small>(12 recipes)</small>
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 text-body-secondary">
-                            Category 2 <small>(7 recipes)</small>
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 text-body-secondary">
-                            Category 3 <small>(6 recipes)</small>
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 text-body-secondary">
-                            Category 4 <small>(6 recipes)</small>
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 text-body-secondary">
-                            Category 5 <small>(4 recipes)</small>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col mb-3">
-                <h5>Featured Recipes</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 text-body-secondary">
-                            Recipe title 1
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 text-body-secondary">
-                            Recipe title 2
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 text-body-secondary">
-                            Recipe title 3
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 text-body-secondary">
-                            Recipe title 4
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="#" class="nav-link p-0 text-body-secondary">
-                            Recipe title 5
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col mb-3">
-                <h5>Useful Links</h5>
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Search
-                        Categories</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Search
-                        Recipes</a></li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Most Viewed
-                        Recipe</a></li>
-                    <li class="nav-item mb-2"><a href="faq.html" class="nav-link p-0 text-body-secondary">FAQs</a>
-                    </li>
-                    <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
-                </ul>
-            </div>
-        </div>
-        <ul class="nav justify-content-center border-bottom border-top mt-2">
-            <li class="nav-item"><a href="terms.html" class="nav-link px-2 text-body-secondary">Terms &
-                Conditions</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Privacy Policy</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Photo Usage Policy</a></li>
-        </ul>
-        <div class="row">
-            <div class="col-md-6 col-12 mc-color-gray">
-                Developed with 🤩️ by <a rel="nofollow" target="_parent" href="#!" class="mc-external-link">Put Your
-                Name
-                Here Dear Laravel Developer</a>
-            </div>
-            <div class="col-md-6 col-12 mc-copyright">
-                <p class="text-body-secondary">© 2023 Multicaret, Inc</p>
-            </div>
-        </div>
-    </footer>
-</div>
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js"
-        integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous"
-        async></script>
-
-<script src="js/scripts.js"></script>
-</body>
-</html>
+    <!-- dashboard init -->
+    <script src="{{ URL::asset('/assets/js/pages/dashboard-analytics.init.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
+@endsection

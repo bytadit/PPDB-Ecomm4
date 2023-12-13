@@ -1,4 +1,3 @@
-<<<<<<< HEAD
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
       <div class="footer-content position-relative">
@@ -8,8 +7,8 @@
               <div class="footer-info">
                 <h3>SIPENSARU</h3>
                 <p>
-                  A108 Adam Street <br />
-                  NY 535022, USA<br /><br />
+                  Jalan Semangat No. 1 <br />
+                  Solo, Jawa Tengah<br /><br />
                   <strong>Phone:</strong> +1 5589 55488 55<br />
                   <strong>Email:</strong> info@example.com<br />
                 </p>
@@ -87,7 +86,7 @@
       </div>
     </footer>
     <!-- End Footer -->
-=======
+
 <footer class="footer">
     <div class="container-fluid">
         <div class="row">
@@ -102,4 +101,3 @@
         </div>
     </div>
 </footer>
->>>>>>> be1b31460443e765af3f961fca0c8e0076fd14d9

@@ -30,44 +30,91 @@
 
             <div id="two-column-menu">
             </div>
-            <ul class="navbar-nav d-flex justify-content-between" id="navbar-nav">
+            <ul class="navbar-nav" id="navbar-nav">
+                <li class="menu-title"><span >Menu User</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::is('guestbook') ? 'active fw-bold' : '' }}" href="/guestbook"
-                       role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-book-2-line"></i> <span >@lang('Riwayat Tamu')</span>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line" href=""></i> <span >Edit Profil</span>
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::is('guests') ? 'active fw-bold' : '' }}" href="/guests"
-                       role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-team-line"></i> <span >@lang('Data Tamu')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::is('analytics') ? 'active fw-bold' : '' }}" href="/analytics"
-                       role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-line-chart-line"></i> <span >@lang('Analitik Data')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::is('problems') ? 'active fw-bold' : '' }}" href="/problems"
-                       role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-briefcase-line"></i> <span >@lang('Kategori Keperluan')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::is('units') ? 'active fw-bold' : '' }}" href="/units"
-                        role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-community-line"></i> <span >@lang('Daftar Unit')</span>
-                    </a>
-                </li>
+                </li> <!-- end Dashboard Menu User -->
 
-{{--                <li class="nav-item">--}}
-{{--                    <a class="nav-link menu-link {{ Request::is('games') ? 'active' : '' }}" href="/games"--}}
-{{--                       role="button" aria-expanded="false" aria-controls="sidebarApps">--}}
-{{--                        <i class="ri-gamepad-line"></i> <span >@lang('Main Game')</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                <li class="menu-title"><span >Menu Admin</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line" href=""></i> <span >Dashboard</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line" href=""></i> <span >Kegiatan</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line" href=""></i> <span >Jenjang Penerimaan</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line" href=""></i> <span >Jalur Penerimaan</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line" href=""></i> <span >Program Penerimaan</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line" href=""></i> <span >Data Pendaftar</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line" href=""></i> <span >Data Kelulusan</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line" href=""></i> <span >Pengumuman</span>
+                    </a>
+                </li> <!-- end Dashboard Menu Admin -->
+
+                <li class="menu-title"><span >Menu Bendahara</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line" href=""></i> <span >Dashboard</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i  class="ri-dashboard-2-line" ></i> <span >Data Pendaftar</span>
+                    </a>
+                </li> <!-- end Dashboard Menu Bendahara -->
+
+                <li class="menu-title"><span >Menu Calon Pendaftar</span></li>
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i class="ri-dashboard-2-line" href=""></i> <span >Dashboard</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i  class="ri-dashboard-2-line" ></i> <span >Biodata</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i  class="ri-dashboard-2-line" ></i> <span >Pendaftaran Saya</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i  class="ri-dashboard-2-line" ></i> <span >Pembayaran Saya</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i  class="ri-dashboard-2-line" ></i> <span >Pengumuman</span>
+                    </a>
+                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                        aria-expanded="false" aria-controls="sidebarDashboards">
+                        <i  class="ri-dashboard-2-line" ></i> <span >Panduan</span>
+                    </a>
+                </li> <!-- end Dashboard Menu Calon -->
+
             </ul>
         </div>
         <!-- Sidebar -->

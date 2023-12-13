@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-<<<<<<< HEAD
     return view('non-dashboard/home');
 });
 
@@ -62,10 +61,19 @@ Route::get('/pendaftaran6', function () {
     return view('non-dashboard/pendaftaran6');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard/home');
+});
+
+Route::get('/dashboard-analytics', function () {
+    return view('dashboard/dashboard-analytics');
+});
+
+Route::get('/dashboard-crm', function () {
+    return view('dashboard/dashboard-crm');
+});
+
+
 Route::get('/login', function () {
     return view('non-dashboard/auth/login');
 });
-=======
-    return view('welcome');
-});
->>>>>>> be1b31460443e765af3f961fca0c8e0076fd14d9
