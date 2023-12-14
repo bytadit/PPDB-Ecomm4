@@ -33,7 +33,7 @@
             <ul class="navbar-nav" id="navbar-nav">
                 <li class="menu-title"><span >Menu User</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("user/edit-profil") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line" href=""></i> <span >Edit Profil</span>
                     </a>
@@ -41,35 +41,35 @@
 
                 <li class="menu-title"><span >Menu Admin</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("admin/dashboard/dashboard") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line" href=""></i> <span >Dashboard</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("admin/kegiatan/kegiatan") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line" href=""></i> <span >Kegiatan</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("admin/jenjang-penerimaan/jenjang-penerimaan") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line" href=""></i> <span >Jenjang Penerimaan</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("admin/jalur-penerimaan/jalur-penerimaan") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line" href=""></i> <span >Jalur Penerimaan</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("admin/program-penerimaan/program-penerimaan") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line" href=""></i> <span >Program Penerimaan</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("admin/data-pendaftar/data-pendaftar") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line" href=""></i> <span >Data Pendaftar</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("admin/data-kelulusan/data-kelulusan") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line" href=""></i> <span >Data Kelulusan</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("admin/pengumuman/pengumuman") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line" href=""></i> <span >Pengumuman</span>
                     </a>
@@ -77,39 +77,39 @@
 
                 <li class="menu-title"><span >Menu Bendahara</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("bendahara/dashboard/dashboard") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line" href=""></i> <span >Dashboard</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("bendahara/data-pendaftar/data-pendaftar") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i  class="ri-dashboard-2-line" ></i> <span >Data Pendaftar</span>
                     </a>
                 </li> <!-- end Dashboard Menu Bendahara -->
 
-                <li class="menu-title"><span >Menu Calon Pendaftar</span></li>
+                <li class="menu-title"><span >Menu Pendaftar</span></li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("non-admin/dashboard/dashboard") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i class="ri-dashboard-2-line" href=""></i> <span >Dashboard</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("non-admin/biodata/biodata") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i  class="ri-dashboard-2-line" ></i> <span >Biodata</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("non-admin/pendaftaran-saya/pendaftaran-saya") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i  class="ri-dashboard-2-line" ></i> <span >Pendaftaran Saya</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("non-admin/pembayaran-saya/pembayaran-saya") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i  class="ri-dashboard-2-line" ></i> <span >Pembayaran Saya</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("non-admin/pengumuman/pengumuman") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i  class="ri-dashboard-2-line" ></i> <span >Pengumuman</span>
                     </a>
-                    <a class="nav-link menu-link" href="{{ url("") }}"  role="button"
+                    <a class="nav-link menu-link" href="{{ url("non-admin/panduan/panduan") }}"  role="button"
                         aria-expanded="false" aria-controls="sidebarDashboards">
                         <i  class="ri-dashboard-2-line" ></i> <span >Panduan</span>
                     </a>

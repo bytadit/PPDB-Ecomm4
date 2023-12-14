@@ -8,8 +8,8 @@
 @section('content')
 
     @component('components.breadcrumb')
-        @slot('li_1') Dashboards @endslot
-        @slot('title') Crypto @endslot
+        @slot('li_1') Menu User @endslot
+        @slot('title') Edit Profil @endslot
     @endcomponent
  
 @endsection
