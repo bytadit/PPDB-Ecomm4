@@ -18,10 +18,10 @@
 
     <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
 
-      <div class="carousel-item active" style="background-image: url(images/bg_5.jpg)"></div>
-      <div class="carousel-item" style="background-image: url(images/bg_5.jpg)"></div>
-      <div class="carousel-item" style="background-image: url(images/bg_5.jpg)"></div>
-      <div class="carousel-item" style="background-image: url(images/bg_5.jpg)"></div>
+      <div class="carousel-item active" style="background-image: url(images/bg_1.jpg)"></div>
+      <div class="carousel-item" style="background-image: url(images/bg_2.jpg)"></div>
+      <div class="carousel-item" style="background-image: url(images/bg_3.jpg)"></div>
+      <div class="carousel-item" style="background-image: url(images/bg_4.jpg)"></div>
       <div class="carousel-item" style="background-image: url(images/bg_5.jpg)"></div>
 
         <a class="carousel-control-prev" href="{{ url("#hero-carousel") }}" role="button" data-bs-slide="prev">

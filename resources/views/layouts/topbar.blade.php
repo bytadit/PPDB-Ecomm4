@@ -88,27 +88,28 @@
                             <img src="{{ URL::asset('/assets/images/flags/id.svg') }}" class="rounded" alt="Header Language" height="20">
                     @endswitch
                     </button>
+                    <!-- 
                     <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
+                        
                         <a href="{{ url('/') }}" class="dropdown-item notify-item language py-2" data-lang="id"
                            title="Indonesian">
                             <img src="{{ URL::asset('assets/images/flags/id.svg') }}" alt="user-image" class="me-2 rounded" height="20">
                             <span class="align-middle">Bahasa</span>
                         </a>
-                        <!-- item-->
+                        
                         <a href="{{ url('/en') }}" class="dropdown-item notify-item language py-2" data-lang="en"
                             title="English">
                             <img src="{{ URL::asset('assets/images/flags/us.svg') }}" alt="user-image" class="me-2 rounded" height="20">
                             <span class="align-middle">English</span>
                         </a>
-                        <!-- item-->
+                       
                         <a href="{{ url('/ch') }}" class="dropdown-item notify-item language" data-lang="ch"
                            title="Chinese">
                             <img src="{{ URL::asset('assets/images/flags/china.svg') }}" alt="user-image" class="me-2 rounded" height="20">
                             <span class="align-middle">中国人</span>
                         </a>
 
-{{--                        <!-- item-->--}}
+{{--                        -->--}}
 {{--                        <a href="{{ url('index/sp') }}" class="dropdown-item notify-item language" data-lang="sp"--}}
 {{--                            title="Spanish">--}}
 {{--                            <img src="{{ URL::asset('assets/images/flags/spain.svg') }}" alt="user-image" class="me-2 rounded" height="20">--}}

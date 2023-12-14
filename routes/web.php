@@ -37,6 +37,14 @@ Route::get('/panduan', function () {
     return view('non-dashboard/panduan');
 });
 
+Route::get('/jenjang', function () {
+    return view('non-dashboard/jenjang');
+});
+
+Route::get('/jalur', function () {
+    return view('non-dashboard/jalur');
+});
+
 Route::get('/pendaftaran', function () {
     return view('non-dashboard/pendaftaran');
 });
