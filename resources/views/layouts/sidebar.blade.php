@@ -32,42 +32,41 @@
             </div>
             <ul class="navbar-nav d-flex justify-content-between" id="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::is('guestbook') ? 'active fw-bold' : '' }}" href="/guestbook"
+                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('admin.dashboard') ? 'active fw-bold' : '' }}" href="{{route('admin.dashboard')}}"
                        role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-book-2-line"></i> <span >@lang('Riwayat Tamu')</span>
+                        <i class="ri-home-2-line"></i> <span >@lang('Beranda')</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::is('guests') ? 'active fw-bold' : '' }}" href="/guests"
+                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('referensi-kegiatan.index') ? 'active fw-bold' : '' }}" href="{{route('referensi-kegiatan.index')}}"
                        role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-team-line"></i> <span >@lang('Data Tamu')</span>
+                        <i class="ri-run-line"></i> <span >@lang('Referensi Kegiatan')</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::is('analytics') ? 'active fw-bold' : '' }}" href="/analytics"
+                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('jenjang-pendidikan.index') ? 'active fw-bold' : '' }}" href="{{route('jenjang-pendidikan.index')}}"
                        role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-line-chart-line"></i> <span >@lang('Analitik Data')</span>
+                        <i class="ri-briefcase-line"></i> <span >@lang('Jenjang Pendidikan')</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::is('problems') ? 'active fw-bold' : '' }}" href="/problems"
+                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('jalur-penerimaan.index') ? 'active fw-bold' : '' }}" href="{{route('jalur-penerimaan.index')}}"
                        role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-briefcase-line"></i> <span >@lang('Kategori Keperluan')</span>
+                        <i class="ri-rocket-line"></i> <span >@lang('Jalur Penerimaan')</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::is('units') ? 'active fw-bold' : '' }}" href="/units"
-                        role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-community-line"></i> <span >@lang('Daftar Unit')</span>
+                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('program-penerimaan.index') ? 'active fw-bold' : '' }}" href="{{route('program-penerimaan.index')}}"
+                       role="button" aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-folder-user-fill"></i> <span >@lang('Program Penerimaan')</span>
                     </a>
                 </li>
-
-{{--                <li class="nav-item">--}}
-{{--                    <a class="nav-link menu-link {{ Request::is('games') ? 'active' : '' }}" href="/games"--}}
-{{--                       role="button" aria-expanded="false" aria-controls="sidebarApps">--}}
-{{--                        <i class="ri-gamepad-line"></i> <span >@lang('Main Game')</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                <li class="nav-item">
+                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('data-pendaftar.index') ? 'active fw-bold' : '' }}" href="{{route('data-pendaftar.index')}}"
+                       role="button" aria-expanded="false" aria-controls="sidebarApps">
+                        <i class="ri-team-line"></i> <span >@lang('Data Pendaftar')</span>
+                    </a>
+                </li>
             </ul>
         </div>
         <!-- Sidebar -->

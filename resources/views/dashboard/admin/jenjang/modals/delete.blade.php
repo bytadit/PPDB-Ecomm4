@@ -1,11 +1,11 @@
-<div id="deleteData{{$guest_book->id}}" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="modalDelete{{$guest_book->id}}" aria-hidden="true">
+<div id="deleteData{{$jenjang->id}}" class="modal fade bs-example-modal-center" tabindex="-1" role="dialog" aria-labelledby="modalDelete{{$jenjang->id}}" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-body text-center p-5">
-                <form method="post" enctype="multipart/form-data" action="/guestbook/{{$guest_book->id}}">
+                <form method="post" enctype="multipart/form-data" action="{{route('jenjang-pendidikan.destroy', ['jenjang_pendidikan' => $jenjang->id])}}">
                     @csrf
                     @method('delete')
-                    <input type="hidden" name="guestbook_id" value="{{$guest_book->id}}">
+                    <input type="hidden" name="jenjang_id" value="{{$jenjang->id}}">
                     <lord-icon src="{{asset('/assets/json/trash-bin.json')}}"
                                trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:120px;height:120px">
                     </lord-icon>

@@ -38,7 +38,7 @@
                         <div class="card-body p-4">
                             <div class="text-center mt-2">
                                 <h5 class="text-primary">Selamat Datang !</h5>
-                                <p class="text-muted">Masuk ke Akun Sipensaru.</p>
+                                <p class="text-muted">Masuk ke Akun TopSchool</p>
                             </div>
                             <div class="p-2 mt-4">
                                 <form  method="POST">

@@ -1,6 +1,14 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\JalurController;
+use App\Http\Controllers\JenisKegiatanController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JenjangController;
+use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\PendaftarController;
+use App\Http\Controllers\ProgramController;
+use App\Models\JenisKegiatan;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,58 +22,61 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-<<<<<<< HEAD
-    return view('non-dashboard/home');
-});
-
+    return redirect('/home');
+})->name('guest.root');
+Route::get('/login', function () {
+    return view('non-dashboard/auth/login');
+})->name('auth.login');
 Route::get('/home', function () {
-    return view('non-dashboard/home');
-});
-
+    return view('non-dashboard/landing-page/home');
+})->name('guest.home');
 Route::get('/about', function () {
-    return view('non-dashboard/about');
-});
-
-Route::get('/contact1', function () {
-    return view('non-dashboard/contact1');
-});
-
-Route::get('/contact', function () {
-    return view('non-dashboard/contact');
-});
-
+    return view('non-dashboard/landing-page/about');
+})->name('guest.about');
+Route::get('/kontak', function () {
+    return view('non-dashboard/landing-page/contact');
+})->name('guest.contact');
 Route::get('/panduan', function () {
-    return view('non-dashboard/panduan');
-});
-
+    return view('non-dashboard/landing-page/panduan');
+})->name('guest.guide');
 Route::get('/pendaftaran', function () {
-    return view('non-dashboard/pendaftaran');
-});
+    return view('non-dashboard/landing-page/regist-steps/pendaftaran-home');
+})->name('guest.registration.home');
+
+Route::get('/pendaftaran1', function () {
+    return view('non-dashboard/landing-page/regist-steps/pendaftaran1');
+})->name('guest.registration.first');
 
 Route::get('/pendaftaran2', function () {
-    return view('non-dashboard/pendaftaran2');
+    return view('non-dashboard/landing-page/regist-steps/pendaftaran2');
 });
 
 Route::get('/pendaftaran3', function () {
-    return view('non-dashboard/pendaftaran3');
+    return view('non-dashboard/landing-page/regist-steps/pendaftaran3');
 });
 
 Route::get('/pendaftaran4', function () {
-    return view('non-dashboard/pendaftaran4');
+    return view('non-dashboard/landing-page/regist-steps/pendaftaran4');
 });
 
 Route::get('/pendaftaran5', function () {
-    return view('non-dashboard/pendaftaran5');
+    return view('non-dashboard/landing-page/regist-steps/pendaftaran5');
 });
 
 Route::get('/pendaftaran6', function () {
-    return view('non-dashboard/pendaftaran6');
+    return view('non-dashboard/landing-page/regist-steps/pendaftaran6');
 });
 
-Route::get('/login', function () {
-    return view('non-dashboard/auth/login');
+// Dashboard
+
+Route::group(['prefix' => 'dashboard/'], function(){
+    // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::group(['prefix' => 'admin', ], function() {
+        Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+        Route::resource('/referensi-kegiatan', JenisKegiatanController::class);
+        Route::resource('/jenjang-pendidikan', JenjangController::class);
+        Route::resource('/jalur-penerimaan', JalurController::class);
+        Route::resource('/program-penerimaan', ProgramController::class);
+        Route::resource('/data-pendaftar', PendaftarController::class);
+    });
 });
-=======
-    return view('welcome');
-});
->>>>>>> be1b31460443e765af3f961fca0c8e0076fd14d9

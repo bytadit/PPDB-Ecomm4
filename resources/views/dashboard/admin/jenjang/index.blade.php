@@ -1,6 +1,6 @@
 @extends('layouts.main')
 @section('title')
-    @lang('Contoh di Buku Tamu')
+    @lang('Jenjang Pendidikan')
 @endsection
 @section('css')
     <link href="{{ URL::asset('assets/libs/jsvectormap/jsvectormap.min.css')}}" rel="stylesheet" type="text/css"/>
@@ -18,10 +18,10 @@
 @section('content')
     @component('components.breadcrumb')
         @slot('li_1')
-            Riwayat Tamu
+            Halaman Admin
         @endslot
         @slot('title')
-            Beranda
+            Jenjang Pendidikan
         @endslot
     @endcomponent
     <div class="row">
@@ -31,32 +31,28 @@
                     <div class="col-12">
                         <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                             <div class="flex-grow-1">
-                                <h4 class="fs-16 mb-1">Selamat Datang di UPT TIK!</h4>
-                                <p class="text-muted mb-0">Silakan mengisi buku tamu berikut yaa!</p>
+                                <h4 class="fs-16 mb-1">Selamat Datang Admin</h4>
+                                <p class="text-muted mb-0">Silakan mengatur jenjang pendidikan berikut!</p>
                             </div>
                             <button type="button" class="btn btn-success btn-lg btn-label waves-effect waves-light mx-2"
                                     data-bs-toggle="modal" data-bs-target="#createData">
-                                <i class="ri-user-add-line label-icon align-middle fs-16 me-2"></i>
+                                <i class="ri-menu-add-line label-icon align-middle fs-16 me-2"></i>
                                 Tambah Data
                             </button>
-                            <button type="button" class="btn btn-warning btn-lg btn-label waves-effect waves-light"
-                                    data-bs-toggle="modal" data-bs-target="#guestbookReport">
-                                <i class="ri-file-upload-line label-icon align-middle fs-16 me-2"></i>
-                                Ekspor Data
-                            </button>
+
                         </div>
                     </div>
                     <!--end col-->
                 </div>
                 <!--end row-->
                 {{--                Modals Area--}}
-                @include('dashboard.admin.feature1.modals.create')
-                @include('dashboard.admin.feature1.modals.report')
+                @include('dashboard.admin.jenjang.modals.create')
+                {{-- @include('dashboard.admin.feature1.modals.report') --}}
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header text-center">
-                                <h1 class="mb-0">Riwayat Tamu UPT TIK</h1>
+                                <h1 class="mb-0">Jenjang Pendidikan</h1>
                             </div>
                             <div class="card-body">
                                 <table id="alternative-pagination"
@@ -65,57 +61,34 @@
                                     <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Tanggal</th>
-                                        <th>Waktu</th>
-                                        <th>Nama</th>
-                                        <th>Unit</th>
-                                        <th>No Telepon</th>
-                                        <th>Kategori Keperluan</th>
-                                        <th>Keperluan</th>
+                                        <th>Nama Jenjang Pendidikan</th>
                                         <th>Aksi</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($guest_books as $guest_book)
+                                    @foreach($jenjangs as $jenjang)
                                         <tr>
                                             <td>{{$loop->iteration}}</td>
-                                            <td>
-                                                {{ \Carbon\Carbon::parse($guest_book->created_at)->format('D, d M Y') }}
-                                            </td>
-                                            <td>
-                                                {{ \Carbon\Carbon::parse($guest_book->created_at)->format('H:i:s') }}
-                                            </td>
-                                            <td>{{$guest_book->guest->name}}</td>
-                                            <td>{{$guest_book->unit->display_name}}</td>
-                                            <td>{{substr_replace($guest_book->guest->phone, 'XXXX', 5, 100)}}</td>
-                                            <td>{{$guest_book->problemCategory->name}}</td>
-                                            <td>
-                                                {{--                                                {!! $guest_book->description !!}--}}
-                                                <p class=" d-inline-block text-truncate"
-                                                   style="max-width: 150px;">{{ $guest_book->description }}</p>
-                                            </td>
+                                            <td>{{$jenjang->nama}}</td>
                                             <td>
                                                 <div class="d-flex align-items-center fw-medium">
-                                                    <button class="btn btn-sm btn-soft-info mr-1" data-bs-toggle="modal"
-                                                            data-bs-target="#showData{{$guest_book->id}}">
-                                                        <i class="ri-eye-fill"></i> <span>@lang('Lihat')</span>
-                                                    </button>
+
                                                     <button class="btn btn-sm btn-soft-warning mx-1"
                                                             data-bs-toggle="modal"
-                                                            data-bs-target="#editData{{$guest_book->id}}">
+                                                            data-bs-target="#editData{{$jenjang->id}}">
                                                         <i class="ri-pencil-line"></i> <span>@lang('Ubah')</span>
                                                     </button>
                                                     <button class="btn btn-sm btn-soft-danger ml-1"
                                                             data-bs-toggle="modal"
-                                                            data-bs-target="#deleteData{{$guest_book->id}}">
+                                                            data-bs-target="#deleteData{{$jenjang->id}}">
                                                         <i class="ri-delete-bin-line"></i> <span>@lang('Hapus')</span>
                                                     </button>
                                                 </div>
                                             </td>
                                         </tr>
-                                        @include('dashboard.admin.feature1.modals.edit')
-                                        @include('dashboard.admin.feature1.modals.delete')
-                                        @include('dashboard.admin.feature1.modals.show')
+                                        @include('dashboard.admin.jenjang.modals.edit')
+                                        @include('dashboard.admin.jenjang.modals.delete')
+                                        {{-- @include('dashboard.admin.jenjang.modals.show') --}}
                                     @endforeach
                                     </tbody>
                                 </table>

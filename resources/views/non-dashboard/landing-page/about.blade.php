@@ -7,7 +7,7 @@
         <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
           <h2>Tentang Sekolah</h2>
           <ol>
-            <li><a href="{{ url("index.html") }}">Home</a></li>
+            <li><a href="{{ route('guest.home') }}">Home</a></li>
             <li>Tentang Sekolah</li>
           </ol>
         </div>
