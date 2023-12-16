@@ -11,6 +11,7 @@ class Kegiatan extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+    protected $dates = ['tgl_awal', 'tgl_akhir'];
     protected $table = 'kegiatan';
 
     public function penerimaan(): BelongsTo

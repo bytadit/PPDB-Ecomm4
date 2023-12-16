@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\JalurController;
 use App\Http\Controllers\JenisKegiatanController;
 use Illuminate\Support\Facades\Route;
@@ -59,11 +60,13 @@ Route::group(['prefix' => 'dashboard/'], function(){
     // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::group(['prefix' => 'admin', ], function() {
         Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+        Route::get('/program-penerimaan/{penerimaan}/detail', [ProgramController::class, 'detailProgram'])->name('programs.detail-program');
         Route::patch('/program-penerimaan/update-status/{penerimaan}', [ProgramController::class, 'updateStatus'])->name('programs.update-status');
         Route::resource('/referensi-kegiatan', JenisKegiatanController::class);
         Route::resource('/jenjang-pendidikan', JenjangController::class);
         Route::resource('/jalur-penerimaan', JalurController::class);
         Route::resource('/program-penerimaan', ProgramController::class);
         Route::resource('/data-pendaftar', PendaftarController::class);
+        Route::resource('/jadwal-kegiatan', JadwalController::class);
     });
 });

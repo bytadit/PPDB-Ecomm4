@@ -13,13 +13,12 @@ return new class extends Migration
     {
         Schema::create('kegiatan', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('tgl_awal');
-            $table->dateTime('tgl_akhir');
+            $table->dateTime('tgl_awal')->nullable();
+            $table->dateTime('tgl_akhir')->nullable();
             $table->unsignedBigInteger('id_penerimaan');
             $table->unsignedBigInteger('id_jenis_kegiatan');
             $table->foreign('id_penerimaan')->references('id')->on('penerimaan')->onDelete('cascade');
             $table->foreign('id_jenis_kegiatan')->references('id')->on('jenis_kegiatan')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

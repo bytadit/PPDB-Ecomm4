@@ -7,6 +7,7 @@ use App\Models\Penerimaan;
 use App\Models\Jenjang;
 use App\Models\Jalur;
 use App\Models\JenisKegiatan;
+use App\Models\Kegiatan;
 use Alert;
 class ProgramController extends Controller
 {
@@ -89,5 +90,14 @@ class ProgramController extends Controller
 
         $penerimaan->update(['is_open' => $request->is_open]);
         return response()->json(['message' => 'berhasil']);
+    }
+    public function detailProgram(Request $request, Penerimaan $penerimaan)
+    {
+        return view('dashboard.admin.program.detail', [
+            'title' => 'Halaman Admin | Detail Program Penerimaan',
+            'penerimaan' => Penerimaan::where('id', $penerimaan->id)->get(),
+            'kegiatans' => Kegiatan::where('id_penerimaan', $penerimaan->id)->get(),
+            'jenis_kegiatans' => JenisKegiatan::all()
+        ]);
     }
 }

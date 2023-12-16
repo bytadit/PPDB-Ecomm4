@@ -113,7 +113,7 @@
     <!-- apexcharts -->
     <script src="{{ URL::asset('/assets/libs/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ URL::asset('/assets/libs/jsvectormap/jsvectormap.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/swiper/swiper.min.js')}}"></script>
+    <script src="{{ URL::asset('/assets/libs/swiper/swiper.min.js')}}"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
@@ -123,11 +123,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="{{ URL::asset('assets/libs/@ckeditor/@ckeditor.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/libs/quill/quill.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/pages/form-editor.init.js') }}"></script>
+    <script src="{{ URL::asset('/assets/libs/@ckeditor/@ckeditor.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/libs/quill/quill.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/pages/form-editor.init.js') }}"></script>
+    <script src='{{ URL::asset('/assets/libs/choices.js/choices.js.min.js') }}'></script>
+    <script src='{{ URL::asset('/assets/libs/flatpickr/flatpickr.min.js') }}'></script>
     <!-- dashboard init -->
     <script src="{{ URL::asset('/assets/js/pages/dashboard-ecommerce.init.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
+    <script src="{{ URL::asset('/assets/js/pages/datatables.init.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
 @endsection

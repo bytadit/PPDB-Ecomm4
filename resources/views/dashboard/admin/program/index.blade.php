@@ -88,9 +88,9 @@
                                             <td>
                                                 <div class="d-flex align-items-center fw-medium">
 
-                                                    <button class="btn btn-sm btn-soft-warning mx-1">
+                                                    <a href="{{route('programs.detail-program', ['penerimaan' => $penerimaan->id])}}" class="btn btn-sm btn-soft-warning mx-1">
                                                         <i class="ri-eye-line"></i> <span>@lang('Lihat Detail')</span>
-                                                    </button>
+                                                    </a>
                                                     <button class="btn btn-sm btn-soft-danger ml-1"
                                                             data-bs-toggle="modal"
                                                             data-bs-target="#deleteData{{$penerimaan->id}}">
@@ -133,6 +133,9 @@
     <script src="{{ URL::asset('assets/libs/quill/quill.min.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/form-editor.init.js') }}"></script>
     <!-- dashboard init -->
+    <script src='{{ URL::asset('/assets/libs/choices.js/choices.js.min.js') }}'></script>
+    <script src='{{ URL::asset('/assets/libs/flatpickr/flatpickr.min.js') }}'></script>
+    <script src="{{ URL::asset('/assets/js/pages/form-editor.init.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/pages/dashboard-ecommerce.init.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
