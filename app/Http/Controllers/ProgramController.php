@@ -81,4 +81,13 @@ class ProgramController extends Controller
         Alert::success('Sukses!', 'Data  Program Penerimaan berhasil dihapus!');
         return redirect(route('program-penerimaan.index'));
     }
+    public function updateStatus(Request $request, Penerimaan $penerimaan)
+    {
+        $request->validate([
+            'is_open' => 'required|in:0,1',
+        ]);
+
+        $penerimaan->update(['is_open' => $request->is_open]);
+        return response()->json(['message' => 'berhasil']);
+    }
 }

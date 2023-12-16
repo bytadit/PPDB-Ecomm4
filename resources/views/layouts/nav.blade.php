@@ -36,7 +36,7 @@
             </ul>
           </li> --}}
           <li><a href="{{ route('guest.contact') }}" class="{{ Request::routeIs('guest.contact') ? 'active' : '' }}">Kontak</a></li>
-          <li><a href="{{ route('auth.login') }}" class="{{ Request::routeIs('auth.login') ? 'active' : '' }}">Login</a></li>
+          <li><a href="{{ route('login') }}" class="{{ Request::routeIs('auth.login') ? 'active' : '' }}">Login</a></li>
         </ul>
       </nav>
       <!-- .navbar -->

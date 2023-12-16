@@ -39,7 +39,6 @@
                                 <i class="ri-menu-add-line label-icon align-middle fs-16 me-2"></i>
                                 Tambah Data
                             </button>
-
                         </div>
                     </div>
                     <!--end col-->
@@ -50,6 +49,11 @@
                 {{-- @include('dashboard.admin.feature1.modals.report') --}}
                 <div class="row">
                     <div class="col-lg-12">
+                        <!-- Success Alert -->
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+                            <span>Status program <strong id="alert-message"></strong> diubah!</span>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
                         <div class="card">
                             <div class="card-header text-center">
                                 <h1 class="mb-0">Program Penerimaan</h1>
@@ -76,11 +80,10 @@
                                             <td>{{$penerimaan->jenjang->nama}}</td>
                                             <td>{{$penerimaan->jalur->nama}}</td>
                                             <td>
-                                                @if ($penerimaan->is_open == 0)
-                                                    <span class="badge bg-danger">Closed</span>
-                                                @elseif ($penerimaan->is_open == 1)
-                                                    <span class="badge bg-success">Open</span>
-                                                @endif
+                                                <select class="form-select status-dropdown" data-program-id="{{ $penerimaan->id }}">
+                                                    <option value="0" {{ $penerimaan->is_open === 0 ? 'selected' : '' }}>Closed</option>
+                                                    <option value="1" {{ $penerimaan->is_open === 1 ? 'selected' : '' }}>Open</option>
+                                                </select>
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center fw-medium">
@@ -133,4 +136,35 @@
     <script src="{{ URL::asset('/assets/js/pages/dashboard-ecommerce.init.js') }}"></script>
     <script src="{{ URL::asset('assets/js/pages/datatables.init.js') }}"></script>
     <script src="{{ URL::asset('/assets/js/app.min.js') }}"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.status-dropdown').on('change', function () {
+                var programId = $(this).data('program-id');
+                var isOpen = $(this).val();
+
+                $.ajax({
+                    type: 'PATCH',
+                    url: 'program-penerimaan/update-status/' + programId,
+                    data: {
+                        is_open: isOpen,
+                        _token: '{{ csrf_token() }}',
+                    },
+                    success: function (data) {
+                        console.log(data.message);
+                        // You can add additional logic or UI updates here
+                        // Show the success alert and update the message
+                        $('#alert-message').text(data.message);
+                        $('.alert-success').show();
+                    },
+                    error: function (error) {
+                        console.log('Error:', error);
+                    },
+                });
+            });
+        });
+    </script>
+
 @endsection

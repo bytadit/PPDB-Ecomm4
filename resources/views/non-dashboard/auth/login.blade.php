@@ -41,11 +41,11 @@
                                 <p class="text-muted">Masuk ke Akun TopSchool</p>
                             </div>
                             <div class="p-2 mt-4">
-                                <form  method="POST">
+                                <form  method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="mb-3">
-                                        <label for="username" class="form-label">Email</label>
-                                        <input type="text" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', 'kelompok4@gmail.com') }}" id="username" name="email" placeholder="Enter username">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" id="email" name="email" placeholder="Masukkan email terdaftar..." required autocomplete="email" autofocus>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -54,12 +54,15 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <div class="float-end">
-                                            <a href="auth-pass-reset-basic" class="text-muted">Lupa password?</a>
-                                        </div>
-                                        <label class="form-label" for="password-input">Password</label>
+                                        @if (Route::has('password.request'))
+                                            <div class="float-end">
+                                                <a  href="{{ route('password.request') }}" class="text-muted">{{ __('Lupa Password?') }}</a>
+                                            </div>
+                                        @endif
+
+                                        <label class="form-label" for="password">{{ __('Password') }}</label>
                                         <div class="position-relative auth-pass-inputgroup mb-3">
-                                            <input type="password" class="form-control pe-5 @error('password') is-invalid @enderror" name="password" placeholder="Enter password" id="password-input" value="123456">
+                                            <input type="password" class="form-control pe-5 @error('password') is-invalid @enderror" name="password" placeholder="Masukkan password..." id="password" required autocomplete="current-password">
                                             <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
@@ -70,12 +73,11 @@
                                     </div>
 
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="auth-remember-check">
-                                        <label class="form-check-label" for="auth-remember-check">Ingat Saya</label>
+                                        <input class="form-check-input" type="checkbox" value="" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="remember">{{ __('Ingat Saya') }}</label>
                                     </div>
-
-                                    <div class="mt-4">
-                                        <button class="btn btn-success w-100" type="submit">Masuk</button>
+                                    <div class="mt-4 form-check-label">
+                                        <button class="btn btn-success w-100" type="submit">{{ __('Masuk') }}</button>
                                     </div>
 
                                     <div class="mt-4 text-center">
