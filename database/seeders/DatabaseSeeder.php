@@ -26,5 +26,17 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'password' => Hash::make('admin123')
         ]);
+        $this->call(JalurTableSeeder::class);
+        $this->call(JenisKegiatanTableSeeder::class);
+        $this->call(JenjangTableSeeder::class);
+        $this->call(PenerimaanTableSeeder::class);
+        $this->call(KegiatanTableSeeder::class);
+        $this->call(BiayaTableSeeder::class);
+        $this->call(DokumenTableSeeder::class);
+        $this->call(DokumenPendaftarTableSeeder::class);
+        $this->call(PembayaranTableSeeder::class);
+        $this->call(PendaftarTableSeeder::class);
+        $this->call(PersyaratanTableSeeder::class);
+        $this->call(SeleksiTableSeeder::class);
     }
 }

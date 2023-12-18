@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('id_penerimaan')->references('id')->on('penerimaan')->onDelete('cascade');
             $table->string('nama');
             $table->unsignedBigInteger('setting')->nullable();
-            $table->string('value')->nullable();
+            $table->integer('value')->nullable();
             $table->timestamps();
         });
     }

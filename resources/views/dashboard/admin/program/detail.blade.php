@@ -187,144 +187,182 @@
                                 <!-- end row -->
                             </div>
                             <!-- end tab pane -->
-                            <div class="tab-pane fade" id="dokumentasi" role="tabpanel">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-center justify-content-between mb-4">
-                                            <h5 class="card-title flex-grow-1">Dokumentasi Rapat</h5>
-
-                                            {{-- @if($user->hasRole('notulis', $this_team))
-                                                <button wire:click='getCreateDokumentasi({{$rapat_id}})' type="button" class="btn btn-sm btn-info edit-item-btn align-middle" data-bs-toggle="modal" data-bs-target="#modalCreateDokumentasi">
-                                                    Tambah Dokumentasi +
-                                                </button>
-                                            @endif --}}
+                            <div class="tab-pane fade" id="biaya" role="tabpanel">
+                                <div class="row mb-3 pb-1">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                            <div class="flex-grow-1">
+                                                <h4 class="fs-16 mb-1">Selamat Datang Admin</h4>
+                                                <p class="text-muted mb-0">Silakan mengatur biaya program berikut!</p>
+                                            </div>
+                                            <button type="button" class="btn btn-success btn-lg btn-label waves-effect waves-light mx-2"
+                                                    data-bs-toggle="modal" data-bs-target="#createDataBiaya">
+                                                <i class="ri-menu-add-line label-icon align-middle fs-16 me-2"></i>
+                                                Tambah Data
+                                            </button>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="table-responsive table-card">
-                                                    <table class="table table-borderless align-middle mb-0">
-                                                        <thead class="table-light">
-                                                            <tr>
-                                                                <th scope="col">Nama Dokumen</th>
-                                                                <th scope="col">Tipe</th>
-                                                                <th scope="col">Ukuran</th>
-                                                                <th scope="col">Tanggal Upload</th>
-                                                                <th scope="col" style="width: 120px;">Aksi</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        {{-- @foreach($documents as $document)
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="d-flex align-items-center">
-                                                                        <div class="avatar-sm">
-                                                                            <div
-                                                                                class="avatar-title bg-light text-secondary rounded fs-24 shadow">
-                                                                                <i class="ri-folder-zip-line"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="ms-3 flex-grow-1">
-                                                                            <h5 class="fs-14 mb-0"><a href="javascript:void(0)"
-                                                                                    class="text-dark">{{$document->nama}}</a>
-                                                                            </h5>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    {{$getTipeFile($document->path)}}
-                                                                </td>
-                                                                <td>{{ number_format(Storage::size($document->path) /  1048576, 2)}} MB</td>
-                                                                <td>{{$document->created_at->format('d-m-Y')}}</td>
-                                                                <td>
-                                                                    <div class="d-flex gap-2">
-                                                    <span wire:click='deleteDokumentasiConfirmation({{ $document->id }})'
-                                                          class="cursor-pointer" data-bs-toggle="modal"
-                                                          data-bs-target="#modalDeleteDokumentasi">
-                                                        <a class="btn btn-sm btn-danger edit-item-btn align-middle" data-toggle="delete"
-                                                           data-bs-toggle="tooltip" data-bs-placement="top" title="Hapus Dokumen">
-                                                            <i class="mdi mdi-trash-can"></i>
-                                                        </a>
-                                                    </span>
-                                                                        <span wire:click="getDokumentasi({{ $document->id }})" class="cursor-pointer" data-bs-toggle="modal" data-bs-target="#modalEditDokumentasi">
-                                                        <a class="btn btn-sm btn-warning edit-item-btn align-middle" data-bs-toggle="tooltip"
-                                                           data-bs-placement="right" title="Ubah Data">
-                                                            <i class="mdi mdi-pencil-box-multiple"></i>
-                                                        </a>
-                                                    </span>
-                                                                        <span wire:click="unduhDokumen({{$document->id}})" class="cursor-pointer">
-                                                        <button class="btn btn-sm btn-success edit-item-btn align-middle" data-bs-toggle="tooltip"
-                                                           data-bs-placement="top" title="Unduh Dokumen"
-                                                          >
-                                                            <i class="mdi mdi-download"></i>
-                                                        </button>
-                                                    </span>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        @endforeach --}}
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!--end row-->
+                                {{--                Modals Area--}}
+                                @include('dashboard.admin.program.modals.biaya.create')
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Success Alert -->
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+                                            <span>Data biaya program <strong id="alert-message"></strong> diubah!</span>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header text-center">
+                                                <h1 class="mb-0">Daftar Biaya Program</h1>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="alternative-pagination"
+                                                       class="table nowrap dt-responsive align-middle table-hover table-bordered"
+                                                       style="width:100%">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Nama Biaya</th>
+                                                        <th>Pengaturan</th>
+                                                        <th>Nominal</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($biayas as $biaya)
+                                                        <tr>
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td>{{$biaya->nama}}</td>
+                                                            <td>
+                                                                @if ($biaya->setting == 1)
+                                                                    Kurang Dari (<)
+                                                                @elseif ($biaya->setting == 2)
+                                                                    Lebih Dari (>)
+                                                                @elseif($biaya->setting == 3)
+                                                                    Sama Dengan (==)
+                                                                @elseif ($biaya->setting == 4)
+                                                                    Tidak Sama Dengan (!=)
+                                                                @endif
+                                                            </td>
+                                                            <td>@currency($biaya->nominal)</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center fw-medium">
+                                                                    <button class="btn btn-sm btn-soft-warning mx-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#editDataBiaya{{$biaya->id}}">
+                                                                        <i class="ri-pencil-line"></i> <span>@lang('Ubah')</span>
+                                                                    </button>
+                                                                    <button class="btn btn-sm btn-soft-danger mx-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#deleteDataBiaya{{$biaya->id}}">
+                                                                        <i class="ri-delete-bin-line"></i> <span>@lang('Hapus')</span>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @include('dashboard.admin.program.modals.biaya.delete')
+                                                        @include('dashboard.admin.program.modals.biaya.edit')
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
+                                    <!--end col-->
                                 </div>
+                                <!-- end row -->
                             </div>
                             <!-- end tab pane -->
 
-                            <div class="tab-pane fade" id="notulensi" role="tabpanel">
-                                <div class="d-flex justify-content-end mb-3">
-                                    {{-- @if($user->hasRole('notulis', $this_team))
-                                        @if($notulensi->where('id_rapat', $rapat_id)->count() < 1)
-                                            <a class="btn btn-sm btn-info edit-item-btn align-middle" data-bs-toggle="tooltip"
-                                               data-bs-placement="top" title="Tambah Notulensi"
-                                               href="{{ route('jadwal-rapat.notulensi', ['team' => $team, 'rapat' => $rapat_slug]) }}">
-                                                <i class="ri-edit-box-fill"></i>
-                                                Buat Notulensi
-                                            </a>
-                                        @else
-                                            <a class="btn btn-sm btn-info edit-item-btn align-middle" data-bs-toggle="tooltip"
-                                               data-bs-placement="top" title="Ubah Notulensi"
-                                               href="{{ route('jadwal-rapat.notulensi-edit', ['team' => $team, 'rapat' => $rapat_slug]) }}">
-                                                <i class="ri-edit-box-fill"></i>
-                                                Ubah Notulensi
-                                            </a>
-                                        @endif
-                                    @endif --}}
-                                </div>
-                                <div class="col-xxl-4">
-                                    <div class="card border card-border-info">
-                                        <div class="card-header">
-                                            <h6 class="card-title mb-0">Hasil Rapat</h6>
-                                        </div>
-                                        <div class="card-body">
-                                            <p class="card-text">
-                                                {{-- @if($hasil_rapat == '')
-                                                    <i>Hasil Rapat Masih Kosong....</i>
-                                                @else
-                                                    {!!  $hasil_rapat !!}
-                                                @endif --}}
-                                            </p>
+                            <div class="tab-pane fade" id="persyaratan" role="tabpanel">
+                                <div class="row mb-3 pb-1">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                            <div class="flex-grow-1">
+                                                <h4 class="fs-16 mb-1">Selamat Datang Admin</h4>
+                                                <p class="text-muted mb-0">Silakan mengatur persyaratan program berikut!</p>
+                                            </div>
+                                            <button type="button" class="btn btn-success btn-lg btn-label waves-effect waves-light mx-2"
+                                                    data-bs-toggle="modal" data-bs-target="#createDataPersyaratan">
+                                                <i class="ri-menu-add-line label-icon align-middle fs-16 me-2"></i>
+                                                Tambah Data
+                                            </button>
                                         </div>
                                     </div>
+                                    <!--end col-->
                                 </div>
-                                <div class="col-xxl-4">
-                                    <div class="card border card-border-info">
-                                        <div class="card-header">
-                                            <h6 class="card-title mb-0">Catatan Rapat</h6>
+                                <!--end row-->
+                                {{--                Modals Area--}}
+                                @include('dashboard.admin.program.modals.syarat.create')
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Success Alert -->
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+                                            <span>Data persyaratan program <strong id="alert-message"></strong> diubah!</span>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                         </div>
-                                        <div class="card-body">
-                                            <p class="card-text">
-                                                {{-- @if($catatan == '')
-                                                    <i>Catatan Rapat Masih Kosong....</i>
-                                                @else
-                                                    {!! $catatan !!}
-                                                @endif --}}
-                                            </p>
+                                        <div class="card">
+                                            <div class="card-header text-center">
+                                                <h1 class="mb-0">Daftar Persyaratan Program</h1>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="alternative-pagination"
+                                                       class="table nowrap dt-responsive align-middle table-hover table-bordered"
+                                                       style="width:100%">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Nama Biaya</th>
+                                                        <th>Pengaturan</th>
+                                                        <th>Nilai</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($persyaratans as $persyaratan)
+                                                        <tr>
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td>{{$persyaratan->nama}}</td>
+                                                            <td>
+                                                                @if ($persyaratan->setting == 1)
+                                                                    Kurang Dari (<)
+                                                                @elseif ($persyaratan->setting == 2)
+                                                                    Lebih Dari (>)
+                                                                @elseif($persyaratan->setting == 3)
+                                                                    Sama Dengan (==)
+                                                                @elseif ($persyaratan->setting == 4)
+                                                                    Tidak Sama Dengan (!=)
+                                                                @endif
+                                                            </td>
+                                                            <td>{{$persyaratan->value}}</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center fw-medium">
+                                                                    <button class="btn btn-sm btn-soft-warning mx-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#editDataPersyaratan{{$persyaratan->id}}">
+                                                                        <i class="ri-pencil-line"></i> <span>@lang('Ubah')</span>
+                                                                    </button>
+                                                                    <button class="btn btn-sm btn-soft-danger mx-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#deleteDataPersyaratan{{$persyaratan->id}}">
+                                                                        <i class="ri-delete-bin-line"></i> <span>@lang('Hapus')</span>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @include('dashboard.admin.program.modals.syarat.delete')
+                                                        @include('dashboard.admin.program.modals.syarat.edit')
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
+                                    <!--end col-->
                                 </div>
-                                <!--end card-->
                             </div>
 
 

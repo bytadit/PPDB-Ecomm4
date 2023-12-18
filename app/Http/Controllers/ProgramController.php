@@ -8,6 +8,8 @@ use App\Models\Jenjang;
 use App\Models\Jalur;
 use App\Models\JenisKegiatan;
 use App\Models\Kegiatan;
+use App\Models\Persyaratan;
+use App\Models\Biaya;
 use Alert;
 class ProgramController extends Controller
 {
@@ -20,7 +22,7 @@ class ProgramController extends Controller
             'title' => 'Halaman Admin | Program Penerimaan',
             'penerimaans' => Penerimaan::all(),
             'jenjangs' => Jenjang::all(),
-            'jalurs' => Jalur::all()
+            'jalurs' => Jalur::all(),
         ]);
     }
 
@@ -97,7 +99,9 @@ class ProgramController extends Controller
             'title' => 'Halaman Admin | Detail Program Penerimaan',
             'penerimaan' => Penerimaan::where('id', $penerimaan->id)->get(),
             'kegiatans' => Kegiatan::where('id_penerimaan', $penerimaan->id)->get(),
-            'jenis_kegiatans' => JenisKegiatan::all()
+            'jenis_kegiatans' => JenisKegiatan::all(),
+            'biayas' => Biaya::where('id_penerimaan', $penerimaan->id)->get(),
+            'persyaratans' => Persyaratan::where('id_penerimaan', $penerimaan->id)->get()
         ]);
     }
 }

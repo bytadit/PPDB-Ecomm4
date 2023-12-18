@@ -10,6 +10,8 @@ use App\Http\Controllers\JenjangController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\BiayaController;
+use App\Http\Controllers\PersyaratanController;
 use App\Models\JenisKegiatan;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,5 +70,7 @@ Route::group(['prefix' => 'dashboard/'], function(){
         Route::resource('/program-penerimaan', ProgramController::class);
         Route::resource('/data-pendaftar', PendaftarController::class);
         Route::resource('/jadwal-kegiatan', JadwalController::class);
+        Route::resource('/biaya', BiayaController::class);
+        Route::resource('/syarat', PersyaratanController::class);
     });
 });

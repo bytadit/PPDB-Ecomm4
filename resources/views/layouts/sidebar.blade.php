@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('program-penerimaan.index') ? 'active fw-bold' : '' }}" href="{{route('program-penerimaan.index')}}"
+                    <a class="nav-link menu-link fw-medium {{ (Request::routeIs('program-penerimaan.index') || Request::is('dashboard/admin/program-penerimaan/*')) ? 'active fw-bold' : '' }}" href="{{route('program-penerimaan.index')}}"
                        role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-folder-user-fill"></i> <span >@lang('Program Penerimaan')</span>
                     </a>
