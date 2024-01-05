@@ -33,6 +33,13 @@ class JalurTableSeeder extends Seeder
                 'created_at' => '2023-12-16 06:10:05',
                 'updated_at' => '2023-12-16 06:10:05',
             ),
+            2 => 
+            array (
+                'id' => 3,
+                'nama' => 'Prestasi',
+                'created_at' => '2023-12-21 00:07:16',
+                'updated_at' => '2023-12-21 00:07:16',
+            ),
         ));
         
         

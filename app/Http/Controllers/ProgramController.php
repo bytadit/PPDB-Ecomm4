@@ -9,7 +9,9 @@ use App\Models\Jalur;
 use App\Models\JenisKegiatan;
 use App\Models\Kegiatan;
 use App\Models\Persyaratan;
+use App\Models\Dokumen;
 use App\Models\Biaya;
+use App\Models\Rapor;
 use Alert;
 class ProgramController extends Controller
 {
@@ -44,7 +46,17 @@ class ProgramController extends Controller
             'id_jalur' => 'required',
             'periode' => 'required'
         ]);
-        Penerimaan::create($request->all());
+        $data = Penerimaan::create($request->all());
+
+        Persyaratan::create([
+            'nama' => 'Usia',
+            'setting' => 1,
+            'value' => 16,
+            'is_mandatory' => true,
+            'jenis_persyaratan' => 2,
+            'id_penerimaan' => $data->id
+        ]);
+
         Alert::success('Sukses!', 'Data Program Penerimaan berhasil ditambahkan!');
         return redirect(route('program-penerimaan.index'));
     }
@@ -89,7 +101,6 @@ class ProgramController extends Controller
         $request->validate([
             'is_open' => 'required|in:0,1',
         ]);
-
         $penerimaan->update(['is_open' => $request->is_open]);
         return response()->json(['message' => 'berhasil']);
     }
@@ -101,7 +112,9 @@ class ProgramController extends Controller
             'kegiatans' => Kegiatan::where('id_penerimaan', $penerimaan->id)->get(),
             'jenis_kegiatans' => JenisKegiatan::all(),
             'biayas' => Biaya::where('id_penerimaan', $penerimaan->id)->get(),
-            'persyaratans' => Persyaratan::where('id_penerimaan', $penerimaan->id)->get()
+            'persyaratans' => Persyaratan::where('id_penerimaan', $penerimaan->id)->get(),
+            'dokumens' => Dokumen::where('id_penerimaan', $penerimaan->id)->get(),
+            'rapors' => Rapor::where('id_penerimaan', $penerimaan->id)->get()
         ]);
     }
 }

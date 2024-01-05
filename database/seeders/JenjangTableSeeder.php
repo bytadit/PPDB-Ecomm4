@@ -33,6 +33,13 @@ class JenjangTableSeeder extends Seeder
                 'created_at' => '2023-12-16 06:09:49',
                 'updated_at' => '2023-12-16 06:09:49',
             ),
+            2 => 
+            array (
+                'id' => 3,
+                'nama' => 'SMA',
+                'created_at' => '2023-12-21 00:07:29',
+                'updated_at' => '2023-12-21 00:07:29',
+            ),
         ));
         
         

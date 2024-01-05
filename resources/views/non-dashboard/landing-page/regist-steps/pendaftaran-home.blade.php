@@ -48,14 +48,12 @@
                                                                     {{$penerimaan->jenjang->nama}}
                                                                 </td>
                                                                 <td>{{$penerimaan->jalur->nama}}</td>
-                                                                <td> null </td>
+                                                                {{-- {{date('d-m-Y', strtotime($kegiatan->tgl_akhir))}} --}}
+                                                                <td>{{date('d-m-Y', strtotime(\App\Models\Kegiatan::all()->where('id_penerimaan', $penerimaan->id)->where('id_jenis_kegiatan', 2)->first()->tgl_akhir))}}</td>
                                                                 <td>
-                                                                    <button class="btn btn-sm btn-info mr-1 text-white"  data-bs-toggle="modal" data-bs-target="#showReqs1">
-                                                                        Detail
-                                                                    </button>
-                                                                    <button class="btn btn-sm btn-primary mr-1">
+                                                                    <a class="btn btn-sm btn-primary mr-1" href="{{route('guest.registration.step1', ['program' => $penerimaan->id])}}">
                                                                         Daftar
-                                                                    </button>
+                                                                    </a>
                                                                 </td>
                                                             </tr>
                                                         @endforeach

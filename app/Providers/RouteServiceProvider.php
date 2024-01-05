@@ -7,6 +7,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -18,7 +19,10 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
-    public const DASHBOARD = '/dashboard/admin';
+    public const DASHBOARD = '/dashboard';
+    // public const DASHBOARD_ADMIN = '/dashboard/admin';
+    // public const DASHBOARD_PENDAFTAR = '/dashboard/pendaftar';
+
     public const LOGIN = '/login';
 
     /**

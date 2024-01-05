@@ -32,7 +32,7 @@
             </div>
             <ul class="navbar-nav d-flex justify-content-between" id="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('admin.dashboard') ? 'active fw-bold' : '' }}" href="{{route('admin.dashboard')}}"
+                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('dashboard') ? 'active fw-bold' : '' }}" href="{{route('dashboard')}}"
                        role="button" aria-expanded="false" aria-controls="sidebarApps">
                         <i class="ri-home-2-line"></i> <span >@lang('Beranda')</span>
                     </a>
@@ -62,10 +62,19 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('data-pendaftar.index') ? 'active fw-bold' : '' }}" href="{{route('data-pendaftar.index')}}"
+                    <a class="disabled nav-link menu-link fw-medium {{ Request::routeIs('data-pendaftar.index') ? 'active fw-bold' : '' }}" href="{{route('data-pendaftar.index')}}"
                        role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-team-line"></i> <span >@lang('Data Pendaftar')</span>
+                        <i class="ri-team-line"></i> <span >@lang('Data Pendaftar (coming soon)')</span>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <form action="{{route('logout')}}" method="post">
+                        @csrf
+                        <button class="btn nav-link menu-link fw-medium {{ Request::routeIs('logout') ? 'active fw-bold' : '' }}"
+                          type="submit" aria-expanded="false" aria-controls="sidebarApps">
+                            <i class="ri-logout-box-r-line"></i> <span >@lang('Keluar')</span>
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>

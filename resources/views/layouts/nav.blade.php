@@ -36,7 +36,11 @@
             </ul>
           </li> --}}
           <li><a href="{{ route('guest.contact') }}" class="{{ Request::routeIs('guest.contact') ? 'active' : '' }}">Kontak</a></li>
-          <li><a href="{{ route('login') }}" class="{{ Request::routeIs('auth.login') ? 'active' : '' }}">Login</a></li>
+          @if (Auth::check())
+            <li><a href="{{ route('dashboard') }}" class="{{ Request::routeIs('dashboard') ? 'active' : '' }}">Beranda</a></li>
+          @else
+            <li><a href="{{ route('login') }}" class="{{ Request::routeIs('auth.login') ? 'active' : '' }}">Masuk</a></li>
+          @endif
         </ul>
       </nav>
       <!-- .navbar -->

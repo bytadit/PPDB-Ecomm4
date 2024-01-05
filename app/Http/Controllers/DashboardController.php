@@ -11,7 +11,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-
+        if(auth()->user()->hasRole("admin")){
+            return view('dashboard.admin.index', [
+                'title' => 'Halaman Admin | Beranda'
+            ]);
+        }else if(auth()->user()->hasRole("pendaftar")){
+            return view('dashboard.non-admin.index', [
+                'title' => 'Halaman Pendaftar | Beranda'
+            ]);
+        }
     }
 
     /**

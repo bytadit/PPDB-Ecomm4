@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id();
-            $table->string('bukti_bayar');
-            $table->boolean('status_bayar')->default(false)->comment('{0: belum, 1: sudah}');
-            $table->integer('verifikasi')->nullable(true)->comment('{1: proses, 2: ditolak, 3: disetujui}');
+            $table->string('doc_no')->nullable();
+            $table->text('description')->nullable();
+            $table->integer('amount')->default(0);
+            $table->string('payment_status')->nullable();
+            $table->text('payment_link')->nullable();
             $table->unsignedBigInteger('id_pendaftar');
             $table->foreign('id_pendaftar')->references('id')->on('pendaftar')->onDelete('cascade');
             $table->timestamps();

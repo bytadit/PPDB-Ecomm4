@@ -87,6 +87,12 @@
                                                 Dokumen
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#rapor"
+                                                role="tab">
+                                                Nilai Rapor
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <!-- end card body -->
@@ -149,6 +155,7 @@
                                                         <th>Nama Kegiatan</th>
                                                         <th>Tanggal Awal</th>
                                                         <th>Tanggal Akhir</th>
+                                                        <th>Durasi (hari)</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                     </thead>
@@ -159,6 +166,7 @@
                                                             <td>{{$kegiatan->jenisKegiatan->nama}}</td>
                                                             <td>{{date('d-m-Y', strtotime($kegiatan->tgl_awal))}}</td>
                                                             <td>{{date('d-m-Y', strtotime($kegiatan->tgl_akhir))}}</td>
+                                                            <td>{{round((strtotime($kegiatan->tgl_akhir) - strtotime($kegiatan->tgl_awal)) / (60 * 60 * 24))}}</td>
                                                             <td>
                                                                 <div class="d-flex align-items-center fw-medium">
                                                                     <button class="btn btn-sm btn-soft-warning mx-1"
@@ -204,7 +212,36 @@
                                     </div>
                                     <!--end col-->
                                 </div>
-                                <!--end row-->
+                                @include('dashboard.admin.program.modals.biaya.editDaftar')
+                                <div class="row pb-1">
+                                    <div class="col-md-6">
+                                        <div class="card card-animate">
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between">
+                                                    <div>
+                                                        <h5 class="fw-medium text-muted mb-0">Biaya Pendaftaran</h5>
+                                                        <h2 class="mt-4 ff-secondary fw-semibold">Rp.<span class="counter-value"
+                                                                data-target="{{$penerimaan->first()->biaya_pendaftaran}}">0</span></h2>
+                                                    </div>
+                                                    <div>
+                                                        {{-- <div class="avatar-sm flex-shrink-0 mb-3">
+                                                            <span class="avatar-title bg-success rounded-circle fs-2">
+                                                                <i data-feather="dollar-sign"></i>
+                                                            </span>
+                                                        </div> --}}
+                                                        <div class="d-flex align-items-center fw-medium">
+                                                            <button class="btn btn-sm btn-soft-warning mx-1"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#editBiayaDaftar{{$penerimaan->first()->id}}">
+                                                                <i class="ri-pencil-line"></i> <span>@lang('Ubah')</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!-- end card body -->
+                                        </div> <!-- end card-->
+                                    </div> <!-- end col-->
+                                </div>
                                 {{--                Modals Area--}}
                                 @include('dashboard.admin.program.modals.biaya.create')
                                 <div class="row">
@@ -216,7 +253,7 @@
                                         </div>
                                         <div class="card">
                                             <div class="card-header text-center">
-                                                <h1 class="mb-0">Daftar Biaya Program</h1>
+                                                <h1 class="mb-0">Daftar Biaya Tambahan</h1>
                                             </div>
                                             <div class="card-body">
                                                 <table id="alternative-pagination"
@@ -276,7 +313,6 @@
                                 <!-- end row -->
                             </div>
                             <!-- end tab pane -->
-
                             <div class="tab-pane fade" id="persyaratan" role="tabpanel">
                                 <div class="row mb-3 pb-1">
                                     <div class="col-12">
@@ -306,23 +342,24 @@
                                         </div>
                                         <div class="card">
                                             <div class="card-header text-center">
-                                                <h1 class="mb-0">Daftar Persyaratan Program</h1>
+                                                <h1 class="mb-0">Daftar Persyaratan Kondisional</h1>
                                             </div>
                                             <div class="card-body">
-                                                <table id="alternative-pagination"
+                                                <table id="alternative-pagination-1"
                                                        class="table nowrap dt-responsive align-middle table-hover table-bordered"
                                                        style="width:100%">
                                                     <thead>
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>Nama Biaya</th>
+                                                        <th>Nama Persyaratan</th>
                                                         <th>Pengaturan</th>
                                                         <th>Nilai</th>
+                                                        <th>Deskripsi</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    @foreach($persyaratans as $persyaratan)
+                                                    @foreach($persyaratans->where('jenis_persyaratan', 2) as $persyaratan)
                                                         <tr>
                                                             <td>{{$loop->iteration}}</td>
                                                             <td>{{$persyaratan->nama}}</td>
@@ -338,6 +375,7 @@
                                                                 @endif
                                                             </td>
                                                             <td>{{$persyaratan->value}}</td>
+                                                            <td>{{$persyaratan->deskripsi}}</td>
                                                             <td>
                                                                 <div class="d-flex align-items-center fw-medium">
                                                                     <button class="btn btn-sm btn-soft-warning mx-1"
@@ -345,11 +383,60 @@
                                                                             data-bs-target="#editDataPersyaratan{{$persyaratan->id}}">
                                                                         <i class="ri-pencil-line"></i> <span>@lang('Ubah')</span>
                                                                     </button>
-                                                                    <button class="btn btn-sm btn-soft-danger mx-1"
+                                                                    @if($persyaratan->is_mandatory == false)
+                                                                        <button class="btn btn-sm btn-soft-danger mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#deleteDataPersyaratan{{$persyaratan->id}}">
+                                                                            <i class="ri-delete-bin-line"></i> <span>@lang('Hapus')</span>
+                                                                        </button>
+                                                                    @endif
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @include('dashboard.admin.program.modals.syarat.delete')
+                                                        @include('dashboard.admin.program.modals.syarat.edit')
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="card">
+                                            <div class="card-header text-center">
+                                                <h1 class="mb-0">Daftar Persyaratan Tekstual</h1>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="alternative-pagination"
+                                                       class="table nowrap dt-responsive align-middle table-hover table-bordered"
+                                                       style="width:100%">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Nama Persyaratan</th>
+                                                        <th>Isi Persyaratan</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($persyaratans->where('jenis_persyaratan', 1) as $persyaratan)
+                                                        <tr>
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td>{{$persyaratan->nama}}</td>
+                                                            <td>{{$persyaratan->deskripsi}}</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center fw-medium">
+                                                                    <button class="btn btn-sm btn-soft-warning mx-1"
                                                                             data-bs-toggle="modal"
-                                                                            data-bs-target="#deleteDataPersyaratan{{$persyaratan->id}}">
-                                                                        <i class="ri-delete-bin-line"></i> <span>@lang('Hapus')</span>
+                                                                            data-bs-target="#editDataPersyaratan{{$persyaratan->id}}">
+                                                                        <i class="ri-pencil-line"></i> <span>@lang('Ubah')</span>
                                                                     </button>
+                                                                    @if($persyaratan->is_mandatory == false)
+                                                                        <button class="btn btn-sm btn-soft-danger mx-1"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#deleteDataPersyaratan{{$persyaratan->id}}">
+                                                                            <i class="ri-delete-bin-line"></i> <span>@lang('Hapus')</span>
+                                                                        </button>
+                                                                    @endif
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -364,106 +451,172 @@
                                     <!--end col-->
                                 </div>
                             </div>
-
-
                             <!-- end tab pane -->
-                            <div class="tab-pane fade" id="presensi" role="tabpanel">
-                                <!-- end row -->
+                            <div class="tab-pane fade" id="dokumen" role="tabpanel">
+                                <div class="row mb-3 pb-1">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                            <div class="flex-grow-1">
+                                                <h4 class="fs-16 mb-1">Selamat Datang Admin</h4>
+                                                <p class="text-muted mb-0">Silakan mengatur berkas dokumen program berikut!</p>
+                                            </div>
+                                            <button type="button" class="btn btn-success btn-lg btn-label waves-effect waves-light mx-2"
+                                                    data-bs-toggle="modal" data-bs-target="#createDataDokumen">
+                                                <i class="ri-menu-add-line label-icon align-middle fs-16 me-2"></i>
+                                                Tambah Data
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!--end row-->
+                                {{--                Modals Area--}}
+                                @include('dashboard.admin.program.modals.dokumen.create')
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-12">
+                                        <!-- Success Alert -->
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+                                            <span>Data biaya program <strong id="alert-message"></strong> diubah!</span>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
                                         <div class="card">
-                                            <div class="card-header">
-                                                <h5 class="card-title mb-0">Peserta wkwk</h5>
+                                            <div class="card-header text-center">
+                                                <h1 class="mb-0">Daftar Berkas Dokumen Program</h1>
                                             </div>
                                             <div class="card-body">
-                                                <table id="scroll-horizontal" class="table nowrap align-middle" style="width:100%">
+                                                <table id="alternative-pagination"
+                                                       class="table nowrap dt-responsive align-middle table-hover table-bordered"
+                                                       style="width:100%">
                                                     <thead>
                                                     <tr>
                                                         <th>No.</th>
-                                                        <th>Nama</th>
-                                                        <th>Jabatan Peserta</th>
-                                                        <th>Role Rapat</th>
-                                                        <th>Status Konfirmasi</th>
-                                                        <th>Detail Konfirmasi</th>
-                                                        <th>Status Kehadiran</th>
-                                                        <th>Detail Kehadiran</th>
-                                                        {{--                                <th>Aksi</th>--}}
+                                                        <th>Nama Dokumen</th>
+                                                        <th>Tipe Dokumen</th>
+                                                        <th>Jumlah</th>
+                                                        <th>Deskripsi</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {{-- @foreach ($presensis as $presensi)
+                                                    @foreach($dokumens as $dokumen)
                                                         <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td>{{ $users->where('id', $pegawais->where('id', $presensi->id_pegawai)->first()->id_user)->first()->name }}
-                                                            </td>
-                                                            <td>{{ $presensi->jabatan_peserta }}</td>
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td>{{$dokumen->nama}}</td>
                                                             <td>
-                                                                @if($users->find($pegawais->where('id', $presensi->id_pegawai)->first()->id_user)->hasRole('penanggung-jawab', $this_team) == true)
-                                                                    Penanggung Jawab
-                                                                @elseif($users->find($pegawais->where('id', $presensi->id_pegawai)->first()->id_user)->hasRole('notulis', $this_team) == true)
-                                                                    Notulis
-                                                                @else
-                                                                    Anggota
+                                                                @if ($dokumen->tipe == 1)
+                                                                    PDF
+                                                                @elseif ($dokumen->tipe == 2)
+                                                                    Docx
+                                                                @elseif($dokumen->tipe == 3)
+                                                                    Gambar
+                                                                @elseif($dokumen->tipe == 4)
+                                                                    Video
                                                                 @endif
                                                             </td>
-                                                            <td><span class="badge
-                                                    @if ($presensi->status_konfirmasi == 0)
-                                                        bg-danger
-                                                    @elseif ($presensi->status_konfirmasi  == 1)
-                                                        bg-success
-                                                    @elseif($presensi->status_konfirmasi  == 2)
-                                                        bg-warning
-                                                    @elseif($presensi->status_konfirmasi  == 3)
-                                                        bg-dark
-                                                    @endif
-                                                    ">
-                                                    @if ($presensi->status_konfirmasi == 0)
-                                                                        Tidak Hadir
-                                                                    @elseif ($presensi->status_konfirmasi == 1)
-                                                                        Hadir
-                                                                    @elseif($presensi->status_konfirmasi == 2)
-                                                                        Izin
-                                                                    @elseif($presensi->status_konfirmasi == 3)
-                                                                        Sakit
-                                                                    @endif
-                                                </span>
+                                                            <td>{{$dokumen->jumlah}}</td>
+                                                            <td>{{$dokumen->deskripsi}}</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center fw-medium">
+                                                                    <button class="btn btn-sm btn-soft-warning mx-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#editDataDokumen{{$dokumen->id}}">
+                                                                        <i class="ri-pencil-line"></i> <span>@lang('Ubah')</span>
+                                                                    </button>
+                                                                    <button class="btn btn-sm btn-soft-danger mx-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#deleteDataDokumen{{$dokumen->id}}">
+                                                                        <i class="ri-delete-bin-line"></i> <span>@lang('Hapus')</span>
+                                                                    </button>
+                                                                </div>
                                                             </td>
-                                                            <td>{{ $presensi->detail_konfirmasi == null ? 'Belum Terisi' : $presensi->detail_konfirmasi }}</td>
-                                                            <td><span class="badge
-                                                    @if ($presensi->status_kehadiran == 0)
-                                                        bg-danger
-                                                    @elseif ($presensi->status_kehadiran  == 1)
-                                                        bg-success
-                                                    @elseif($presensi->status_kehadiran  == 2)
-                                                        bg-warning
-                                                    @elseif($presensi->status_kehadiran  == 3)
-                                                        bg-dark
-                                                    @endif
-                                                    ">
-                                                    @if ($presensi->status_kehadiran == 0)
-                                                                        Tidak Hadir
-                                                                    @elseif ($presensi->status_kehadiran == 1)
-                                                                        Hadir
-                                                                    @elseif($presensi->status_kehadiran == 2)
-                                                                        Izin
-                                                                    @elseif($presensi->status_kehadiran == 3)
-                                                                        Sakit
-                                                                    @endif
-                                                </span>
-                                                            </td>
-                                                            <td>{{ $presensi->detail_kehadiran == null ? 'Belum Terisi' : $presensi->detail_kehadiran }}</td>
-
                                                         </tr>
-                                                    @endforeach --}}
+                                                        @include('dashboard.admin.program.modals.dokumen.delete')
+                                                        @include('dashboard.admin.program.modals.dokumen.edit')
+                                                    @endforeach
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
+                                    <!--end col-->
                                 </div>
-                                <!-- end team list -->
+                                <!-- end row -->
                             </div>
                             <!-- end tab pane -->
+                            <div class="tab-pane fade" id="rapor" role="tabpanel">
+                                <div class="row mb-3 pb-1">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                            <div class="flex-grow-1">
+                                                <h4 class="fs-16 mb-1">Selamat Datang Admin</h4>
+                                                <p class="text-muted mb-0">Silakan mengatur syarat nilai rapor berikut!</p>
+                                            </div>
+                                            <button type="button" class="btn btn-success btn-lg btn-label waves-effect waves-light mx-2"
+                                                    data-bs-toggle="modal" data-bs-target="#createDataRapor">
+                                                <i class="ri-menu-add-line label-icon align-middle fs-16 me-2"></i>
+                                                Tambah Data
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!--end row-->
+                                {{--                Modals Area--}}
+                                @include('dashboard.admin.program.modals.rapor.create')
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Success Alert -->
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+                                            <span>Data rapor <strong id="alert-message"></strong> diubah!</span>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header text-center">
+                                                <h1 class="mb-0">Daftar Ketentuan Semester Nilai Rapor</h1>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="alternative-pagination"
+                                                       class="table nowrap dt-responsive align-middle table-hover table-bordered"
+                                                       style="width:100%">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>No.</th>
+                                                        <th>Nama Semester</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach($rapors as $rapor)
+                                                        <tr>
+                                                            <td>{{$loop->iteration}}</td>
+                                                            <td>Semester {{$rapor->nama_semester}}</td>
+                                                            <td>
+                                                                <div class="d-flex align-items-center fw-medium">
+                                                                    {{-- <button class="btn btn-sm btn-soft-warning mx-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#editDataRapor{{$rapor->id}}">
+                                                                        <i class="ri-pencil-line"></i> <span>@lang('Ubah')</span>
+                                                                    </button> --}}
+                                                                    <button class="btn btn-sm btn-soft-danger mx-1"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#deleteDataRapor{{$rapor->id}}">
+                                                                        <i class="ri-delete-bin-line"></i> <span>@lang('Hapus')</span>
+                                                                    </button>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        @include('dashboard.admin.program.modals.rapor.delete')
+                                                        @include('dashboard.admin.program.modals.rapor.edit')
+                                                    @endforeach
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!-- end row -->
+                            </div>
                         </div>
                     </div>
                     <!-- end col -->

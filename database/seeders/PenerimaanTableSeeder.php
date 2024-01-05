@@ -24,20 +24,11 @@ class PenerimaanTableSeeder extends Seeder
                 'id' => 1,
                 'id_jenjang' => 1,
                 'id_jalur' => 1,
-                'periode' => '2023',
+                'periode' => '2024',
+                'biaya_pendaftaran' => 500000,
                 'is_open' => 1,
-                'created_at' => '2023-12-16 06:10:22',
-                'updated_at' => '2023-12-16 06:10:27',
-            ),
-            1 => 
-            array (
-                'id' => 2,
-                'id_jenjang' => 1,
-                'id_jalur' => 2,
-                'periode' => '2025',
-                'is_open' => 0,
-                'created_at' => '2023-12-16 08:46:30',
-                'updated_at' => '2023-12-16 08:46:30',
+                'created_at' => '2024-01-02 22:56:04',
+                'updated_at' => '2024-01-02 23:28:42',
             ),
         ));
         

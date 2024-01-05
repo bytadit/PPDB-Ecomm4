@@ -35,6 +35,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        // $this->redirectTo = auth()->user()->roles->first()->name == 'admin' ? RouteServiceProvider::DASHBOARD_ADMIN : RouteServiceProvider::DASHBOARD_PENDAFTAR;
         $this->middleware('guest')->except('logout');
     }
 

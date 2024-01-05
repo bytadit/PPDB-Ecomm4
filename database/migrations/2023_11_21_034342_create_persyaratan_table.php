@@ -17,7 +17,10 @@ return new class extends Migration
             $table->foreign('id_penerimaan')->references('id')->on('penerimaan')->onDelete('cascade');
             $table->string('nama');
             $table->unsignedBigInteger('setting')->nullable();
+            $table->unsignedBigInteger('jenis_persyaratan')->comment('1:prosedural; 2:teknis');
+            $table->boolean('is_mandatory')->default(false);
             $table->integer('value')->nullable();
+            $table->string('deskripsi')->nullable();
             $table->timestamps();
         });
     }

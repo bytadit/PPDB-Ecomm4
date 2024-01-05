@@ -62,7 +62,25 @@ class JadwalController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $kegiatan_id = $request->eid_kegiatan;
+        $id_penerimaan = $request->eid_penerimaan;
+
+        $request->validate([
+            'etgl_awal' => 'required',
+            'etgl_akhir' => 'required',
+            'eid_kegiatan' => 'required',
+            'eid_penerimaan' => 'required'
+        ]);
+
+        Kegiatan::where('id', $kegiatan_id)
+        ->update([
+                'tgl_awal' => $request->etgl_awal,
+                'tgl_akhir' => $request->etgl_akhir,
+                'id_jenis_kegiatan' => $request->eid_kegiatan,
+                'id_penerimaan' => $request->eid_penerimaan,
+            ]);
+        Alert::success('Sukses!', 'Data Jadwal Kegiatan berhasil diubah!');
+        return redirect('/dashboard/admin/program-penerimaan/'. $id_penerimaan .'/detail#jadwal-kegiatan');
     }
 
     /**

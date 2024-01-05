@@ -21,11 +21,7 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        DB::table('users')->insert([
-            'email' => 'admin@gmail.com',
-            'name' => 'Admin',
-            'password' => Hash::make('admin123')
-        ]);
+        $this->call(UserTableSeeder::class);
         $this->call(JalurTableSeeder::class);
         $this->call(JenisKegiatanTableSeeder::class);
         $this->call(JenjangTableSeeder::class);
@@ -38,5 +34,9 @@ class DatabaseSeeder extends Seeder
         $this->call(PendaftarTableSeeder::class);
         $this->call(PersyaratanTableSeeder::class);
         $this->call(SeleksiTableSeeder::class);
+        $this->call(RaporsTableSeeder::class);
+        $this->call(NilaiPendaftarsTableSeeder::class);
+        $this->call(OrangTuaPendaftarsTableSeeder::class);
+        $this->call(SekolahPendaftarsTableSeeder::class);
     }
 }

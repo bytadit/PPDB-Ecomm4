@@ -29,6 +29,18 @@ class Pendaftar extends Model
     {
         return $this->hasMany(Pembayaran::class, 'id_pendaftar');
     }
+    public function nilaiPendaftar(): HasMany
+    {
+        return $this->hasMany(NilaiPendaftar::class, 'id_pendaftar');
+    }
+    public function orangTuaPendaftar(): HasMany
+    {
+        return $this->hasMany(OrangTuaPendaftar::class, 'id_pendaftar');
+    }
+    public function sekolahPendaftar(): HasMany
+    {
+        return $this->hasMany(SekolahPendaftar::class, 'id_pendaftar');
+    }
     public function seleksis(): HasMany
     {
         return $this->hasMany(Seleksi::class, 'id_pendaftar');

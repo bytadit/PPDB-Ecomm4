@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Alert;
 use App\Models\Biaya;
+use App\Models\Penerimaan;
 
 class BiayaController extends Controller
 {
@@ -89,5 +90,16 @@ class BiayaController extends Controller
         Biaya::destroy($biaya_id);
         Alert::success('Sukses!', 'Data Biaya Program berhasil dihapus!');
         return redirect('/dashboard/admin/program-penerimaan/'. $id_penerimaan .'/detail#biaya');
+    }
+
+    public function updateBiayaDaftar(Request $request)
+    {
+        $id_penerimaan = $request->id_penerimaan;
+        $penerimaan = Penerimaan::find($id_penerimaan);
+        $penerimaan->biaya_pendaftaran = $request->biaya_pendaftaran;
+        $penerimaan->save();
+        Alert::success('Sukses!', 'Data Biaya Pendaftaran berhasil diubah!');
+        return redirect('/dashboard/admin/program-penerimaan/'. $id_penerimaan .'/detail#biaya');
+
     }
 }

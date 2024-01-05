@@ -26,6 +26,10 @@ class Penerimaan extends Model
     {
         return $this->hasMany(Biaya::class, 'id_penerimaan');
     }
+    public function rapors(): HasMany
+    {
+        return $this->hasMany(Rapor::class, 'id_penerimaan');
+    }
     public function dokumens(): HasMany
     {
         return $this->hasMany(Dokumen::class, 'id_penerimaan');

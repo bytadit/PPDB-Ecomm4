@@ -12,6 +12,10 @@ use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\BiayaController;
 use App\Http\Controllers\PersyaratanController;
+use App\Http\Controllers\PendaftarDashboardController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DokumenKegiatanController;
+use App\Http\Controllers\RaporProgramController;
 use App\Models\JenisKegiatan;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,12 +37,34 @@ Route::get('/home', [HomeController::class, 'home'])->name('guest.home');
 Route::get('/about', [HomeController::class, 'about'])->name('guest.about');
 Route::get('/kontak', [HomeController::class, 'contact'])->name('guest.contact');
 Route::get('/panduan', [HomeController::class, 'guide'])->name('guest.guide');
+// Routes Pendaftaran
 Route::get('/pendaftaran', [HomeController::class, 'registration'])->name('guest.registration.home');
+Route::get('/daftar-program/{program}/ketentuan', [PendaftarController::class, 'step1'])->name('guest.registration.step1');
+
+Route::get('/daftar-program/{program}/data-siswa', [PendaftarController::class, 'step2'])->name('guest.registration.step2');
+Route::post('/daftar-program/{program}/data-siswa', [PendaftarController::class, 'postStep2'])->name('guest.registration.step2.post');
+
+Route::get('/daftar-program/{program}/data-orangtua', [PendaftarController::class, 'step3'])->name('guest.registration.step3');
+Route::post('/daftar-program/{program}/data-orangtua', [PendaftarController::class, 'postStep3'])->name('guest.registration.step3.post');
+
+Route::get('/daftar-program/{program}/data-sekolah', [PendaftarController::class, 'step4'])->name('guest.registration.step4');
+Route::post('/daftar-program/{program}/data-sekolah', [PendaftarController::class, 'postStep4'])->name('guest.registration.step4.post');
+
+Route::get('/daftar-program/{program}/data-nilai', [PendaftarController::class, 'step5'])->name('guest.registration.step5');
+Route::post('/daftar-program/{program}/data-nilai', [PendaftarController::class, 'postStep5'])->name('guest.registration.step5.post');
+
+Route::get('/daftar-program/{program}/data-review', [PendaftarController::class, 'step6'])->name('guest.registration.step6');
+Route::post('/daftar-program/{program}/data-review', [PendaftarController::class, 'verifyStep6'])->name('guest.registration.step6.verify');
+
+Route::get('/daftar-program/{program}/pembayaran', [PendaftarController::class, 'payment'])->name('guest.registration.payment');
+Route::post('/daftar-program/{program}/pembayaran', [PendaftarController::class, 'postPayment'])->name('guest.registration.payment.post');
+
+
 
 // Registration Routes
-Route::get('/pendaftaran1', function () {
-    return view('non-dashboard/landing-page/regist-steps/pendaftaran1');
-})->name('guest.registration.first');
+// Route::get('/pendaftaran1', function () {
+//     return view('non-dashboard/landing-page/regist-steps/pendaftaran1');
+// })->name('guest.registration.first');
 Route::get('/pendaftaran2', function () {
     return view('non-dashboard/landing-page/regist-steps/pendaftaran2');
 });
@@ -57,13 +83,14 @@ Route::get('/pendaftaran6', function () {
 
 // Auth Routes
 Auth::routes();
-
-Route::group(['prefix' => 'dashboard/'], function(){
-    // Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::group(['prefix' => 'admin', ], function() {
-        Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard/'], function(){
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin', ], function() {
+        // Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+        // Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/program-penerimaan/{penerimaan}/detail', [ProgramController::class, 'detailProgram'])->name('programs.detail-program');
         Route::patch('/program-penerimaan/update-status/{penerimaan}', [ProgramController::class, 'updateStatus'])->name('programs.update-status');
+        Route::put('/program-penerimaan/update-biaya/{penerimaan}', [BiayaController::class, 'updateBiayaDaftar'])->name('biaya-pendaftaran');
         Route::resource('/referensi-kegiatan', JenisKegiatanController::class);
         Route::resource('/jenjang-pendidikan', JenjangController::class);
         Route::resource('/jalur-penerimaan', JalurController::class);
@@ -72,5 +99,11 @@ Route::group(['prefix' => 'dashboard/'], function(){
         Route::resource('/jadwal-kegiatan', JadwalController::class);
         Route::resource('/biaya', BiayaController::class);
         Route::resource('/syarat', PersyaratanController::class);
+        Route::resource('/document', DokumenKegiatanController::class);
+        Route::resource('/rapor', RaporProgramController::class);
+
+    });
+    Route::group(['middleware' => ['role:pendaftar'], 'prefix' => 'pendaftar', ], function() {
+        // Route::get('/', [DashboardController::class, 'index'])->name('pendaftar.dashboard');
     });
 });

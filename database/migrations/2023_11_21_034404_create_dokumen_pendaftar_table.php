@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('dokumen_pendaftar', function (Blueprint $table) {
             $table->id();
+            $table->string('path')->comment('/dokumen/daftar.pdf');
             $table->unsignedBigInteger('id_dokumen');
             $table->foreign('id_dokumen')->references('id')->on('dokumen')->onDelete('cascade');
             $table->unsignedBigInteger('id_pendaftar');
