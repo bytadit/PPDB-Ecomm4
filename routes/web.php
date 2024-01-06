@@ -59,6 +59,9 @@ Route::post('/daftar-program/{program}/data-review', [PendaftarController::class
 Route::get('/daftar-program/{program}/pembayaran', [PendaftarController::class, 'payment'])->name('guest.registration.payment');
 Route::post('/daftar-program/{program}/pembayaran', [PendaftarController::class, 'postPayment'])->name('guest.registration.payment.post');
 
+Route::get('/daftar-program/{program}/pembayaran/process', [PendaftarController::class, 'paymentProcess'])->name('guest.registration.payment.process');
+Route::post('/daftar-program/{program}/pembayaran/callback', [PendaftarController::class, 'callback'])->name('guest.registration.payment.callback');
+
 
 
 // Registration Routes

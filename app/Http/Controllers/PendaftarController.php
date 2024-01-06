@@ -12,6 +12,8 @@ use App\Models\Penerimaan;
 use App\Models\Rapor;
 use App\Models\SekolahPendaftar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
 
 class PendaftarController extends Controller
 {
@@ -97,8 +99,8 @@ class PendaftarController extends Controller
         $pendaftar = $request->session()->get('pendaftar');
 
         $validatedData = $request->validate([
-            'nisn' => 'required|unique:pendaftar',
-            'nik' => 'required|unique:pendaftar',
+            'nisn' => 'required',
+            'nik' => 'required',
             'nama' => 'required',
             'gender' => 'required',
             'tgl_lahir' => 'required',
@@ -274,7 +276,6 @@ class PendaftarController extends Controller
         $sekolah = $request->session()->get('sekolah');
         $ortu = collect($request->session()->get('orangtua'));
         $pendaftar = $request->session()->get('pendaftar');
-        $payment = $request->session()->get('payment');
         return view('non-dashboard/landing-page/regist-steps/pembayaran', [
             'program' => Penerimaan::where('id', $program_id)->get(),
             'nilai_pendaftar' => $nilai_pendaftar,
@@ -285,7 +286,59 @@ class PendaftarController extends Controller
         ]);
     }
     public function postPayment(Request $request){
+        $program_id = $request->route('program');
+        $penerimaan = Penerimaan::where('id', $program_id)->get();
+        $secret_key = 'Basic '.config('xendit.key_auth');
+        $external_id = Str::random(10);
 
+        $data_request = Http::withHeaders([
+            'Authorization' => $secret_key
+        ])->post('https://api.xendit.co/v2/invoices', [
+            'external_id' => $external_id,
+            'amount' => $penerimaan->first()->biaya_pendaftaran,
+            'payment_methods' => [
+                'DANA', 'BCA', 'MANDIRI', 'BRI'
+            ]
+        ]);
+        $response = $data_request->object();
+        // save to database
+        $pembayaran = Pembayaran::create([
+            'doc_no' => $external_id,
+            'amount' => $penerimaan->first()->biaya_pendaftaran,
+            'payment_status' => $response->status,
+            'payment_link' => $response->invoice_url
+        ]);
+        // save payment_id to session
+        $newData = [
+            'doc_no' => $pembayaran->doc_no,
+        ];
+        if(empty($request->session()->get('payment_id'))){
+            $payment = new Pembayaran();
+            $payment->fill($newData);
+            $request->session()->put('payment_id', $payment);
+        }else{
+            $payment = $request->session()->get('payment_id');
+            $payment->fill($newData);
+            $request->session()->put('payment_id', $payment);
+        }
+
+        return redirect()->route('guest.registration.payment.process', ['program' => $program_id]);
+    }
+    public function paymentProcess(Request $request){
+        $program_id = $request->route('program');
+        return view('non-dashboard/landing-page/regist-steps/payment-process', [
+            'program' => Penerimaan::where('id', $program_id)->get(),
+        ]);
+    }
+    public function callback(Request $request){
+        $data = request()->all();
+        $status = $data['status'];
+        $external_id = $data['external_id'];
+
+        Pembayaran::where('doc_no', $external_id)->update([
+            'payment_status' => $status
+        ]);
+        return response()->json($data);
     }
 
 }

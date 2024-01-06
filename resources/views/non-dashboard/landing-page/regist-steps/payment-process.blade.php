@@ -50,28 +50,6 @@
             </div>
         </section>
         <script>
-            let expirationTime = '{{ \Carbon\Carbon::parse(Session::get("verify.expiration_time"))->toISOString() }}';
-            document.addEventListener('DOMContentLoaded', function() {
-                var expirationDate = new Date(expirationTime);
-                var countdownInterval = setInterval(updateCountdown, 1000);
-
-                function updateCountdown() {
-                    var now = new Date();
-                    var timeDifference = expirationDate - now;
-
-                    if (timeDifference <= 0) {
-                        clearInterval(countdownInterval);
-                        document.getElementById('countdown').innerHTML = 'Telah Habis';
-                    } else {
-                        var hours = Math.floor(timeDifference / (1000 * 60 * 60));
-                        var minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-                        var seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-                        document.getElementById('countdown').innerHTML = hours + 'h ' + minutes + 'm ' + seconds + 's';
-                    }
-                }
-            });
-        </script>
-        <script>
 
         </script>
     </main>

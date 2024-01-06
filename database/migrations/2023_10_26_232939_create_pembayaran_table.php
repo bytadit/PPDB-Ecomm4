@@ -14,11 +14,10 @@ return new class extends Migration
         Schema::create('pembayaran', function (Blueprint $table) {
             $table->id();
             $table->string('doc_no')->nullable();
-            $table->text('description')->nullable();
             $table->integer('amount')->default(0);
             $table->string('payment_status')->nullable();
             $table->text('payment_link')->nullable();
-            $table->unsignedBigInteger('id_pendaftar');
+            $table->unsignedBigInteger('id_pendaftar')->nullable();
             $table->foreign('id_pendaftar')->references('id')->on('pendaftar')->onDelete('cascade');
             $table->timestamps();
         });

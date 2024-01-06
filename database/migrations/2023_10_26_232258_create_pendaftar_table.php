@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('pendaftar', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->string('nisn')->unique();
-            $table->string('nik')->unique();
+            $table->string('nisn');
+            $table->string('nik');
             $table->text('alamat');
             $table->dateTime('tgl_lahir');
             $table->tinyInteger('gender')->comment('{1: Laki-laki, 2: Perempuan}');
             $table->boolean('is_final')->default(false);
+            $table->boolean('is_verified')->default(false);
             $table->unsignedBigInteger('id_penerimaan');
             $table->unsignedBigInteger('id_user')->nullable();
             $table->foreign('id_penerimaan')->references('id')->on('penerimaan')->onDelete('cascade');
