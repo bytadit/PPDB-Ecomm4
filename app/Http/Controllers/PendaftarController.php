@@ -321,15 +321,23 @@ class PendaftarController extends Controller
             $payment->fill($newData);
             $request->session()->put('payment_id', $payment);
         }
-
-        return redirect()->route('guest.registration.payment.process', ['program' => $program_id]);
-    }
-    public function paymentProcess(Request $request){
-        $program_id = $request->route('program');
-        return view('non-dashboard/landing-page/regist-steps/payment-process', [
-            'program' => Penerimaan::where('id', $program_id)->get(),
+        return response()->json([
+            'payment_id' => $pembayaran->id,
+            'payment_docno' => $pembayaran->doc_no,
+            'payment_link' => $pembayaran->payment_link,
         ]);
     }
+    public function checkPaymentStatus($program, $paymentId)
+    {
+        $status = Pembayaran::findOrFail($paymentId)->payment_status;
+        return response()->json(['status' => $status]);
+    }
+    // public function paymentProcess(Request $request){
+    //     $program_id = $request->route('program');
+    //     return view('non-dashboard/landing-page/regist-steps/payment-process', [
+    //         'program' => Penerimaan::where('id', $program_id)->get(),
+    //     ]);
+    // }
     public function callback(Request $request){
         $data = request()->all();
         $status = $data['status'];

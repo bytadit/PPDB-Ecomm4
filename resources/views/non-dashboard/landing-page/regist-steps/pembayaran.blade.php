@@ -30,14 +30,18 @@
                                                 <div class="card m-3 p3 text-center countdown-container">
                                                     <h1>Batas Pembayaran : <span id="countdown"></span></h1>
                                                 </div>
-                                                <form
+                                                {{-- <form
                                                     action="{{ route('guest.registration.payment.post', ['program' => $program->first()->id]) }}"
                                                     method="post" class="d-flex justify-content-center mt-3">
                                                     @csrf
                                                     <button class="btn btn-primary" type="submit">
                                                         Bayar Sekarang
                                                     </button>
-                                                </form>
+                                                </form> --}}
+                                                <button id="payButton" onclick="postPayment({{$program->first()->id}})" class="btn btn-primary">
+                                                    Bayar Sekarang
+                                                </button>
+                                                {{-- <button id="payButton" onclick="initiatePayment()">Pay</button> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +76,49 @@
             });
         </script>
         <script>
+            function postPayment(program) {
+                document.getElementById('payButton').disabled = true;
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
+                $.ajax({
+                    url: '/daftar-program/'+ program +'/pembayaran',
+                    type: 'POST',
+                    data: {
+                        _token: csrfToken
+                    },
+                    success: function(response) {
+                        // sessionStorage.setItem('payment_id', response.payment_id);
+                        window.open(response.payment_link);
+                        checkPaymentStatus(program, response.payment_id);
+                    },
+                    error: function(error) {
+                        console.error('Error initiating payment:', error);
+                    }
+                });
+            }
+            function checkPaymentStatus(program, paymentId) {
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                const interval = setInterval(function() {
+                    $.ajax({
+                        url: '/daftar-program/'+ program +'/pembayaran/'+ paymentId +'/status',
+                        type: 'POST',
+                        data: {
+                            _token: csrfToken
+                        },
+                        success: function(response) {
+                            if (response.status === 'PAID') {
+                                // Update frontend and display success message
+                                clearInterval(interval);
+                                document.getElementById('payButton').disabled = false;
+                                alert('Your payment is successful!');
+                            }
+                        },
+                        error: function(error) {
+                            // console.error('Error checking payment status:', error);
+                        }
+                    });
+                }, 1000); // Check every 5 seconds (adjust as needed)
+            }
         </script>
     </main>
 @endsection
