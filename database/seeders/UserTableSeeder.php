@@ -34,7 +34,6 @@ class UserTableSeeder extends Seeder
             'is_admin' => 0,
             'password' => Hash::make('calon123')
         ]);
-
         // roles
         DB::table('roles')->insert([
             'name' => 'admin',

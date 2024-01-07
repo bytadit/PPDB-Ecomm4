@@ -61,8 +61,8 @@ Route::post('/daftar-program/{program}/pembayaran/{paymentId}/status', [Pendafta
 Route::post('/daftar-program/{program}/pembayaran', [PendaftarController::class, 'postPayment'])->name('guest.registration.payment.post');
 
 Route::post('/daftar-program/{program}/pembayaran/callback', [PendaftarController::class, 'callback'])->name('guest.registration.payment.callback');
-Route::get('/check-user-exists/{email}', 'PendaftarController@checkUserExists');
-Route::post('/create-new-user', 'PendaftarController@createNewUser');
+// Route::get('/check-user-exists/{email}', 'PendaftarController@checkUserExists');
+// Route::post('/create-new-user', 'PendaftarController@createNewUser');
 // Route::get('/daftar-program/{program}/pembayaran/process', [PendaftarController::class, 'paymentProcess'])->name('guest.registration.payment.process');
 
 // Route::post('/initiate-payment', [PaymentController::class, 'initiatePayment']);
@@ -74,21 +74,21 @@ Route::post('/create-new-user', 'PendaftarController@createNewUser');
 // Route::get('/pendaftaran1', function () {
 //     return view('non-dashboard/landing-page/regist-steps/pendaftaran1');
 // })->name('guest.registration.first');
-Route::get('/pendaftaran2', function () {
-    return view('non-dashboard/landing-page/regist-steps/pendaftaran2');
-});
-Route::get('/pendaftaran3', function () {
-    return view('non-dashboard/landing-page/regist-steps/pendaftaran3');
-});
-Route::get('/pendaftaran4', function () {
-    return view('non-dashboard/landing-page/regist-steps/pendaftaran4');
-});
-Route::get('/pendaftaran5', function () {
-    return view('non-dashboard/landing-page/regist-steps/pendaftaran5');
-});
-Route::get('/pendaftaran6', function () {
-    return view('non-dashboard/landing-page/regist-steps/pendaftaran6');
-});
+// Route::get('/pendaftaran2', function () {
+//     return view('non-dashboard/landing-page/regist-steps/pendaftaran2');
+// });
+// Route::get('/pendaftaran3', function () {
+//     return view('non-dashboard/landing-page/regist-steps/pendaftaran3');
+// });
+// Route::get('/pendaftaran4', function () {
+//     return view('non-dashboard/landing-page/regist-steps/pendaftaran4');
+// });
+// Route::get('/pendaftaran5', function () {
+//     return view('non-dashboard/landing-page/regist-steps/pendaftaran5');
+// });
+// Route::get('/pendaftaran6', function () {
+//     return view('non-dashboard/landing-page/regist-steps/pendaftaran6');
+// });
 
 // Auth Routes
 Auth::routes();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Biaya;
+use App\Models\Role;
 use App\Models\Persyaratan;
 use App\Models\Dokumen;
 use App\Models\NilaiPendaftar;
@@ -437,6 +438,9 @@ class PendaftarController extends Controller
                     'id_pendaftar' => $newPendaftar->id
                 ]);
             }
+            $pendaftar = Role::where('name', 'pendaftar')->get();
+            $user->roles()->attach([$pendaftar->first()->id]);
+            // $user->attachRole($pendaftar);
             $request->session()->forget('pendaftar');
             $request->session()->forget('sekolah');
             $request->session()->forget('orangtua');
