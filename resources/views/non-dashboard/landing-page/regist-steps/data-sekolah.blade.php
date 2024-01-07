@@ -23,67 +23,94 @@
                             <div class="container" data-aos="fade-up" data-aos-delay="100">
                                 <div class="row gy-4">
                                     <div class="col-lg-12">
-                                        <div class="info-item d-flex flex-column justify-content-center align-items-center mb-3">
+                                        <div
+                                            class="info-item d-flex flex-column justify-content-center align-items-center mb-3">
                                             <h3>Data Sekolah Asal</h3>
-                                            <form action="{{ route('guest.registration.step4.post', ['program' => $program->first()->id]) }}" method="post" class="container">
+                                            <form
+                                                action="{{ route('guest.registration.step4.post', ['program' => $program->first()->id]) }}"
+                                                method="post" class="container">
                                                 @csrf
                                                 <div class="container">
                                                     <div class="mb-3">
                                                         <label for="npsn" class="form-label">NPSN <span
                                                                 class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="npsn"
-                                                            placeholder="Masukkan Nomor NPSN..." required="" name="npsn"
-                                                            value="{{ $sekolah->npsn ?? '' }}">
-                                                        <div class="invalid-feedback">
-                                                            Masukkan nomor NPSN dengan benar!
-                                                        </div>
+
+                                                        <input type="text"
+                                                            class="form-control @error('npsn')
+                                                        is-invalid
+                                                        @enderror"
+                                                            id="npsn" placeholder="Masukkan Nomor NPSN..."
+                                                            required="" name="npsn"
+                                                            value="{{ session()->has('sekolah') ? $sekolah['npsn'] : '' }}">
+                                                        @error('npsn')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="nama" class="form-label">Nama Sekolah<span
                                                                 class="text-danger">*</span></label>
-                                                        <input type="text" class="form-control" id="nama"
-                                                            placeholder="Masukkan Nama Sekolah..." required="" name="nama"
-                                                            value="{{ $sekolah->nama ?? '' }}">
-                                                        <div class="invalid-feedback">
-                                                            Masukkan Nama Sekolah dengan benar!
-                                                        </div>
+                                                        <input type="text"
+                                                            class="form-control @error('nama') is-invalid @enderror"
+                                                            id="nama" placeholder="Masukkan Nama Sekolah..."
+                                                            required="" name="nama"
+                                                            value="{{ session()->has('sekolah') ? $sekolah['nama'] : '' }}">
+                                                        @error('nama')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="status" class="form-label">Status Sekolah<span
                                                                 class="text-danger">*</span></label>
                                                         <div class="form-check form-radio-primary mb-3">
-                                                            <input class="form-check-input" type="radio"
-                                                                name="status" id="statusNegeri"
-                                                                value="1"
-                                                                {{ isset($sekolah->status) && $sekolah->status == 1 ? 'checked' : '' }}>
+                                                            <input class="form-check-input" type="radio" name="status"
+                                                                id="statusNegeri" value="1"
+                                                                @if (session()->has('sekolah')) {{ $sekolah['status'] == 1 ? 'checked' : '' }} @endif>
                                                             <label class="form-check-label" for="statusNegeri">
                                                                 Negeri
                                                             </label>
                                                         </div>
                                                         <div class="form-check form-radio-danger mb-3">
-                                                            <input class="form-check-input" type="radio"
-                                                                name="status" id="statusSwasta"
-                                                                value="2"
-                                                                {{ isset($sekolah->status) && $sekolah->status == 2 ? 'checked' : '' }}>
+                                                            <input class="form-check-input" type="radio" name="status"
+                                                                id="statusSwasta" value="2"
+                                                                @if (session()->has('sekolah')) {{ $sekolah['status'] == 2 ? 'checked' : '' }} @endif>
                                                             <label class="form-check-label" for="statusSwasta">
                                                                 Swasta
                                                             </label>
                                                         </div>
+                                                        @error('status')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
 
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="alamat" class="form-label">Alamat<span
                                                                 class="text-danger">*</span></label>
-                                                        <textarea class="form-control" id="alamat" name="alamat" placeholder="Masukkan Alamat Sekolah..." required="">{{ $sekolah->alamat ?? '' }}</textarea>
-
+                                                        <textarea class="form-control @error('alamat') is-invalid @enderror" id="alamat" name="alamat"
+                                                            placeholder="Masukkan Alamat Sekolah..." required="">{{ session()->has('sekolah') ? $sekolah['alamat'] : '' }}</textarea>
+                                                        @error('alamat')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="tanggal_lulus" class="form-label">Tanggal lulus<span
                                                                 class="text-danger">*</span></label>
                                                         <input type="date" class="form-control" id="tanggal_lulus"
-                                                            placeholder="Masukkan Tanggal Lulus..." required="" name="tanggal_lulus"
-                                                            value="{{ date('Y-m-d', strtotime($sekolah->tanggal_lulus ?? '')) ?? '' }}">
-
+                                                            placeholder="Masukkan Tanggal Lulus..." required=""
+                                                            name="tanggal_lulus"
+                                                            value="{{ session()->has('sekolah') ? date('Y-m-d', strtotime($sekolah['tanggal_lulus'])) : '' }}">
+                                                        @error('tanggal_lulus')
+                                                            <div class="invalid-feedback">
+                                                                {{ $message }}
+                                                            </div>
+                                                        @enderror
                                                     </div>
                                                     <a class="btn btn-danger float-start"
                                                         href="{{ route('guest.registration.step3', ['program' => $program->first()->id]) }}">

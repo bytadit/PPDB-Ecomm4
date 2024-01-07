@@ -36,8 +36,7 @@
                                                                     class="text-danger">*</span></label>
                                                             <input type="number" class="form-control" id="rapor{{$rapor->id}}"
                                                                 placeholder="Masukkan Rata-rata Nilai Rapor Semester {{$rapor->nama_semester}}..." name="rapors[{{$index}}]"
-                                                                value="{{ session()->has('nilai') ?  $nilai_pendaftar->where('id_rapor', $rapor->id)->first()->nilai_rata : ''}}" required>
-
+                                                                value="{{ session()->has('nilai') ? optional(collect(session()->get('nilai'))->where('id_rapor', $rapor->id)->first())['nilai_rata'] : '' }}" required>
                                                         </div>
                                                     @endforeach
                                                     <a class="btn btn-danger float-start"

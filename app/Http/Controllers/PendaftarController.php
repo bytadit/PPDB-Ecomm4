@@ -10,10 +10,13 @@ use App\Models\OrangTuaPendaftar;
 use App\Models\Pembayaran;
 use App\Models\Penerimaan;
 use App\Models\Rapor;
+use App\Models\User;
 use App\Models\SekolahPendaftar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class PendaftarController extends Controller
 {
@@ -86,43 +89,61 @@ class PendaftarController extends Controller
     }
     public function step2(Request $request){
         $program_id = $request->route('program');
-        $pendaftar = $request->session()->get('pendaftar');
+        // $pendaftar = $request->session()->get('pendaftar');
+        $pendaftar = $request->session()->get('pendaftar', []);
         return view('non-dashboard/landing-page/regist-steps/data-siswa', [
             'program' => Penerimaan::where('id', $program_id)->get(),
             'pendaftar' => $pendaftar,
         ]);
     }
 
-    public function postStep2(Request $request){
+    public function postStep2(Request $request)
+    {
         $program_id = $request->route('program');
         $penerimaan = Penerimaan::where('id', $program_id)->get();
-        $pendaftar = $request->session()->get('pendaftar');
 
-        $validatedData = $request->validate([
+        // Validate the input data
+        $validatedPendaftar = $request->validate([
             'nisn' => 'required',
-            'nik' => 'required',
+            'nik' => 'required|unique:users',
             'nama' => 'required',
             'gender' => 'required',
             'tgl_lahir' => 'required',
             'alamat' => 'required',
-            'id_penerimaan' => 'required'
+            'id_penerimaan' => 'required',
+            'email' => 'required|unique:users',
+        ], [
+            'nik.unique' => 'Nomor NIK telah digunakan',
+            'email.unique' => 'Alamat Email telah digunakan',
+            'nisn.required' => 'Nomor NISN Wajib Diisi!',
+            'nama.required' => 'Nama Wajib Diisi!',
+            'gender.required' => 'Jenis Kelamin Wajib Diisi!',
+            'alamat.required' => 'Alamat Wajib Diisi!',
+            'tgl_lahir.required' => 'Tanggal Lahir Wajib Diisi!',
         ]);
 
-        if(empty($request->session()->get('pendaftar'))){
-            $pendaftar = new Pendaftar();
-            $pendaftar->fill($validatedData);
-            $request->session()->put('pendaftar', $pendaftar);
-        }else{
-            $pendaftar = $request->session()->get('pendaftar');
-            $pendaftar->fill($validatedData);
-            $request->session()->put('pendaftar', $pendaftar);
-        }
-        return redirect()->route('guest.registration.step3', ['program' => $program_id]);
+        // Retrieve the existing data from the session or create an empty array if it doesn't exist
+        $pendaftar = $request->session()->get('pendaftar', []);
 
+        // Update or add the validated data to the array
+        $pendaftar['nisn'] = $validatedPendaftar['nisn'];
+        $pendaftar['nik'] = $validatedPendaftar['nik'];
+        $pendaftar['nama'] = $validatedPendaftar['nama'];
+        $pendaftar['gender'] = $validatedPendaftar['gender'];
+        $pendaftar['tgl_lahir'] = $validatedPendaftar['tgl_lahir'];
+        $pendaftar['alamat'] = $validatedPendaftar['alamat'];
+        $pendaftar['id_penerimaan'] = $validatedPendaftar['id_penerimaan'];
+        $pendaftar['email'] = $validatedPendaftar['email'];
+
+        // Store the updated array back into the session
+        $request->session()->put('pendaftar', $pendaftar);
+
+        return redirect()->route('guest.registration.step3', ['program' => $program_id]);
     }
+
     public function step3(Request $request){
         $program_id = $request->route('program');
-        $ortu = collect($request->session()->get('orangtua'));
+        $ortu = collect($request->session()->get('orangtua', []));
 
         return view('non-dashboard/landing-page/regist-steps/data-ortu', [
             'program' => Penerimaan::where('id', $program_id)->get(),
@@ -133,74 +154,91 @@ class PendaftarController extends Controller
     public function postStep3(Request $request){
         $program_id = $request->route('program');
         $penerimaan = Penerimaan::where('id', $program_id)->get();
-        $ortu = $request->session()->get('orangtua');
+        $ortu = $request->session()->get('orangtua', []);
 
-        $ayah = new OrangTuaPendaftar();
-        $ayah->fill([
+        $ayah = [
             'nama' => $request->nama_ayah,
             'pekerjaan' => $request->pekerjaan_ayah,
             'penghasilan' => $request->penghasilan_ayah,
             'status' => 1,
             'gender' => 1
-        ]);
-        $ibu = new OrangTuaPendaftar();
-        $ibu->fill([
+        ];
+
+        $ibu = [
             'nama' => $request->nama_ibu,
             'pekerjaan' => $request->pekerjaan_ibu,
             'penghasilan' => $request->penghasilan_ibu,
             'status' => 2,
             'gender' => 2
-        ]);
-        $wali = new OrangTuaPendaftar();
-        $wali->fill([
+        ];
+
+        $wali = [
             'nama' => $request->nama_wali,
             'pekerjaan' => $request->pekerjaan_wali,
             'penghasilan' => $request->penghasilan_wali,
             'status' => 3,
             'gender' => $request->gender
-        ]);
-        $combined_array = [
-            $ayah,
-            $ibu,
-            $wali
         ];
+
+        $combined_array = [
+            'ayah' => $ayah,
+            'ibu' => $ibu,
+            'wali' => $wali
+        ];
+
+        // Add the combined array to the session data
+        // $ortu[] = $combined_array;
+
+        // Update the session data
+        // $request->session()->put('orangtua', $ortu);
         $request->session()->put('orangtua', $combined_array);
+
         return redirect()->route('guest.registration.step4', ['program' => $program_id]);
     }
+
     public function step4(Request $request){
         $program_id = $request->route('program');
-        $sekolah = $request->session()->get('sekolah');
+        $sekolah = $request->session()->get('sekolah', []);
         return view('non-dashboard/landing-page/regist-steps/data-sekolah', [
             'program' => Penerimaan::where('id', $program_id)->get(),
             'sekolah' => $sekolah,
         ]);
     }
-    public function postStep4(Request $request){
+    public function postStep4(Request $request)
+    {
         $program_id = $request->route('program');
         $penerimaan = Penerimaan::where('id', $program_id)->get();
 
-        $validatedData = $request->validate([
+        $validatedSekolah = $request->validate([
             'npsn' => 'required',
             'nama' => 'required',
             'status' => 'required',
             'alamat' => 'required',
             'tanggal_lulus' => 'required',
+        ], [
+            'npsn.required' => 'NPSN Harus Diisi!',
+            'nama.required' => 'Nama Sekolah harus diisi!',
+            'status.required' => 'Status sekolah harus diisi!',
+            'alamat.required' => 'Alamat sekolah harus diisi!',
+            'tanggal_lulus.required' => 'Tanggal lulus harus diisi',
         ]);
 
-        if(empty($request->session()->get('sekolah'))){
-            $sekolah = new SekolahPendaftar();
-            $sekolah->fill($validatedData);
-            $request->session()->put('sekolah', $sekolah);
-        }else{
+        if (empty($request->session()->get('sekolah'))) {
+            $request->session()->put('sekolah', $validatedSekolah);
+        } else {
             $sekolah = $request->session()->get('sekolah');
-            $sekolah->fill($validatedData);
+            foreach ($validatedSekolah as $key => $value) {
+                $sekolah[$key] = $value;
+            }
             $request->session()->put('sekolah', $sekolah);
         }
+
         return redirect()->route('guest.registration.step5', ['program' => $program_id]);
     }
+
     public function step5(Request $request){
         $program_id = $request->route('program');
-        $nilai_pendaftar = collect($request->session()->get('nilai'));
+        $nilai_pendaftar = collect($request->session()->get('nilai', []));
         return view('non-dashboard/landing-page/regist-steps/data-nilai', [
             'program' => Penerimaan::where('id', $program_id)->get(),
             'rapors' => Rapor::where('id_penerimaan', $program_id)->get(),
@@ -211,30 +249,45 @@ class PendaftarController extends Controller
         $program_id = $request->route('program');
         $penerimaan = Penerimaan::where('id', $program_id)->get();
         $rapors = Rapor::where('id_penerimaan', $program_id)->get();
+        $nilai = $request->session()->get('nilai', []);
 
         $combined_nilai = [];
+
         $rapors = $request->input('rapors');
         $idrapors = $request->input('idrapors');
+
         foreach($rapors as $index => $rapor){
-            $nilai = new NilaiPendaftar();
-            $nilai->fill([
+            // $nilai = new NilaiPendaftar();
+            // $nilai->fill([
+            //     'nilai_rata' => $rapor,
+            //     'id_rapor' => $idrapors[$index]
+            // ]);
+            $nilai = [
                 'nilai_rata' => $rapor,
                 'id_rapor' => $idrapors[$index]
-            ]);
-            $combined_nilai[] =  $nilai;
+            ];
+            $combined_nilai[] = $nilai;
         }
+
+        // Get the existing nilai data from the session
+        // $nilaiFromSession = $request->session()->get('nilai', []);
+
+        // // Merge the new nilai data with the existing nilai data
+        // $combined_nilai = array_merge($nilaiFromSession, $combined_nilai);
+
+        // Update the session data
         $request->session()->put('nilai', $combined_nilai);
-        $combined_nilai = [];
+
         return redirect()->route('guest.registration.step6', ['program' => $program_id]);
     }
+
     public function step6(Request $request){
         $program_id = $request->route('program');
         $penerimaan = Penerimaan::where('id', $program_id)->get();
         $nilai_pendaftar = collect($request->session()->get('nilai'));
         $sekolah = $request->session()->get('sekolah');
         $ortu = collect($request->session()->get('orangtua'));
-        $pendaftar = $request->session()->get('pendaftar');
-
+        $pendaftar = $request->session()->get('pendaftar', []);
         return view('non-dashboard/landing-page/regist-steps/data-review', [
             'program' => Penerimaan::where('id', $program_id)->get(),
             'nilai_pendaftar' => $nilai_pendaftar,
@@ -247,20 +300,20 @@ class PendaftarController extends Controller
     public function verifyStep6(Request $request){
         $program_id = $request->route('program');
         $existingPendaftar = $request->session()->get('pendaftar', []);
-        $existingPendaftar['expiration_time'] = now()->addHours(12);
-        $request->session()->put('pendaftar', $existingPendaftar);
+        // $existingPendaftar['expiration_time'] = now()->addHours(12);
+        // $request->session()->put('pendaftar', $existingPendaftar);
 
         $existingOrangtua = $request->session()->get('orangtua', []);
-        $existingOrangtua['expiration_time'] = now()->addHours(12);
-        $request->session()->put('orangtua', $existingOrangtua);
+        // $existingOrangtua['expiration_time'] = now()->addHours(12);
+        // $request->session()->put('orangtua', $existingOrangtua);
 
         $existingSekolah = $request->session()->get('sekolah', []);
-        $existingSekolah['expiration_time'] = now()->addHours(12);
-        $request->session()->put('sekolah', $existingSekolah);
+        // $existingSekolah['expiration_time'] = now()->addHours(12);
+        // $request->session()->put('sekolah', $existingSekolah);
 
         $existingNilai = $request->session()->get('nilai', []);
-        $existingNilai['expiration_time'] = now()->addHours(12);
-        $request->session()->put('nilai', $existingNilai);
+        // $existingNilai['expiration_time'] = now()->addHours(12);
+        // $request->session()->put('nilai', $existingNilai);
 
         $request->session()->put('verify', [
             'status' => 'verified',
@@ -275,7 +328,7 @@ class PendaftarController extends Controller
         $nilai_pendaftar = collect($request->session()->get('nilai'));
         $sekolah = $request->session()->get('sekolah');
         $ortu = collect($request->session()->get('orangtua'));
-        $pendaftar = $request->session()->get('pendaftar');
+        $pendaftar = $request->session()->get('pendaftar', []);
         return view('non-dashboard/landing-page/regist-steps/pembayaran', [
             'program' => Penerimaan::where('id', $program_id)->get(),
             'nilai_pendaftar' => $nilai_pendaftar,
@@ -311,15 +364,19 @@ class PendaftarController extends Controller
         // save payment_id to session
         $newData = [
             'doc_no' => $pembayaran->doc_no,
+            'payment_id' => $pembayaran->id,
+            'payment_amount' => $pembayaran->amount,
+            'payment_link' => $pembayaran->payment_link,
+            'payment_status' => $pembayaran->status
         ];
-        if(empty($request->session()->get('payment_id'))){
+        if(empty($request->session()->get('payment'))){
             $payment = new Pembayaran();
             $payment->fill($newData);
-            $request->session()->put('payment_id', $payment);
+            $request->session()->put('payment', $payment);
         }else{
-            $payment = $request->session()->get('payment_id');
+            $payment = $request->session()->get('payment');
             $payment->fill($newData);
-            $request->session()->put('payment_id', $payment);
+            $request->session()->put('payment', $payment);
         }
         return response()->json([
             'payment_id' => $pembayaran->id,
@@ -327,9 +384,74 @@ class PendaftarController extends Controller
             'payment_link' => $pembayaran->payment_link,
         ]);
     }
-    public function checkPaymentStatus($program, $paymentId)
+    public function checkPaymentStatus(Request $request, $program, $paymentId)
     {
         $status = Pembayaran::findOrFail($paymentId)->payment_status;
+
+        $program_id = $request->route('program');
+        $penerimaan = Penerimaan::where('id', $program_id)->get();
+        $ortu = $request->session()->get('orangtua', []);
+        $nilai_pendaftar = $request->session()->get('nilai', []);
+        $pendaftar = $request->session()->get('pendaftar', []);
+        $sekolah = $request->session()->get('sekolah', []);
+        $payment = $request->session()->get('payment');
+        if ($status === 'PAID') {
+            $user = User::create([
+                'name' => $pendaftar['nama'],
+                'email' => $pendaftar['email'],
+                'is_admin' => false,
+                'nik' => $pendaftar['nik'],
+                'password' => Hash::make($payment->doc_no)
+            ]);
+            $newPendaftar = Pendaftar::create([
+                'nisn' => $pendaftar['nisn'],
+                'nama' => $pendaftar['nama'],
+                'gender' => $pendaftar['gender'],
+                'tgl_lahir' => $pendaftar['tgl_lahir'],
+                'alamat' => $pendaftar['alamat'],
+                'id_penerimaan' => $pendaftar['id_penerimaan'],
+                'id_user' => $user->id,
+            ]);
+            foreach($ortu as $newOrtu){
+                OrangTuaPendaftar::create([
+                    'nama' => $newOrtu['nama'],
+                    'pekerjaan' => $newOrtu['pekerjaan'],
+                    'penghasilan' => $newOrtu['penghasilan'],
+                    'status' => $newOrtu['status'],
+                    'gender' => $newOrtu['gender'],
+                    'id_pendaftar' => $newPendaftar->id
+                ]);
+            }
+            SekolahPendaftar::create([
+                'npsn' => $sekolah['npsn'],
+                'nama' => $sekolah['nama'],
+                'status' => $sekolah['status'],
+                'alamat' => $sekolah['alamat'],
+                'tanggal_lulus' => $sekolah['tanggal_lulus'],
+                'id_pendaftar' => $newPendaftar->id
+            ]);
+            foreach($nilai_pendaftar as $newNilai){
+                NilaiPendaftar::create([
+                    'nilai_rata' => $newNilai['nilai_rata'],
+                    'id_rapor' => $newNilai['id_rapor'],
+                    'id_pendaftar' => $newPendaftar->id
+                ]);
+            }
+            $request->session()->forget('pendaftar');
+            $request->session()->forget('sekolah');
+            $request->session()->forget('orangtua');
+            $request->session()->forget('nilai');
+            // Redirect URL after successful payment
+            // $redirectUrl = '/dashboard';
+            return response()->json([
+                'status' => $status,
+                'nik' => $user->nik,
+                'password' => $payment->doc_no,
+                'email' => $user->email
+            ]);
+
+            // return response()->json(['status' => 'PAID', 'redirect_url' => $redirectUrl]);
+        }
         return response()->json(['status' => $status]);
     }
     // public function paymentProcess(Request $request){

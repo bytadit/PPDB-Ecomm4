@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('nisn');
-            $table->string('nik');
             $table->text('alamat');
             $table->dateTime('tgl_lahir');
             $table->tinyInteger('gender')->comment('{1: Laki-laki, 2: Perempuan}');

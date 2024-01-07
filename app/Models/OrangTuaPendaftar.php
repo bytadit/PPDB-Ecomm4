@@ -9,7 +9,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class OrangTuaPendaftar extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $fillable = [
+        'nama',
+        'pekerjaan',
+        'penghasilan',
+        'status',
+        'gender',
+        'id_pendaftar'
+    ];
     public function pendaftar(): BelongsTo
     {
         return $this->belongsTo(Pendaftar::class, 'id_pendaftar');

@@ -27,9 +27,21 @@
                                             class="info-item d-flex flex-column justify-content-center align-items-center mb-3">
                                             <h3>Pembayaran Pendaftaran</h3>
                                             <div class="container">
-                                                <div class="card m-3 p3 text-center countdown-container">
+                                                <div class="card m-3 p3 text-center countdown-container" id="countdown-cont">
                                                     <h1>Batas Pembayaran : <span id="countdown"></span></h1>
                                                 </div>
+                                                <div class="card m-3 p3 text-center info-container d-none" id="info-cont">
+                                                    <h1>Selamat akun anda telah terdaftar!</h1>
+                                                    <p>Berikut informasi login, harap dicatat</p>
+                                                    <ul>
+                                                        <li>NIK: <span id="nomor-nik"></span></li>
+                                                        <li>E-mail: <span id="alamat-email"></span></li>
+                                                        <li>Password: <span id="password-login"></span></li>
+                                                    </ul>
+                                                </div>
+                                                {{-- <div class="card m-3 p3 text-center status-message d-none">
+                                                    <h1>Pembayaran Berhasil</h1>
+                                                </div> --}}
                                                 {{-- <form
                                                     action="{{ route('guest.registration.payment.post', ['program' => $program->first()->id]) }}"
                                                     method="post" class="d-flex justify-content-center mt-3">
@@ -41,6 +53,9 @@
                                                 <button id="payButton" onclick="postPayment({{$program->first()->id}})" class="btn btn-primary">
                                                     Bayar Sekarang
                                                 </button>
+                                                <a id="loginButton" href="{{route('login')}}" class="btn btn-primary d-none">
+                                                    Masuk Akun Sekarang
+                                                </a>
                                                 {{-- <button id="payButton" onclick="initiatePayment()">Pay</button> --}}
                                             </div>
                                         </div>
@@ -87,8 +102,7 @@
                         _token: csrfToken
                     },
                     success: function(response) {
-                        // sessionStorage.setItem('payment_id', response.payment_id);
-                        window.open(response.payment_link);
+                        window.open(response.payment_link, '_blank');
                         checkPaymentStatus(program, response.payment_id);
                     },
                     error: function(error) {
@@ -97,6 +111,7 @@
                 });
             }
             function checkPaymentStatus(program, paymentId) {
+                let paymentCompleted = false;
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
                 const interval = setInterval(function() {
                     $.ajax({
@@ -106,18 +121,27 @@
                             _token: csrfToken
                         },
                         success: function(response) {
-                            if (response.status === 'PAID') {
+                            console.log('Response:', response);
+                            if (response.status === 'PAID' && !paymentCompleted) {
                                 // Update frontend and display success message
                                 clearInterval(interval);
+                                paymentCompleted = true;
                                 document.getElementById('payButton').disabled = false;
-                                alert('Your payment is successful!');
+                                alert('Pembayaran Berhasil!');
+                                $('#nomor-nik').text(response.nik);
+                                $('#alamat-email').text(response.email);
+                                $('#password-login').text(response.password);
+                                $('#loginButton').removeClass('d-none');
+                                $('#payButton').addClass('d-none');
+                                $('#countdown-cont').addClass('d-none');
+                                $('#info-cont').removeClass('d-none');
                             }
                         },
                         error: function(error) {
-                            // console.error('Error checking payment status:', error);
+                            console.error('Error finishing payment:', error);
                         }
                     });
-                }, 1000); // Check every 5 seconds (adjust as needed)
+                }, 1000);
             }
         </script>
     </main>

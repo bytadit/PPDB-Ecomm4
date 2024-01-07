@@ -45,4 +45,8 @@ class LoginController extends Controller
             'title' => 'Masuk Akun'
         ]);
     }
+    public function username()
+    {
+        return 'nik'; // Use the 'nik' column for authentication
+    }
 }

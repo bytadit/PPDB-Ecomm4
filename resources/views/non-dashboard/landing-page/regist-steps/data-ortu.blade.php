@@ -40,7 +40,7 @@
                                                                         id="nama" name="nama_ayah"
                                                                         placeholder="Masukkan Nama Lengkap..."
                                                                         required=""
-                                                                        value="{{ session()->has('orangtua') ? $ortu->where('status', 1)->first()->nama : ''}}">
+                                                                        value="{{ session()->has('orangtua') ? optional(collect(session()->get('orangtua'))->where('status', 1)->first())['nama'] : '' }}">
 
                                                                 </div>
                                                                 <div class="mb-3">
@@ -54,37 +54,37 @@
                                                                         <optgroup label="Pekerjaan Ayah">
                                                                             <option value="1"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->pekerjaan == 1 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['pekerjaan'] == 1 ? 'selected' : '' }}
                                                                             @endif
                                                                             >PNS</option>
                                                                             <option value="2"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->pekerjaan == 2 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['pekerjaan'] == 2 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Pengusaha</option>
                                                                             <option value="3"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->pekerjaan == 3 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['pekerjaan'] == 3 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Halo Dek</option>
                                                                             <option value="4"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->pekerjaan == 4 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['pekerjaan'] == 4 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Presiden</option>
                                                                             <option value="5"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->pekerjaan == 5 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['pekerjaan'] == 5 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Ketua Partai</option>
                                                                             <option value="6"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->pekerjaan == 6 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['pekerjaan'] == 6 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Youtuber</option>
                                                                             <option value="7"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->pekerjaan == 7 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['pekerjaan'] == 7 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Lain-lain</option>
                                                                         </optgroup>
@@ -104,27 +104,27 @@
                                                                         <optgroup label="Penghasilan Ayah Per Bulan">
                                                                             <option value="1"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->penghasilan == 1 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['penghasilan'] == 1 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Dibawah 1.000.000</option>
                                                                             <option value="2"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->penghasilan == 2 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['penghasilan'] == 2 ? 'selected' : '' }}
                                                                             @endif
                                                                             >1.000.000 - 3000.0000</option>
                                                                             <option value="3"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->penghasilan == 3 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['penghasilan'] == 3 ? 'selected' : '' }}
                                                                             @endif
                                                                             >3.000.000 - 10000.0000</option>
                                                                             <option value="4"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->penghasilan == 4 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['penghasilan'] == 4 ? 'selected' : '' }}
                                                                             @endif
                                                                             >10.000.000 - 30.000.0000</option>
                                                                             <option value="5"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 1)->first()->penghasilan == 5 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 1)->first())['penghasilan'] == 5 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Diatas 30.000.0000</option>
                                                                         </optgroup>
@@ -141,7 +141,8 @@
                                                                         id="nama" name="nama_ibu"
                                                                         placeholder="Masukkan Nama Lengkap..."
                                                                         required=""
-                                                                        value="{{ session()->has('orangtua') ? $ortu->where('status', 2)->first()->nama : '' }}">
+
+                                                                        value="{{ session()->has('orangtua') ? optional(collect(session()->get('orangtua'))->where('status', 2)->first())['nama'] : '' }}">
                                                                     <div class="invalid-feedback">
                                                                         Masukkan Nama Lengkap dengan benar!
                                                                     </div>
@@ -158,37 +159,37 @@
                                                                         <optgroup label="Pekerjaan Ibu">
                                                                             <option value="1"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->pekerjaan == 1 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['pekerjaan'] == 1 ? 'selected' : '' }}
                                                                             @endif
                                                                             >PNS</option>
                                                                             <option value="2"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->pekerjaan == 2 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['pekerjaan'] == 2 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Pengusaha</option>
                                                                             <option value="3"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->pekerjaan == 3 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['pekerjaan'] == 3 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Halo Dek</option>
                                                                             <option value="4"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->pekerjaan == 4 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['pekerjaan'] == 4 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Presiden</option>
                                                                             <option value="5"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->pekerjaan == 5 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['pekerjaan'] == 5 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Ketua Partai</option>
                                                                             <option value="6"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->pekerjaan == 6 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['pekerjaan'] == 6 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Youtuber</option>
                                                                             <option value="7"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->pekerjaan == 7 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['pekerjaan'] == 7 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Lain-lain</option>
                                                                         </optgroup>
@@ -207,27 +208,27 @@
                                                                         <optgroup label="Penghasilan Ibu Per Bulan">
                                                                             <option value="1"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->penghasilan == 1 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['penghasilan'] == 1 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Dibawah 1.000.000</option>
                                                                             <option value="2"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->penghasilan == 2 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['penghasilan'] == 2 ? 'selected' : '' }}
                                                                             @endif
                                                                             >1.000.000 - 3000.0000</option>
                                                                             <option value="3"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->penghasilan == 3 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['penghasilan'] == 3 ? 'selected' : '' }}
                                                                             @endif
                                                                             >3.000.000 - 10000.0000</option>
                                                                             <option value="4"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->penghasilan == 4 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['penghasilan'] == 4 ? 'selected' : '' }}
                                                                             @endif
                                                                             >10.000.000 - 30.000.0000</option>
                                                                             <option value="5"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 2)->first()->penghasilan == 5 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 2)->first())['penghasilan'] == 5 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Diatas 30.000.0000</option>
                                                                         </optgroup>
@@ -243,7 +244,7 @@
                                                                         id="nama" name="nama_wali"
                                                                         placeholder="Masukkan Nama Lengkap..."
                                                                         required=""
-                                                                        value="{{ session()->has('orangtua') ? $ortu->where('status', 3)->first()->nama : '' }}">
+                                                                        value="{{ session()->has('orangtua') ? optional(collect(session()->get('orangtua'))->where('status', 3)->first())['nama'] : '' }}">
                                                                 </div>
                                                                 <div class="mb-3">
                                                                     <label for="gender" class="form-label">Jenis Kelamin
@@ -253,7 +254,7 @@
                                                                             name="gender" id="genderMale"
                                                                             value="1"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{$ortu->where('status', 3)->first()->gender == 1 ? "checked" : "" }}
+                                                                                {{optional(collect(session()->get('orangtua'))->where('status', 3)->first())['gender'] == 1 ? "checked" : "" }}
                                                                             @endif
                                                                             >
                                                                         <label class="form-check-label" for="genderMale">
@@ -265,7 +266,7 @@
                                                                             name="gender" id="genderFemale"
                                                                             value="2"
                                                                             @if(session()->has('orangtua'))
-                                                                            {{ $ortu->where('status', 3)->first()->gender == 2 ? "checked" : "" }}
+                                                                            {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['gender'] == 2 ? "checked" : "" }}
                                                                             @endif
                                                                             >
                                                                         <label class="form-check-label"
@@ -287,37 +288,37 @@
                                                                         <optgroup label="Pekerjaan Wali">
                                                                             <option value="1"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->pekerjaan == 1 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['pekerjaan'] == 1 ? 'selected' : '' }}
                                                                             @endif
                                                                             >PNS</option>
                                                                             <option value="2"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->pekerjaan == 2 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['pekerjaan'] == 2 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Pengusaha</option>
                                                                             <option value="3"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->pekerjaan == 3 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['pekerjaan'] == 3 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Halo Dek</option>
                                                                             <option value="4"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->pekerjaan == 4 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['pekerjaan'] == 4 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Presiden</option>
                                                                             <option value="5"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->pekerjaan == 5 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['pekerjaan'] == 5 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Ketua Partai</option>
                                                                             <option value="6"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->pekerjaan == 6 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['pekerjaan'] == 6 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Youtuber</option>
                                                                             <option value="7"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->pekerjaan == 7 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['pekerjaan'] == 7 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Lain-lain</option>
                                                                         </optgroup>
@@ -336,27 +337,27 @@
                                                                         <optgroup label="Penghasilan Wali Per Bulan">
                                                                             <option value="1"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->penghasilan == 1 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['penghasilan'] == 1 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Dibawah 1.000.000</option>
                                                                             <option value="2"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->penghasilan == 2 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['penghasilan'] == 2 ? 'selected' : '' }}
                                                                             @endif
                                                                             >1.000.000 - 3000.0000</option>
                                                                             <option value="3"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->penghasilan == 3 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['penghasilan'] == 3 ? 'selected' : '' }}
                                                                             @endif
                                                                             >3.000.000 - 10000.0000</option>
                                                                             <option value="4"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->penghasilan == 4 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['penghasilan'] == 4 ? 'selected' : '' }}
                                                                             @endif
                                                                             >10.000.000 - 30.000.0000</option>
                                                                             <option value="5"
                                                                             @if(session()->has('orangtua'))
-                                                                                {{ $ortu->where('status', 3)->first()->penghasilan == 5 ? 'selected' : '' }}
+                                                                                {{ optional(collect(session()->get('orangtua'))->where('status', 3)->first())['penghasilan'] == 5 ? 'selected' : '' }}
                                                                             @endif
                                                                             >Diatas 30.000.0000</option>
                                                                         </optgroup>

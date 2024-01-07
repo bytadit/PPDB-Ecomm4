@@ -61,6 +61,8 @@ Route::post('/daftar-program/{program}/pembayaran/{paymentId}/status', [Pendafta
 Route::post('/daftar-program/{program}/pembayaran', [PendaftarController::class, 'postPayment'])->name('guest.registration.payment.post');
 
 Route::post('/daftar-program/{program}/pembayaran/callback', [PendaftarController::class, 'callback'])->name('guest.registration.payment.callback');
+Route::get('/check-user-exists/{email}', 'PendaftarController@checkUserExists');
+Route::post('/create-new-user', 'PendaftarController@createNewUser');
 // Route::get('/daftar-program/{program}/pembayaran/process', [PendaftarController::class, 'paymentProcess'])->name('guest.registration.payment.process');
 
 // Route::post('/initiate-payment', [PaymentController::class, 'initiatePayment']);
