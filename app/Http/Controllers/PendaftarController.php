@@ -285,12 +285,13 @@ class PendaftarController extends Controller
     public function step6(Request $request){
         $program_id = $request->route('program');
         $penerimaan = Penerimaan::where('id', $program_id)->get();
-        $nilai_pendaftar = collect($request->session()->get('nilai'));
-        $sekolah = $request->session()->get('sekolah');
-        $ortu = collect($request->session()->get('orangtua'));
+        $nilai_pendaftar = $request->session()->get('nilai', []);
+        $sekolah = $request->session()->get('sekolah', []);
+        $ortu = $request->session()->get('orangtua', []);
         $pendaftar = $request->session()->get('pendaftar', []);
         return view('non-dashboard/landing-page/regist-steps/data-review', [
             'program' => Penerimaan::where('id', $program_id)->get(),
+            'rapors' => Rapor::all(),
             'nilai_pendaftar' => $nilai_pendaftar,
             'sekolah' => $sekolah,
             'ortu' => $ortu,
@@ -300,22 +301,6 @@ class PendaftarController extends Controller
     }
     public function verifyStep6(Request $request){
         $program_id = $request->route('program');
-        $existingPendaftar = $request->session()->get('pendaftar', []);
-        // $existingPendaftar['expiration_time'] = now()->addHours(12);
-        // $request->session()->put('pendaftar', $existingPendaftar);
-
-        $existingOrangtua = $request->session()->get('orangtua', []);
-        // $existingOrangtua['expiration_time'] = now()->addHours(12);
-        // $request->session()->put('orangtua', $existingOrangtua);
-
-        $existingSekolah = $request->session()->get('sekolah', []);
-        // $existingSekolah['expiration_time'] = now()->addHours(12);
-        // $request->session()->put('sekolah', $existingSekolah);
-
-        $existingNilai = $request->session()->get('nilai', []);
-        // $existingNilai['expiration_time'] = now()->addHours(12);
-        // $request->session()->put('nilai', $existingNilai);
-
         $request->session()->put('verify', [
             'status' => 'verified',
             'expiration_time' => now()->addHours(12)
@@ -330,14 +315,18 @@ class PendaftarController extends Controller
         $sekolah = $request->session()->get('sekolah');
         $ortu = collect($request->session()->get('orangtua'));
         $pendaftar = $request->session()->get('pendaftar', []);
-        return view('non-dashboard/landing-page/regist-steps/pembayaran', [
-            'program' => Penerimaan::where('id', $program_id)->get(),
-            'nilai_pendaftar' => $nilai_pendaftar,
-            'sekolah' => $sekolah,
-            'ortu' => $ortu,
-            'pendaftar' => $pendaftar,
-            'penerimaan' => $penerimaan
-        ]);
+        if($request->session()->has('pendaftar')){
+            return view('non-dashboard/landing-page/regist-steps/pembayaran', [
+                'program' => Penerimaan::where('id', $program_id)->get(),
+                'nilai_pendaftar' => $nilai_pendaftar,
+                'sekolah' => $sekolah,
+                'ortu' => $ortu,
+                'pendaftar' => $pendaftar,
+                'penerimaan' => $penerimaan
+            ]);
+        }else{
+            return redirect()->route('guest.registration.step2', ['program' => $program_id]);
+        }
     }
     public function postPayment(Request $request){
         $program_id = $request->route('program');
@@ -445,6 +434,7 @@ class PendaftarController extends Controller
             $request->session()->forget('sekolah');
             $request->session()->forget('orangtua');
             $request->session()->forget('nilai');
+            $request->session()->forget('payment');
             // Redirect URL after successful payment
             // $redirectUrl = '/dashboard';
             return response()->json([

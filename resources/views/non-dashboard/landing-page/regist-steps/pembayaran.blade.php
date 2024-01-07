@@ -28,35 +28,27 @@
                                             <h3>Pembayaran Pendaftaran</h3>
                                             <div class="container">
                                                 <div class="card m-3 p3 text-center countdown-container" id="countdown-cont">
-                                                    <h1>Batas Pembayaran : <span id="countdown"></span></h1>
+                                                    <h3>Nominal :</span></h3>
+                                                    <h1>@currency($program->first()->biaya_pendaftaran)</h1>
+                                                    <h3>Batas Pembayaran : <span id="countdown"></span></h3>
                                                 </div>
                                                 <div class="card m-3 p3 text-center info-container d-none" id="info-cont">
                                                     <h1>Selamat akun anda telah terdaftar!</h1>
-                                                    <p>Berikut informasi login, harap dicatat</p>
-                                                    <ul>
+                                                    <h3>Harap Catat Informasi Akun Berikut:</h3>
+                                                    <ul class="list-unstyled">
                                                         <li>NIK: <span id="nomor-nik"></span></li>
                                                         <li>E-mail: <span id="alamat-email"></span></li>
                                                         <li>Password: <span id="password-login"></span></li>
                                                     </ul>
                                                 </div>
-                                                {{-- <div class="card m-3 p3 text-center status-message d-none">
-                                                    <h1>Pembayaran Berhasil</h1>
-                                                </div> --}}
-                                                {{-- <form
-                                                    action="{{ route('guest.registration.payment.post', ['program' => $program->first()->id]) }}"
-                                                    method="post" class="d-flex justify-content-center mt-3">
-                                                    @csrf
-                                                    <button class="btn btn-primary" type="submit">
+                                                <div class="text-center">
+                                                    <button id="payButton" onclick="postPayment({{$program->first()->id}})" class="btn btn-primary">
                                                         Bayar Sekarang
                                                     </button>
-                                                </form> --}}
-                                                <button id="payButton" onclick="postPayment({{$program->first()->id}})" class="btn btn-primary">
-                                                    Bayar Sekarang
-                                                </button>
-                                                <a id="loginButton" href="{{route('login')}}" class="btn btn-primary d-none">
-                                                    Masuk Akun Sekarang
-                                                </a>
-                                                {{-- <button id="payButton" onclick="initiatePayment()">Pay</button> --}}
+                                                    <a id="loginButton" href="{{route('login')}}" class="btn btn-primary d-none">
+                                                        Masuk Akun Sekarang
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
