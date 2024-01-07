@@ -8,8 +8,8 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6 text-center">
-                    <h2 data-aos="fade-down">Selamat Datang di  <span>TOP SCHOOL</span></h2>
-                    <p data-aos="fade-up">Top School adalah sekolah yang berada diatas (top) tanah<br> Dinaungi oleh Yayasan Tuna Pertama</p>
+                    <h2 data-aos="fade-down">Selamat Datang di <span>Cendikia</span></h2>
+                    <p data-aos="fade-up">Cendikia merupakan Portal Pendaftaran Peserta Didik Baru<br>Bernaung dalam Yayasan Nusa Bangsa</p>
                     <a data-aos="fade-up" data-aos-delay="200" href="{{ route('guest.about') }}" class="btn-get-started">Mulai</a>
                 </div>
             </div>
@@ -18,11 +18,11 @@
 
     <div id="hero-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
 
-      <div class="carousel-item active" style="background-image: url(images/bg_5.jpg)"></div>
-      <div class="carousel-item" style="background-image: url(images/bg_5.jpg)"></div>
-      <div class="carousel-item" style="background-image: url(images/bg_5.jpg)"></div>
-      <div class="carousel-item" style="background-image: url(images/bg_5.jpg)"></div>
-      <div class="carousel-item" style="background-image: url(images/bg_5.jpg)"></div>
+      <div class="carousel-item active" style="background-image: url(/images/bgd_1.jpg)"></div>
+      <div class="carousel-item" style="background-image: url(/images/bgd_2.jpg)"></div>
+      <div class="carousel-item" style="background-image: url(/images/bgd_3.jpg)"></div>
+      <div class="carousel-item" style="background-image: url(/images/bgd_4.jpg)"></div>
+      <div class="carousel-item" style="background-image: url(/images/bgd_5.jpg)"></div>
 
         <a class="carousel-control-prev" href="{{ url("#hero-carousel") }}" role="button" data-bs-slide="prev">
             <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>

@@ -3,7 +3,7 @@
 @section('main')
     <main id="main">
         <!-- ======= Breadcrumbs ======= -->
-        <div class="breadcrumbs d-flex align-items-center" style="background-image: url('img/bg_5.jpg')">
+        <div class="breadcrumbs d-flex align-items-center" style="background-image: url('/images/bgd_1.jpg')">
             <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
                 <h2>Pendaftaran</h2>
                 <ol>
@@ -24,8 +24,11 @@
                                 <div class="row gy-4">
                                     <div class="col-lg-12">
                                         <div
-                                            class="info-item d-flex flex-column justify-content-center align-items-center mb-3">
-                                            <h3>Data Sekolah Asal</h3>
+                                            class="card">
+                                            <div class="card-header align-items-center d-flex">
+                                            <h4 class="card-title mb-0 flex-grow-1" style="text-align:center;">Data Sekolah</h4>
+                                            </div>
+                                            <br>
                                             <form
                                                 action="{{ route('guest.registration.step4.post', ['program' => $program->first()->id]) }}"
                                                 method="post" class="container">
@@ -121,6 +124,7 @@
                                                     </button>
                                                 </div>
                                             </form>
+                                            <br>
                                         </div>
                                     </div>
 

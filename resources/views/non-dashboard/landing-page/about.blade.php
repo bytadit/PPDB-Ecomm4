@@ -3,7 +3,7 @@
 @section('main')
     <main id="main">
       <!-- ======= Breadcrumbs ======= -->
-      <div class="breadcrumbs d-flex align-items-center" style="background-image: url('images/bg_5.jpg')">
+      <div class="breadcrumbs d-flex align-items-center" style="background-image: url('/images/bgd_1.jpg')">
         <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
           <h2>Tentang Sekolah</h2>
           <ol>
@@ -21,12 +21,12 @@
             <div class="col-lg-7 about-img" style="background-image: url(images/sekolah3.jpg)"></div>
 
             <div class="col-lg-7">
-              <h2>Yayasan Tuna Pertama</h2>
+              <h2>Yayasan Nusa Bangsa</h2>
               <div class="our-story">
                 <h4>Berdiri Sejak 1999</h4>
                 <h3>Jakarta</h3>
                 <p>
-                  Yayasan Tuna Pertama telah berdiri sejak 1999. Yayasan Tuna Pertama telah menghasilkan banyak generasi penerus bangsa. Di yayasan ini siswa akan didampingi dengan guru-guru professional. Siswa diyakini dapat berkembang
+                  Yayasan Nusa Bangsa telah berdiri sejak 1999. Yayasan Tuna Pertama telah menghasilkan banyak generasi penerus bangsa. Di yayasan ini siswa akan didampingi dengan guru-guru professional. Siswa diyakini dapat berkembang
                   dengan baik. Moto kami yaitu:
                 </p>
                 <ul>

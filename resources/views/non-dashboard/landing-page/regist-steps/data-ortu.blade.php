@@ -3,7 +3,7 @@
 @section('main')
     <main id="main">
         <!-- ======= Breadcrumbs ======= -->
-        <div class="breadcrumbs d-flex align-items-center" style="background-image: url('img/bg_5.jpg')">
+        <div class="breadcrumbs d-flex align-items-center" style="background-image: url('/images/bgd_1.jpg')">
             <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
                 <h2>Pendaftaran</h2>
                 <ol>
@@ -31,9 +31,11 @@
                                                 <div class="container mb-3" data-aos="fade-up" data-aos-delay="100">
                                                     <div class="row gy-4">
                                                         <div class="col-lg-12">
-                                                            <div class="card mb-3 d-flex flex-column p-3">
-                                                                <h3 class="text-center m-3">Data Ayah</h3>
-                                                                <div class="mb-3">
+                                                            <div class="card mb-3 d-flex flex-column ">
+                                                            <div class="card-header align-items-center d-flex">
+                                                                <h4 class="card-title mb-0 flex-grow-1" style="text-align:center;">Data Ayah</h4>
+                                                            </div>
+                                                                <div class="mb-0 p-2">
                                                                     <label for="nama" class="form-label">Nama Lengkap
                                                                         <span class="text-danger">*</span></label>
                                                                     <input type="text" class="form-control"
@@ -43,7 +45,7 @@
                                                                         value="{{ session()->has('orangtua') ? optional(collect(session()->get('orangtua'))->where('status', 1)->first())['nama'] : '' }}">
 
                                                                 </div>
-                                                                <div class="mb-3">
+                                                                <div class="mb-0 p-2">
                                                                     <label for="pekerjaan_ayah" class="form-label">Pekerjaan
                                                                         Ayah</label>
                                                                     <select class="form-control" id="pekerjaan_ayah"
@@ -91,7 +93,7 @@
                                                                     </select>
 
                                                                 </div>
-                                                                <div class="mb-3">
+                                                                <div class="mb-3 p-2">
                                                                     <label for="penghasilan_ayah"
                                                                         class="form-label">Penghasilan
                                                                         Ayah</label>
@@ -132,9 +134,13 @@
 
                                                                 </div>
                                                             </div>
-                                                            <div class="card mb-3 d-flex flex-column p-3">
-                                                                <h3 class="text-center m-3">Data Ibu</h3>
-                                                                <div class="mb-3">
+
+
+                                                            <div class="card mb-3 d-flex flex-column">
+                                                                <div class="card-header align-items-center d-flex">
+                                                                <h4 class="card-title mb-0 flex-grow-1" style="text-align:center;">Data Ibu</h4>
+                                                                </div>
+                                                                <div class="mb-0 p-2">
                                                                     <label for="nama" class="form-label">Nama Lengkap
                                                                         <span class="text-danger">*</span></label>
                                                                     <input type="text" class="form-control"
@@ -147,7 +153,7 @@
                                                                         Masukkan Nama Lengkap dengan benar!
                                                                     </div>
                                                                 </div>
-                                                                <div class="mb-3">
+                                                                <div class="mb-0 p-2">
                                                                     <label for="pekerjaan_ibu"
                                                                         class="form-label">Pekerjaan
                                                                         Ibu</label>
@@ -195,7 +201,7 @@
                                                                         </optgroup>
                                                                     </select>
                                                                 </div>
-                                                                <div class="mb-3">
+                                                                <div class="mb-3 p-2">
                                                                     <label for="penghasilan_ibu"
                                                                         class="form-label">Penghasilan
                                                                         Ibu</label>
@@ -235,9 +241,13 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-                                                            <div class="card mb-3 d-flex flex-column p-3">
-                                                                <h3 class="text-center m-3">Data Wali</h3>
-                                                                <div class="mb-3">
+
+
+                                                            <div class="card mb-3 d-flex flex-column">
+                                                            <div class="card-header align-items-center d-flex">
+                                                                <h4 class="card-title mb-0 flex-grow-1" style="text-align:center;">Data Wali</h4>
+                                                            </div>
+                                                                <div class="mb-0 p-2">
                                                                     <label for="nama" class="form-label">Nama Lengkap
                                                                         <span class="text-danger">*</span></label>
                                                                     <input type="text" class="form-control"
@@ -246,7 +256,7 @@
                                                                         required=""
                                                                         value="{{ session()->has('orangtua') ? optional(collect(session()->get('orangtua'))->where('status', 3)->first())['nama'] : '' }}">
                                                                 </div>
-                                                                <div class="mb-3">
+                                                                <div class="mb-0 p-2">
                                                                     <label for="gender" class="form-label">Jenis Kelamin
                                                                         <span class="text-danger">*</span></label>
                                                                     <div class="form-check form-radio-primary mb-3">
@@ -261,7 +271,7 @@
                                                                             Laki-Laki
                                                                         </label>
                                                                     </div>
-                                                                    <div class="form-check form-radio-danger mb-3">
+                                                                    <div class="form-check form-radio-danger mb-0">
                                                                         <input class="form-check-input" type="radio"
                                                                             name="gender" id="genderFemale"
                                                                             value="2"
@@ -275,7 +285,7 @@
                                                                         </label>
                                                                     </div>
                                                                 </div>
-                                                                <div class="mb-3">
+                                                                <div class="mb-0 p-2">
                                                                     <label for="pekerjaan_wali"
                                                                         class="form-label">Pekerjaan
                                                                         Wali</label>
@@ -324,7 +334,7 @@
                                                                         </optgroup>
                                                                     </select>
                                                                 </div>
-                                                                <div class="mb-3">
+                                                                <div class="mb-3 p-2">
                                                                     <label for="penghasilan_wali"
                                                                         class="form-label">Penghasilan
                                                                         Wali</label>

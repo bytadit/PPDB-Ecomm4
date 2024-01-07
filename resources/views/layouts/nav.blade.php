@@ -5,7 +5,7 @@
       <a href="{{ route('guest.home') }}" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <images src="images/logo.png" alt=""> -->
-        <h1>TOP SCHOOL<span>.</span></h1>
+        <h1>Cendikia<span>.</span></h1>
       </a>
 
       <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
