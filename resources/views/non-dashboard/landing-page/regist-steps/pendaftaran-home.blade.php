@@ -3,7 +3,7 @@
 @section('main')
     <main id="main">
         <!-- ======= Breadcrumbs ======= -->
-        <div class="breadcrumbs d-flex align-items-center" style="background-image: url('img/bg_5.jpg')">
+        <div class="breadcrumbs d-flex align-items-center" style="background-image: url('/images/bgd_1.jpg')">
             <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
                 <h2>Program Pendaftaran</h2>
                 <ol>
@@ -23,10 +23,12 @@
                             <div data-aos="fade-up" data-aos-delay="100">
                                 <div class="row gy-4">
                                     <div class="col-lg-12">
-                                        <div class="info-item d-flex flex-column justify-content-center align-items-center">
-                                            <h3>Daftar Program Yang Sedang Dibuka</h3>
-                                            <div class="container m-4">
-                                                <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:100%">
+                                        <div class="card">
+                                        <div class="card-header align-items-center d-flex">
+                                        <h4 class="card-title mb-0 flex-grow-1" style="text-align:center;">Daftar Program Yang Sedang Dibuka</h4>
+                                        </div>
+                                            <div class="container " style=" margin-left: -12px;margin-bottom: -16px;">
+                                                <table id="alternative-pagination" class="table nowrap dt-responsive align-middle table-hover table-bordered" style="width:102.3%; text-align:center;">
                                                     <thead>
                                                     <tr>
                                                         <th>No.</th>

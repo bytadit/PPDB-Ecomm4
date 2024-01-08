@@ -89,18 +89,16 @@
                                     <div class="testimonial-item">
                                         <p>Apakah Anda setuju dengan ketentuan diatas?</p>
                                         <div class="form-check">
-                                          <input type="checkbox" id="myCheck" class="ketentuan" onchange="enableBtn()"/>
-                                          <label class="form-check-label" for="myCheck">Ya, Saya Setuju</label>
+                                            <input type="checkbox" id="myCheck" class="ketentuan"
+                                                onchange="enableBtn()" />
+                                            <label class="form-check-label" for="myCheck">Ya, Saya Setuju</label>
                                         </div>
-                                      </div>
-
+                                    </div>
                                 </div>
                             </div>
-
-
                         </div>
-                        <button id="submitButton" class="btn btn-primary float-end" onclick="checkCheckbox()" disabled>Lanjut</button>
-
+                        <button id="submitButton" class="btn btn-primary float-end" onclick="checkCheckbox()"
+                            disabled>Lanjut</button>
                     </div>
                 </div>
             </div>
@@ -111,26 +109,27 @@
     <!-- End #main -->
 @endsection
 <script>
-    function enableBtn(){
+    function enableBtn() {
         var checkbox = document.getElementById("myCheck");
         var button = document.getElementById("submitButton");
         button.disabled = !checkbox.checked;
     }
-    function checkCheckbox() {
-      var checkbox = document.getElementById("myCheck");
 
-      if (checkbox.checked) {
-        // Set the actual route when the checkbox is checked
-        var route = "{{ route('guest.registration.step2', ['program' => $program->first()->id]) }}";
-        // Perform the redirection if needed
-        window.location.href = route;
-        console.log("Redirecting to: " + route);
-      } else {
-        // Do something else or show a message
-        console.log("Checkbox not checked, do something else.");
-      }
+    function checkCheckbox() {
+        var checkbox = document.getElementById("myCheck");
+
+        if (checkbox.checked) {
+            // Set the actual route when the checkbox is checked
+            var route = "{{ route('guest.registration.step2', ['program' => $program->first()->id]) }}";
+            // Perform the redirection if needed
+            window.location.href = route;
+            console.log("Redirecting to: " + route);
+        } else {
+            // Do something else or show a message
+            console.log("Checkbox not checked, do something else.");
+        }
     }
-  </script>
+</script>
 <script>
     function toggleButton() {
         var checkbox = document.getElementById("myCheck");

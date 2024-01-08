@@ -4,14 +4,13 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
 
-    <title>TOP SCHOOL</title>
+    <title>Cendikia.</title>
     <meta content="" name="description" />
     <meta content="" name="keywords" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- Favicons -->
-    <link href="{{URL::asset('assets/images/favicon.png')}}" rel="icon" />
-    <link href="{{URL::asset('assets/images/apple-touch-icon.png')}}" rel="apple-touch-icon" />
+    <link href="{{URL::asset('assets/images/favicon.ico')}}" rel="icon" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

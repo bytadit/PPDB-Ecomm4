@@ -3,7 +3,7 @@
 @section('main')
     <main id="main">
         <!-- ======= Breadcrumbs ======= -->
-        <div class="breadcrumbs d-flex align-items-center" style="background-image: url('img/bg_5.jpg')">
+        <div class="breadcrumbs d-flex align-items-center" style="background-image: url('/images/bgd_1.jpg')">
             <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
                 <h2>Pendaftaran</h2>
                 <ol>
@@ -24,30 +24,41 @@
                                 <div class="row gy-4">
                                     <div class="col-lg-12">
                                         <div
-                                            class="info-item d-flex flex-column justify-content-center align-items-center mb-3">
-                                            <h3>Pembayaran Pendaftaran</h3>
-                                            <div class="container">
-                                                <div class="card m-3 p3 text-center countdown-container" id="countdown-cont">
-                                                    <h3>Nominal :</span></h3>
-                                                    <h1>@currency($program->first()->biaya_pendaftaran)</h1>
-                                                    <h3>Batas Pembayaran : <span id="countdown"></span></h3>
+                                            class="card">
+                                            <div class="card-header align-items-center d-flex">
+                                            <h4 class="card-title mb-0 flex-grow-1" style="text-align:center;">Pembayaran Pendaftaran</h4>
+                                            </div>
+                                            <div class="container" style="margin-left: -12px">
+                                                <div class="card m-0 text-center countdown-container" id="countdown-cont" style="width:102.5%;">
+                                                    <br>
+                                                    <h5>Untuk Melanjutkan Pendaftaran, Silahkan membayar Biaya Pendaftaran Terlebih Dahulu!</h5>
+                                                    <br>
+                                                    <h5>Nominal :</span></h5>
+                                                    <h1 style="color:red">@currency($program->first()->biaya_pendaftaran)</h1>
+                                                    <br>
+                                                    <h4>Batas Pembayaran : <span id="countdown" style="color:green"></span></h4>
+                                                    <br>
                                                 </div>
-                                                <div class="card m-3 p3 text-center info-container d-none" id="info-cont">
-                                                    <h1>Selamat akun anda telah terdaftar!</h1>
-                                                    <h3>Harap Catat Informasi Akun Berikut:</h3>
+                                                <div class="card m-3 p3 text-center info-container d-none" id="info-cont" style="width:102.5%;">
+                                                    <br>
+                                                    <h2>Selamat Akun Anda Telah Terdaftar!</h2>
+                                                    <br>
+                                                    <h4>Harap Catat Informasi Akun Berikut  :</h4>
                                                     <ul class="list-unstyled">
                                                         <li>NIK: <span id="nomor-nik"></span></li>
                                                         <li>E-mail: <span id="alamat-email"></span></li>
                                                         <li>Password: <span id="password-login"></span></li>
                                                     </ul>
                                                 </div>
-                                                <div class="text-center">
+                                                <div class="text-center" style="margin:20px">
+                                                    
                                                     <button id="payButton" onclick="postPayment({{$program->first()->id}})" class="btn btn-primary">
                                                         Bayar Sekarang
                                                     </button>
                                                     <a id="loginButton" href="{{route('login')}}" class="btn btn-primary d-none">
                                                         Masuk Akun Sekarang
                                                     </a>
+                                                
                                                 </div>
                                             </div>
                                         </div>

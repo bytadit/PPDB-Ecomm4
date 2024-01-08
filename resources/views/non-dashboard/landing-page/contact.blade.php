@@ -3,7 +3,7 @@
 @section('main')
     <main id="main">
       <!-- ======= Breadcrumbs ======= -->
-      <div class="breadcrumbs d-flex align-items-center" style="background-image: url('assets/images/bg_5.jpg')">
+      <div class="breadcrumbs d-flex align-items-center" style="background-image: url('/images/bgd_1.jpg')">
         <div class="container position-relative d-flex flex-column align-items-center" data-aos="fade">
           <h2>Kontak</h2>
           <ol>
@@ -19,7 +19,7 @@
         <div class="container" data-aos="fade-up" data-aos-delay="100">
           <div class="row gy-4">
             <div class="col-lg-6">
-              <div class="info-item d-flex flex-column justify-content-center align-items-center">
+              <div class="info-item2 d-flex flex-column justify-content-center align-items-center">
                 <i class="bi bi-map"></i>
                 <h3>Alamat</h3>
                 <p>Jalan Semangat No 7, Toriyo, Bendosari, Sukoharjo</p>
@@ -28,7 +28,7 @@
             <!-- End Info Item -->
 
             <div class="col-lg-3 col-md-6">
-              <div class="info-item d-flex flex-column justify-content-center align-items-center">
+              <div class="info-item2 d-flex flex-column justify-content-center align-items-center">
                 <i class="bi bi-envelope"></i>
                 <h3>Email</h3>
                 <p>kelompok4@gmail.com</p>
@@ -37,7 +37,7 @@
             <!-- End Info Item -->
 
             <div class="col-lg-3 col-md-6">
-              <div class="info-item d-flex flex-column justify-content-center align-items-center">
+              <div class="info-item2 d-flex flex-column justify-content-center align-items-center">
                 <i class="bi bi-telephone"></i>
                 <h3>Telepon</h3>
                 <p>+62 888 06 713 716</p>
