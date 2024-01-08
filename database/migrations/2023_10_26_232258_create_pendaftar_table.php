@@ -19,7 +19,7 @@ return new class extends Migration
             $table->dateTime('tgl_lahir');
             $table->tinyInteger('gender')->comment('{1: Laki-laki, 2: Perempuan}');
             $table->boolean('is_final')->default(false);
-            $table->boolean('is_verified')->default(false);
+            $table->unsignedBigInteger('is_verified')->default(0)->comment('0: Belum Terverifikasi; 1: Terverifikasi; 2: Perbaikan');
             $table->unsignedBigInteger('id_penerimaan');
             $table->unsignedBigInteger('id_user')->nullable();
             $table->foreign('id_penerimaan')->references('id')->on('penerimaan')->onDelete('cascade');

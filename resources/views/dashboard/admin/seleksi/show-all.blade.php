@@ -32,28 +32,17 @@
                         <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                             <div class="flex-grow-1">
                                 <h4 class="fs-16 mb-1">Selamat Datang Admin</h4>
-                                <p class="text-muted mb-0">Silakan mengatur program penerimaan berikut!</p>
+                                <p class="text-muted mb-0">Silakan memilih program penerimaan berikut untuk melihat data seleksi!</p>
                             </div>
-                            <button type="button" class="btn btn-success btn-lg btn-label waves-effect waves-light mx-2"
-                                    data-bs-toggle="modal" data-bs-target="#createData">
-                                <i class="ri-menu-add-line label-icon align-middle fs-16 me-2"></i>
-                                Tambah Data
-                            </button>
                         </div>
                     </div>
                     <!--end col-->
                 </div>
                 <!--end row-->
                 {{--                Modals Area--}}
-                @include('dashboard.admin.program.modals.create')
-                {{-- @include('dashboard.admin.feature1.modals.report') --}}
                 <div class="row">
                     <div class="col-lg-12">
                         <!-- Success Alert -->
-                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
-                            <span>Status program <strong id="alert-message"></strong> diubah!</span>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
                         <div class="card">
                             <div class="card-header text-center">
                                 <h1 class="mb-0">Program Penerimaan</h1>
@@ -77,17 +66,11 @@
                                             <td>{{$loop->iteration}}</td>
                                             <td>{{$penerimaan->periode}}</td>
                                             <td>{{$penerimaan->jalur->nama}}</td>
-                                            <td>
-                                                <select class="form-select status-dropdown" data-program-id="{{ $penerimaan->id }}">
-                                                    <option value="0" {{ $penerimaan->is_open === 0 ? 'selected' : '' }}>Closed</option>
-                                                    <option value="1" {{ $penerimaan->is_open === 1 ? 'selected' : '' }}>Open</option>
-                                                </select>
-                                            </td>
+                                            <td>{{$penerimaan->is_open == 1 ? 'Open' : 'Closed'}}</td>
                                             <td>
                                                 <div class="d-flex align-items-center fw-medium">
-
-                                                    <a href="{{route('programs.detail-program', ['penerimaan' => $penerimaan->id])}}" class="btn btn-sm btn-soft-warning mx-1">
-                                                        <i class="ri-eye-line"></i> <span>@lang('Lihat Detail')</span>
+                                                    <a href="{{route('seleksi.index', ['penerimaan' => $penerimaan->id])}}" class="btn btn-sm btn-soft-warning mx-1">
+                                                        <i class="ri-eye-line"></i> <span>@lang('Lihat Seleksi')</span>
                                                     </a>
                                                     <button class="btn btn-sm btn-soft-danger ml-1"
                                                             data-bs-toggle="modal"
@@ -140,32 +123,5 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            $('.status-dropdown').on('change', function () {
-                var programId = $(this).data('program-id');
-                var isOpen = $(this).val();
-
-                $.ajax({
-                    type: 'PATCH',
-                    url: 'program-penerimaan/update-status/' + programId,
-                    data: {
-                        is_open: isOpen,
-                        _token: '{{ csrf_token() }}',
-                    },
-                    success: function (data) {
-                        console.log(data.message);
-                        // You can add additional logic or UI updates here
-                        // Show the success alert and update the message
-                        $('#alert-message').text(data.message);
-                        $('.alert-success').show();
-                    },
-                    error: function (error) {
-                        console.log('Error:', error);
-                    },
-                });
-            });
-        });
-    </script>
 
 @endsection

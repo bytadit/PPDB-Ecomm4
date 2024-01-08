@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Penerimaan;
+use App\Models\Jenjang;
+use App\Models\Jalur;
+use App\Models\AdminJenjang;
 use Illuminate\Http\Request;
 
 class SeleksiController extends Controller
@@ -9,6 +13,15 @@ class SeleksiController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function showAll()
+    {
+        return view('dashboard.admin.seleksi.show-all', [
+            'title' => 'Halaman Admin | Program Penerimaan',
+            'penerimaans' => Penerimaan::where('id_jenjang', AdminJenjang::where('user_id', auth()->user()->id)->first()->jenjang_id)->get(),
+            'jenjangs' => Jenjang::all(),
+            'jalurs' => Jalur::all(),
+        ]);
+    }
     public function index()
     {
         //

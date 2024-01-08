@@ -10,6 +10,9 @@ use App\Models\Pendaftar;
 use App\Models\OrangTuaPendaftar;
 use App\Models\Pembayaran;
 use App\Models\Penerimaan;
+use App\Models\AdminJenjang;
+use App\Models\Jalur;
+use App\Models\Jenjang;
 use App\Models\Rapor;
 use App\Models\User;
 use App\Models\SekolahPendaftar;
@@ -24,8 +27,45 @@ class PendaftarController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function verifikasiData(Request $request)
     {
+        $penerimaan_id = $request->route('penerimaan');
+        $pendaftar_id = $request->route('pendaftar');
+        $pendaftar = Pendaftar::find($pendaftar_id);
+        $pendaftar->is_verified = $request->verifikasi_data;
+        $pendaftar->save();
+        Alert::success('Sukses!', 'Status Verifikasi Berhasil Ditambahkan!');
+        return redirect('/pendaftar-program/'. $penerimaan_id .'/pendaftar');
+    }
+    public function ubahVerifikasi(Request $request)
+    {
+        $penerimaan_id = $request->route('penerimaan');
+        $pendaftar_id = $request->route('pendaftar');
+        $pendaftar = Pendaftar::find($pendaftar_id);
+        $pendaftar->is_verified = $request->verifikasi_data;
+        $pendaftar->save();
+        Alert::success('Sukses!', 'Status Verifikasi Berhasil Diubah!');
+        return redirect('/pendaftar-program/'. $penerimaan_id .'/pendaftar/' . $pendaftar_id);
+    }
+    public function showAll(Request $request)
+    {
+        return view('dashboard.admin.pendaftar.show-all', [
+            'title' => 'Halaman Admin | Program Penerimaan',
+            'penerimaans' => Penerimaan::where('id_jenjang', AdminJenjang::where('user_id', auth()->user()->id)->first()->jenjang_id)->get(),
+            'jenjangs' => Jenjang::all(),
+            'jalurs' => Jalur::all(),
+        ]);
+    }
+    public function index(Request $request)
+    {
+        $penerimaan_id = $request->route('penerimaan');
+        return view('dashboard.admin.pendaftar.index', [
+            'title' => 'Halaman Admin | Program Penerimaan',
+            'penerimaan_id' => $penerimaan_id,
+            'pendaftars' => Pendaftar::where('id_penerimaan', $penerimaan_id)->get(),
+            'jenjangs' => Jenjang::all(),
+            'jalurs' => Jalur::all(),
+        ]);
     }
 
     /**
@@ -126,15 +166,17 @@ class PendaftarController extends Controller
             array_merge($mainValidationRules, $dateValidationRule),
             [
                 'nik.unique' => 'Nomor NIK telah digunakan',
+                'nik.required' => 'Nomor NIK Wajib Diisi!',
                 'email.unique' => 'Alamat Email telah digunakan',
+                'email.required' => 'Alamat Email Wajib Diisi!',
                 'nisn.required' => 'Nomor NISN Wajib Diisi!',
                 'nama.required' => 'Nama Wajib Diisi!',
                 'gender.required' => 'Jenis Kelamin Wajib Diisi!',
                 'alamat.required' => 'Alamat Wajib Diisi!',
                 'tgl_lahir.required' => 'Tanggal Lahir Wajib Diisi!',
                 'tgl_lahir.date' => 'Usia kurang dari ketentuan',
-                'tgl_lahir.before' => 'Usia tidak mencukupi ketentuan',
-                'tgl_lahir.after' => 'Usia melebihi dari ketentuan',
+                'tgl_lahir.before' => 'Usia tidak mencukupi ketentuan ' . $persyaratan->where('nama', 'Usia')->first()->value . ' tahun',
+                'tgl_lahir.after' => 'Usia melebihi ketentuan ' . $persyaratan->where('nama', 'Usia')->first()->value . ' tahun',
             ]
         );
 

@@ -100,18 +100,26 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard/'], function(){
         // Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
         // Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/program-penerimaan/{penerimaan}/detail', [ProgramController::class, 'detailProgram'])->name('programs.detail-program');
+        Route::get('/pendaftar-program', [PendaftarController::class, 'showAll'])->name('data-pendaftar.all');
+        Route::get('/seleksi', [SeleksiController::class, 'showAll'])->name('seleksi.all');
         Route::patch('/program-penerimaan/update-status/{penerimaan}', [ProgramController::class, 'updateStatus'])->name('programs.update-status');
         Route::put('/program-penerimaan/update-biaya/{penerimaan}', [BiayaController::class, 'updateBiayaDaftar'])->name('biaya-pendaftaran');
         Route::put('/batas-nilai/{penerimaan}', [BatasNilaiController::class, 'updateBatasNilai'])->name('batas-nilai');
+        Route::put('/pendaftar-program/{penerimaan}/pendaftar/{pendaftar}', [PendaftarController::class, 'verifikasiData'])->name('verifikasi-data');
+        Route::put('/pendaftar-program/{penerimaan}/pendaftar/{pendaftar}/ubah', [PendaftarController::class, 'ubahVerifikasi'])->name('ubah-verifikasi');
+
         Route::resource('/program-penerimaan', ProgramController::class);
         Route::resource('/jadwal-kegiatan', JadwalController::class);
         Route::resource('/biaya', BiayaController::class);
         Route::resource('/syarat', PersyaratanController::class);
         Route::resource('/document', DokumenKegiatanController::class);
         Route::resource('/rapor', RaporProgramController::class);
+        Route::resource('/pendaftar-program/{penerimaan}/pendaftar', PendaftarController::class);
+        Route::resource('/pendaftar-program/{penerimaan}/seleksi', SeleksiController::class);
+
         // end of program
-        Route::resource('/data-pendaftar', PendaftarController::class);
-        Route::resource('/seleksi', SeleksiController::class);
+        // Route::resource('/program-penerimaan/{penerimaan}/data-pendaftar', PendaftarController::class);
+        // Route::resource('/program-penerimaan/{penerimaan}/seleksi', SeleksiController::class);
     });
     Route::group(['middleware' => ['role:pendaftar'], 'prefix' => 'pendaftar', ], function() {
         // Route::get('/', [DashboardController::class, 'index'])->name('pendaftar.dashboard');

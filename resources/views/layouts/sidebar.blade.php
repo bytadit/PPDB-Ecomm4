@@ -65,13 +65,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link fw-medium {{ Request::routeIs('data-pendaftar.index') ? 'active fw-bold' : '' }}" href="{{route('data-pendaftar.index')}}"
+                        <a class="nav-link menu-link fw-medium {{ (Request::routeIs('data-pendaftar.all') || Request::is('dashboard/admin/pendaftar-program/*/pendaftar')) ? 'active fw-bold' : '' }}" href="{{route('data-pendaftar.all')}}"
                         role="button" aria-expanded="false" aria-controls="sidebarApps">
                             <i class="ri-team-line"></i> <span >@lang('Data Pendaftar')</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link menu-link fw-medium {{ Request::routeIs('data-pendaftar.index') ? 'active fw-bold' : '' }}" href="{{route('data-pendaftar.index')}}"
+                        <a class="nav-link menu-link fw-medium {{ Request::routeIs('seleksi.all') ? 'active fw-bold' : '' }}" href="{{route('seleksi.all')}}"
                         role="button" aria-expanded="false" aria-controls="sidebarApps">
                             <i class="ri-team-line"></i> <span >@lang('Seleksi')</span>
                         </a>
