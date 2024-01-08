@@ -37,36 +37,48 @@
                         <i class="ri-home-2-line"></i> <span >@lang('Beranda')</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('referensi-kegiatan.index') ? 'active fw-bold' : '' }}" href="{{route('referensi-kegiatan.index')}}"
-                       role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-run-line"></i> <span >@lang('Referensi Kegiatan')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('jenjang-pendidikan.index') ? 'active fw-bold' : '' }}" href="{{route('jenjang-pendidikan.index')}}"
-                       role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-briefcase-line"></i> <span >@lang('Jenjang Pendidikan')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ Request::routeIs('jalur-penerimaan.index') ? 'active fw-bold' : '' }}" href="{{route('jalur-penerimaan.index')}}"
-                       role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-rocket-line"></i> <span >@lang('Jalur Penerimaan')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link fw-medium {{ (Request::routeIs('program-penerimaan.index') || Request::is('dashboard/admin/program-penerimaan/*')) ? 'active fw-bold' : '' }}" href="{{route('program-penerimaan.index')}}"
-                       role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-folder-user-fill"></i> <span >@lang('Program Penerimaan')</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="disabled nav-link menu-link fw-medium {{ Request::routeIs('data-pendaftar.index') ? 'active fw-bold' : '' }}" href="{{route('data-pendaftar.index')}}"
-                       role="button" aria-expanded="false" aria-controls="sidebarApps">
-                        <i class="ri-team-line"></i> <span >@lang('Data Pendaftar (coming soon)')</span>
-                    </a>
-                </li>
+                @role('superadmin')
+                    <li class="nav-item">
+                        <a class="nav-link menu-link fw-medium {{ Request::routeIs('referensi-kegiatan.index') ? 'active fw-bold' : '' }}" href="{{route('referensi-kegiatan.index')}}"
+                        role="button" aria-expanded="false" aria-controls="sidebarApps">
+                            <i class="ri-run-line"></i> <span >@lang('Referensi Kegiatan')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link fw-medium {{ Request::routeIs('jenjang-pendidikan.index') ? 'active fw-bold' : '' }}" href="{{route('jenjang-pendidikan.index')}}"
+                        role="button" aria-expanded="false" aria-controls="sidebarApps">
+                            <i class="ri-briefcase-line"></i> <span >@lang('Jenjang Pendidikan')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link fw-medium {{ Request::routeIs('jalur-penerimaan.index') ? 'active fw-bold' : '' }}" href="{{route('jalur-penerimaan.index')}}"
+                        role="button" aria-expanded="false" aria-controls="sidebarApps">
+                            <i class="ri-rocket-line"></i> <span >@lang('Jalur Penerimaan')</span>
+                        </a>
+                    </li>
+                @endrole
+                @role('adminjenjang')
+                    <li class="nav-item">
+                        <a class="nav-link menu-link fw-medium {{ (Request::routeIs('program-penerimaan.index') || Request::is('dashboard/admin/program-penerimaan/*')) ? 'active fw-bold' : '' }}" href="{{route('program-penerimaan.index')}}"
+                        role="button" aria-expanded="false" aria-controls="sidebarApps">
+                            <i class="ri-folder-user-fill"></i> <span >@lang('Program Penerimaan')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link fw-medium {{ Request::routeIs('data-pendaftar.index') ? 'active fw-bold' : '' }}" href="{{route('data-pendaftar.index')}}"
+                        role="button" aria-expanded="false" aria-controls="sidebarApps">
+                            <i class="ri-team-line"></i> <span >@lang('Data Pendaftar')</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link menu-link fw-medium {{ Request::routeIs('data-pendaftar.index') ? 'active fw-bold' : '' }}" href="{{route('data-pendaftar.index')}}"
+                        role="button" aria-expanded="false" aria-controls="sidebarApps">
+                            <i class="ri-team-line"></i> <span >@lang('Seleksi')</span>
+                        </a>
+                    </li>
+                @endrole
+                @role('pendaftar')
+                @endrole
                 <li class="nav-item">
                     <form action="{{route('logout')}}" method="post">
                         @csrf

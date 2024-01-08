@@ -4,26 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class SeleksiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        if(auth()->user()->hasRole("adminjenjang")){
-            return view('dashboard.admin.index', [
-                'title' => 'Halaman Admin | Beranda'
-            ]);
-        }else if(auth()->user()->hasRole("pendaftar")){
-            return view('dashboard.pendaftar.index', [
-                'title' => 'Halaman Pendaftar | Beranda'
-            ]);
-        }else if(auth()->user()->hasRole("superadmin")){
-            return view('dashboard.superadmin.index', [
-                'title' => 'Halaman SuperAdmin | Beranda'
-            ]);
-        }
+        //
     }
 
     /**

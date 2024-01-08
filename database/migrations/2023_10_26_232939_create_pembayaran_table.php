@@ -17,6 +17,9 @@ return new class extends Migration
             $table->integer('amount')->default(0);
             $table->string('payment_status')->nullable();
             $table->text('payment_link')->nullable();
+            $table->string('payment_method')->nullable();
+            $table->string('payment_channel')->nullable();
+            $table->dateTime('paid_at')->nullable();
             $table->unsignedBigInteger('id_pendaftar')->nullable();
             $table->foreign('id_pendaftar')->references('id')->on('pendaftar')->onDelete('cascade');
             $table->timestamps();

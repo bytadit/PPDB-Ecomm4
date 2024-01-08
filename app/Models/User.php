@@ -10,8 +10,10 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Laratrust\Contracts\LaratrustUser;
 use Laratrust\Traits\HasRolesAndPermissions;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable
+
+class User extends Authenticatable implements LaratrustUser
 {
     use HasApiTokens, HasFactory, Notifiable, HasRolesAndPermissions;
 
@@ -51,5 +53,9 @@ class User extends Authenticatable
     public function pendaftars(): HasMany
     {
         return $this->hasMany(Pendaftar::class, 'id_user');
+    }
+    public function jenjangs(): BelongsToMany
+    {
+        return $this->belongsToMany(Jenjang::class, 'admin_jenjang', 'user_id', 'jenjang_id');
     }
 }

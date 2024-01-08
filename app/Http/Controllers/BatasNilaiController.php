@@ -2,28 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BatasNilai;
 use Illuminate\Http\Request;
+use Alert;
 
-class DashboardController extends Controller
+class BatasNilaiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        if(auth()->user()->hasRole("adminjenjang")){
-            return view('dashboard.admin.index', [
-                'title' => 'Halaman Admin | Beranda'
-            ]);
-        }else if(auth()->user()->hasRole("pendaftar")){
-            return view('dashboard.pendaftar.index', [
-                'title' => 'Halaman Pendaftar | Beranda'
-            ]);
-        }else if(auth()->user()->hasRole("superadmin")){
-            return view('dashboard.superadmin.index', [
-                'title' => 'Halaman SuperAdmin | Beranda'
-            ]);
-        }
+        //
+    }
+    public function updateBatasNilai(Request $request)
+    {
+        $id_penerimaan = $request->id_penerimaan;
+        $id_batas = BatasNilai::where('id_penerimaan', $id_penerimaan)->first()->id;
+        $batas_nilai = BatasNilai::find($id_batas);
+        $batas_nilai->tes_akademik = $request->tes_akademik;
+        $batas_nilai->tes_wawancara = $request->tes_wawancara;
+        $batas_nilai->nilai_akhir = $request->nilai_akhir;
+        $batas_nilai->save();
+        Alert::success('Sukses!', 'Data Batas Nilai berhasil diubah!');
+        return redirect('/dashboard/admin/program-penerimaan/'. $id_penerimaan .'/detail#tes');
     }
 
     /**

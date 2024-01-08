@@ -10,7 +10,7 @@
                 <div class="col-lg-6 text-center">
                     <h2 data-aos="fade-down">Selamat Datang di  <span>TOP SCHOOL</span></h2>
                     <p data-aos="fade-up">Top School adalah sekolah yang berada diatas (top) tanah<br> Dinaungi oleh Yayasan Tuna Pertama</p>
-                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('guest.about') }}" class="btn-get-started">Mulai</a>
+                    <a data-aos="fade-up" data-aos-delay="200" href="{{ route('guest.registration.home') }}" class="btn-get-started">Daftar Sekarang</a>
                 </div>
             </div>
         </div>

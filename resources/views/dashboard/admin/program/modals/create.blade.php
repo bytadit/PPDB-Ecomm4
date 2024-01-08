@@ -16,17 +16,6 @@
                             </div>
                         </div><!--end col-->
                         <div class="col-lg-12 mb-3">
-                            <label for="guest_id" class="form-label">Pilih Jenjang</label>
-                            <select class="form-control" id="id_jenjang" data-choices data-choices-groups  data-placeholder="Pilih Jenjang" name="id_jenjang">
-                                <option value="">Pilih Jenjang</option>
-                                <optgroup label="Jenjang Pendidikan">
-                                    @foreach($jenjangs as $jenjang)
-                                        <option value="{{$jenjang->id}}">{{$jenjang->nama}}</option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
-                        </div>
-                        <div class="col-lg-12 mb-3">
                             <label for="guest_id" class="form-label">Pilih Jalur</label>
                             <select class="form-control" id="id_jalur" data-choices data-choices-groups  data-placeholder="Pilih Jalur" name="id_jalur">
                                 <option value="">Pilih Jalur</option>

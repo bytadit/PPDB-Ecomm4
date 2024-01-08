@@ -93,7 +93,7 @@
                                                         <div class="form-check form-radio-primary mb-3">
                                                             <input class="form-check-input" type="radio" name="gender"
                                                                 id="genderMale" value="1"
-                                                                @if (session()->has('pendaftar')) {{ $pendaftar['gender'] == 1 ? 'checked' : '' }} @endif
+                                                                @if (session()->has('pendaftar')) {{ $pendaftar['gender'] == 1 ? 'checked' : '' }} @endif>
                                                                 <label class="form-check-label" for="genderMale">
                                                             Laki-Laki
                                                             </label>
@@ -101,7 +101,7 @@
                                                         <div class="form-check form-radio-danger mb-3">
                                                             <input class="form-check-input" type="radio" name="gender"
                                                                 id="genderFemale" value="2"
-                                                                @if (session()->has('pendaftar')) {{ $pendaftar['gender'] == 2 ? 'checked' : '' }} @endif
+                                                                @if (session()->has('pendaftar')) {{ $pendaftar['gender'] == 2 ? 'checked' : '' }} @endif>
                                                             <label class="form-check-label" for="genderFemale">
                                                                 Perempuan
                                                             </label>

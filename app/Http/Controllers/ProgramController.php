@@ -9,10 +9,13 @@ use App\Models\Jalur;
 use App\Models\JenisKegiatan;
 use App\Models\Kegiatan;
 use App\Models\Persyaratan;
+use App\Models\AdminJenjang;
 use App\Models\Dokumen;
 use App\Models\Biaya;
 use App\Models\Rapor;
 use Alert;
+use App\Models\BatasNilai;
+
 class ProgramController extends Controller
 {
     /**
@@ -22,7 +25,7 @@ class ProgramController extends Controller
     {
         return view('dashboard.admin.program.index', [
             'title' => 'Halaman Admin | Program Penerimaan',
-            'penerimaans' => Penerimaan::all(),
+            'penerimaans' => Penerimaan::where('id_jenjang', AdminJenjang::where('user_id', auth()->user()->id)->first()->jenjang_id)->get(),
             'jenjangs' => Jenjang::all(),
             'jalurs' => Jalur::all(),
         ]);
@@ -41,19 +44,20 @@ class ProgramController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'id_jenjang' => 'required',
-            'id_jalur' => 'required',
-            'periode' => 'required'
+        $data = Penerimaan::create([
+            'id_jenjang' => AdminJenjang::where('user_id', auth()->user()->id)->first()->jenjang_id,
+            'id_jalur' => $request->id_jalur,
+            'periode' => $request->periode
         ]);
-        $data = Penerimaan::create($request->all());
-
         Persyaratan::create([
             'nama' => 'Usia',
             'setting' => 1,
             'value' => 16,
             'is_mandatory' => true,
             'jenis_persyaratan' => 2,
+            'id_penerimaan' => $data->id
+        ]);
+        BatasNilai::create([
             'id_penerimaan' => $data->id
         ]);
 
@@ -114,7 +118,8 @@ class ProgramController extends Controller
             'biayas' => Biaya::where('id_penerimaan', $penerimaan->id)->get(),
             'persyaratans' => Persyaratan::where('id_penerimaan', $penerimaan->id)->get(),
             'dokumens' => Dokumen::where('id_penerimaan', $penerimaan->id)->get(),
-            'rapors' => Rapor::where('id_penerimaan', $penerimaan->id)->get()
+            'rapors' => Rapor::where('id_penerimaan', $penerimaan->id)->get(),
+            'batas_nilai' => BatasNilai::where('id_penerimaan', $penerimaan->id)->get()
         ]);
     }
 }

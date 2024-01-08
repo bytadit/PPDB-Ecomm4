@@ -46,4 +46,9 @@ class Penerimaan extends Model
     {
         return $this->hasMany(Pendaftar::class, 'id_penerimaan');
     }
+    public function batasNilai(): HasMany
+    {
+        return $this->hasMany(BatasNilai::class, 'id_penerimaan');
+    }
+
 }

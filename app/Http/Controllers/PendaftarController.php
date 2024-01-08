@@ -102,30 +102,44 @@ class PendaftarController extends Controller
     {
         $program_id = $request->route('program');
         $penerimaan = Penerimaan::where('id', $program_id)->get();
+        $persyaratan = Persyaratan::where('id_penerimaan', $program_id)->get();
 
-        // Validate the input data
-        $validatedPendaftar = $request->validate([
+        $mainValidationRules = [
             'nisn' => 'required',
             'nik' => 'required|unique:users',
             'nama' => 'required',
             'gender' => 'required',
-            'tgl_lahir' => 'required',
             'alamat' => 'required',
             'id_penerimaan' => 'required',
             'email' => 'required|unique:users',
-        ], [
-            'nik.unique' => 'Nomor NIK telah digunakan',
-            'email.unique' => 'Alamat Email telah digunakan',
-            'nisn.required' => 'Nomor NISN Wajib Diisi!',
-            'nama.required' => 'Nama Wajib Diisi!',
-            'gender.required' => 'Jenis Kelamin Wajib Diisi!',
-            'alamat.required' => 'Alamat Wajib Diisi!',
-            'tgl_lahir.required' => 'Tanggal Lahir Wajib Diisi!',
-        ]);
+        ];
+        if($persyaratan->where('nama', 'Usia')->first()->setting == 1){
+            $dateValidationRule = [
+                'tgl_lahir' => 'required|date|after:' . now()->subYears($persyaratan->first()->value)->format('Y-m-d'),
+            ];
+        }else if($persyaratan->where('nama', 'Usia')->first()->setting == 2){
+            $dateValidationRule = [
+                'tgl_lahir' => 'required|date|before:' . now()->subYears($persyaratan->first()->value)->format('Y-m-d'),
+            ];
+        }
+        $validatedPendaftar = $request->validate(
+            array_merge($mainValidationRules, $dateValidationRule),
+            [
+                'nik.unique' => 'Nomor NIK telah digunakan',
+                'email.unique' => 'Alamat Email telah digunakan',
+                'nisn.required' => 'Nomor NISN Wajib Diisi!',
+                'nama.required' => 'Nama Wajib Diisi!',
+                'gender.required' => 'Jenis Kelamin Wajib Diisi!',
+                'alamat.required' => 'Alamat Wajib Diisi!',
+                'tgl_lahir.required' => 'Tanggal Lahir Wajib Diisi!',
+                'tgl_lahir.date' => 'Usia kurang dari ketentuan',
+                'tgl_lahir.before' => 'Usia tidak mencukupi ketentuan',
+                'tgl_lahir.after' => 'Usia melebihi dari ketentuan',
+            ]
+        );
 
         // Retrieve the existing data from the session or create an empty array if it doesn't exist
         $pendaftar = $request->session()->get('pendaftar', []);
-
         // Update or add the validated data to the array
         $pendaftar['nisn'] = $validatedPendaftar['nisn'];
         $pendaftar['nik'] = $validatedPendaftar['nik'];
@@ -458,9 +472,15 @@ class PendaftarController extends Controller
         $data = request()->all();
         $status = $data['status'];
         $external_id = $data['external_id'];
+        // $payment_method = $data['payment_method'];
+        // $payment_channel = $data['$payment_channel'];
+        // $paid_at = $data['paid_at'];
 
         Pembayaran::where('doc_no', $external_id)->update([
-            'payment_status' => $status
+            'payment_status' => $status,
+            // 'payment_method' => $data['payment_method'],
+            // 'payment_channel' => $payment_channel,
+            // 'paid_at' => $data['paid_at']
         ]);
         return response()->json($data);
     }

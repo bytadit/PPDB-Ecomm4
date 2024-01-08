@@ -93,6 +93,12 @@
                                                 Nilai Rapor
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link fw-semibold" data-bs-toggle="tab" href="#tes"
+                                                role="tab">
+                                                Nilai Tes
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <!-- end card body -->
@@ -224,11 +230,6 @@
                                                                 data-target="{{$penerimaan->first()->biaya_pendaftaran}}">0</span></h2>
                                                     </div>
                                                     <div>
-                                                        {{-- <div class="avatar-sm flex-shrink-0 mb-3">
-                                                            <span class="avatar-title bg-success rounded-circle fs-2">
-                                                                <i data-feather="dollar-sign"></i>
-                                                            </span>
-                                                        </div> --}}
                                                         <div class="d-flex align-items-center fw-medium">
                                                             <button class="btn btn-sm btn-soft-warning mx-1"
                                                                     data-bs-toggle="modal"
@@ -610,6 +611,86 @@
                                                     @endforeach
                                                     </tbody>
                                                 </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!-- end row -->
+                            </div>
+                            <div class="tab-pane fade" id="tes" role="tabpanel">
+                                <div class="row mb-3 pb-1">
+                                    <div class="col-12">
+                                        <div class="d-flex align-items-lg-center flex-lg-row flex-column">
+                                            <div class="flex-grow-1">
+                                                <h4 class="fs-16 mb-1">Selamat Datang Admin</h4>
+                                                <p class="text-muted mb-0">Silakan mengatur syarat nilai tes berikut!</p>
+                                            </div>
+                                            <button type="button" class="btn btn-success btn-lg btn-label waves-effect waves-light mx-2"
+                                                    data-bs-toggle="modal" data-bs-target="#ubahDataNilai">
+                                                <i class="ri-menu-add-line label-icon align-middle fs-16 me-2"></i>
+                                                Ubah Data
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!--end col-->
+                                </div>
+                                <!--end row-->
+                                {{--                Modals Area--}}
+                                @include('dashboard.admin.program.modals.batas-nilai.edit')
+                                <div class="row">
+                                    <div class="col-12">
+                                        <!-- Success Alert -->
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert" style="display: none;">
+                                            <span>Batas Nilai Tes<strong id="alert-message"></strong> diubah!</span>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        <div class="card">
+                                            <div class="card-header text-center">
+                                                <h1 class="mb-0">Daftar Batas Nilai</h1>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-lg-4">
+                                                        <div class="card card-animate">
+                                                            <div class="card-body">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div>
+                                                                        <h5 class="fw-medium text-muted mb-0">Batas Nilai Tes Akademik</h5>
+                                                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
+                                                                                data-target="{{ $batas_nilai->count() > 0 ? $batas_nilai->first()->tes_akademik : 0 }}"></span></h2>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- end card body -->
+                                                        </div> <!-- end card-->
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="card card-animate">
+                                                            <div class="card-body">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div>
+                                                                        <h5 class="fw-medium text-muted mb-0">Batas Nilai Tes Wawancara</h5>
+                                                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
+                                                                                data-target="{{$batas_nilai->count() > 0 ? $batas_nilai->first()->tes_wawancara : 0}}"></span></h2>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- end card body -->
+                                                        </div> <!-- end card-->
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="card card-animate">
+                                                            <div class="card-body">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <div>
+                                                                        <h5 class="fw-medium text-muted mb-0">Batas Nilai Akhir</h5>
+                                                                        <h2 class="mt-4 ff-secondary fw-semibold"><span class="counter-value"
+                                                                                data-target="{{$batas_nilai->count() > 0 ? $batas_nilai->first()->nilai_akhir : 0}}"></span></h2>
+                                                                    </div>
+                                                                </div>
+                                                            </div><!-- end card body -->
+                                                        </div> <!-- end card-->
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

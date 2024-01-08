@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_penerimaan');
             $table->foreign('id_penerimaan')->references('id')->on('penerimaan')->onDelete('cascade');
-            $table->integer('tes_akademik');
-            $table->integer('tes_wawancara');
+            $table->integer('tes_akademik')->default(0);
+            $table->integer('tes_wawancara')->default(0);
+            $table->integer('nilai_akhir')->default(0);
             $table->timestamps();
         });
     }

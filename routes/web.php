@@ -11,6 +11,8 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PendaftarController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\BiayaController;
+use App\Http\Controllers\SeleksiController;
+use App\Http\Controllers\BatasNilaiController;
 use App\Http\Controllers\PersyaratanController;
 use App\Http\Controllers\PendaftarDashboardController;
 use App\Http\Controllers\DashboardController;
@@ -94,25 +96,29 @@ Route::post('/daftar-program/{program}/pembayaran/callback', [PendaftarControlle
 Auth::routes();
 Route::group(['middleware' => ['auth'], 'prefix' => 'dashboard/'], function(){
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::group(['middleware' => ['role:admin'], 'prefix' => 'admin', ], function() {
+    Route::group(['middleware' => ['role:adminjenjang'], 'prefix' => 'admin', ], function() {
         // Route::get('/', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
         // Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
         Route::get('/program-penerimaan/{penerimaan}/detail', [ProgramController::class, 'detailProgram'])->name('programs.detail-program');
         Route::patch('/program-penerimaan/update-status/{penerimaan}', [ProgramController::class, 'updateStatus'])->name('programs.update-status');
         Route::put('/program-penerimaan/update-biaya/{penerimaan}', [BiayaController::class, 'updateBiayaDaftar'])->name('biaya-pendaftaran');
-        Route::resource('/referensi-kegiatan', JenisKegiatanController::class);
-        Route::resource('/jenjang-pendidikan', JenjangController::class);
-        Route::resource('/jalur-penerimaan', JalurController::class);
+        Route::put('/batas-nilai/{penerimaan}', [BatasNilaiController::class, 'updateBatasNilai'])->name('batas-nilai');
         Route::resource('/program-penerimaan', ProgramController::class);
-        Route::resource('/data-pendaftar', PendaftarController::class);
         Route::resource('/jadwal-kegiatan', JadwalController::class);
         Route::resource('/biaya', BiayaController::class);
         Route::resource('/syarat', PersyaratanController::class);
         Route::resource('/document', DokumenKegiatanController::class);
         Route::resource('/rapor', RaporProgramController::class);
-
+        // end of program
+        Route::resource('/data-pendaftar', PendaftarController::class);
+        Route::resource('/seleksi', SeleksiController::class);
     });
     Route::group(['middleware' => ['role:pendaftar'], 'prefix' => 'pendaftar', ], function() {
         // Route::get('/', [DashboardController::class, 'index'])->name('pendaftar.dashboard');
+    });
+    Route::group(['middleware' => ['role:superadmin'], 'prefix' => 'superadmin', ], function() {
+        Route::resource('/referensi-kegiatan', JenisKegiatanController::class);
+        Route::resource('/jenjang-pendidikan', JenjangController::class);
+        Route::resource('/jalur-penerimaan', JalurController::class);
     });
 });

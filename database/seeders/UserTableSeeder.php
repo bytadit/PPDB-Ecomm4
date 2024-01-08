@@ -17,26 +17,37 @@ class UserTableSeeder extends Seeder
     {
         // user
         DB::table('users')->insert([
-            'email' => 'admin@gmail.com',
-            'name' => 'Admin',
+            'email' => 'superadmin@gmail.com',
+            'name' => 'Super Admin',
             'is_admin' => 1,
-            'password' => Hash::make('admin123')
+            'password' => Hash::make('superadmin123')
         ]);
         DB::table('users')->insert([
-            'email' => 'bendahara@gmail.com',
-            'name' => 'Bendahara',
+            'email' => 'adminsd@gmail.com',
+            'name' => 'Admin SD',
             'is_admin' => 1,
-            'password' => Hash::make('bendahara123')
+            'password' => Hash::make('adminsd123')
         ]);
         DB::table('users')->insert([
-            'email' => 'calon@gmail.com',
-            'name' => 'Calon',
-            'is_admin' => 0,
-            'password' => Hash::make('calon123')
+            'email' => 'adminsmp@gmail.com',
+            'name' => 'Admin SMP',
+            'is_admin' => 1,
+            'password' => Hash::make('adminsmp123')
+        ]);
+        DB::table('users')->insert([
+            'email' => 'adminsma@gmail.com',
+            'name' => 'Admin SMA',
+            'is_admin' => 1,
+            'password' => Hash::make('adminsma123')
         ]);
         // roles
         DB::table('roles')->insert([
-            'name' => 'admin',
+            'name' => 'superadmin',
+            'display_name' => 'Administrator',
+            'description' => 'Administrator'
+        ]);
+        DB::table('roles')->insert([
+            'name' => 'adminjenjang',
             'display_name' => 'Administrator',
             'description' => 'Administrator'
         ]);
@@ -63,7 +74,7 @@ class UserTableSeeder extends Seeder
             'user_type' => 'App\Models\User'
         ]);
         DB::table('role_user')->insert([
-            'role_id' => 1,
+            'role_id' => 2,
             'user_id' => 2,
             'user_type' => 'App\Models\User'
         ]);
@@ -72,17 +83,34 @@ class UserTableSeeder extends Seeder
             'user_id' => 3,
             'user_type' => 'App\Models\User'
         ]);
-         // permission user
-         DB::table('permission_user')->insert([
-            'permission_id' => 1,
-            'user_id' => 1,
+        DB::table('role_user')->insert([
+            'role_id' => 2,
+            'user_id' => 4,
             'user_type' => 'App\Models\User'
         ]);
-        DB::table('permission_user')->insert([
-            'permission_id' => 2,
+        DB::table('admin_jenjang')->insert([
             'user_id' => 2,
-            'user_type' => 'App\Models\User'
+            'jenjang_id' => 1,
         ]);
+        DB::table('admin_jenjang')->insert([
+            'user_id' => 3,
+            'jenjang_id' => 2,
+        ]);
+        DB::table('admin_jenjang')->insert([
+            'user_id' => 4,
+            'jenjang_id' => 3,
+        ]);
+         // permission user
+        //  DB::table('permission_user')->insert([
+        //     'permission_id' => 1,
+        //     'user_id' => 1,
+        //     'user_type' => 'App\Models\User'
+        // ]);
+        // DB::table('permission_user')->insert([
+        //     'permission_id' => 2,
+        //     'user_id' => 2,
+        //     'user_type' => 'App\Models\User'
+        // ]);
 
     }
 }
