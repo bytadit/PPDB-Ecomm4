@@ -28,28 +28,37 @@
                                             <div class="card-header align-items-center d-flex">
                                             <h4 class="card-title mb-0 flex-grow-1" style="text-align:center;">Pembayaran Pendaftaran</h4>
                                             </div>
-                                            <div class="container">
-                                                <div class="card m-3 p3 text-center countdown-container" id="countdown-cont">
-                                                    <h3>Nominal :</span></h3>
-                                                    <h1>@currency($program->first()->biaya_pendaftaran)</h1>
-                                                    <h3>Batas Pembayaran : <span id="countdown"></span></h3>
+                                            <div class="container" style="margin-left: -12px">
+                                                <div class="card m-0 text-center countdown-container" id="countdown-cont" style="width:102.5%;">
+                                                    <br>
+                                                    <h5>Untuk Melanjutkan Pendaftaran, Silahkan membayar Biaya Pendaftaran Terlebih Dahulu!</h5>
+                                                    <br>
+                                                    <h5>Nominal :</span></h5>
+                                                    <h1 style="color:red">@currency($program->first()->biaya_pendaftaran)</h1>
+                                                    <br>
+                                                    <h4>Batas Pembayaran : <span id="countdown" style="color:green"></span></h4>
+                                                    <br>
                                                 </div>
-                                                <div class="card m-3 p3 text-center info-container d-none" id="info-cont">
-                                                    <h1>Selamat akun anda telah terdaftar!</h1>
-                                                    <h3>Harap Catat Informasi Akun Berikut:</h3>
+                                                <div class="card m-3 p3 text-center info-container d-none" id="info-cont" style="width:102.5%;">
+                                                    <br>
+                                                    <h2>Selamat Akun Anda Telah Terdaftar!</h2>
+                                                    <br>
+                                                    <h4>Harap Catat Informasi Akun Berikut  :</h4>
                                                     <ul class="list-unstyled">
                                                         <li>NIK: <span id="nomor-nik"></span></li>
                                                         <li>E-mail: <span id="alamat-email"></span></li>
                                                         <li>Password: <span id="password-login"></span></li>
                                                     </ul>
                                                 </div>
-                                                <div class="text-center">
+                                                <div class="text-center" style="margin:20px">
+                                                    
                                                     <button id="payButton" onclick="postPayment({{$program->first()->id}})" class="btn btn-primary">
                                                         Bayar Sekarang
                                                     </button>
                                                     <a id="loginButton" href="{{route('login')}}" class="btn btn-primary d-none">
                                                         Masuk Akun Sekarang
                                                     </a>
+                                                
                                                 </div>
                                             </div>
                                         </div>

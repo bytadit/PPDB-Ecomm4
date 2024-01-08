@@ -27,6 +27,7 @@
                                             class="info-item d-flex flex-column justify-content-center align-items-center mb-3">
                                             <h3>Pembayaran Pendaftaran</h3>
                                             <div class="container">
+                                                <br>
                                                 <div class="card m-3 p3 text-center countdown-container">
                                                     <h1>Batas Pembayaran : <span id="countdown"></span></h1>
                                                 </div>
