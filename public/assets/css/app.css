@@ -11826,8 +11826,21 @@ span.flatpickr-weekday {
     width: 100%;
     height: 380px;
 }
+.bgd_3-position {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 380px;
+}
 @media (max-width: 575.98px) {
     .auth-one-bg-position {
+        height: 280px;
+    }
+}
+@media (max-width: 575.98px) {
+    .bgd_3-position {
         height: 280px;
     }
 }
@@ -11836,7 +11849,17 @@ span.flatpickr-weekday {
     background-position: 50%;
     background-size: cover;
 }
+.bgd_3 {
+    background-image: url(/images/bgd_3.jpg);
+    background-position: 50%;
+    background-size: cover;
+}
 .auth-one-bg .bg-overlay {
+    background: linear-gradient(90deg, #364574, #405189);
+    opacity: 0.9;
+}
+
+.bgd_3 .bg-overlay {
     background: linear-gradient(90deg, #364574, #405189);
     opacity: 0.9;
 }
@@ -11848,7 +11871,20 @@ span.flatpickr-weekday {
     z-index: 1;
     pointer-events: none;
 }
+.bgd_3 .shape {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    pointer-events: none;
+}
 .auth-one-bg .shape > svg {
+    width: 100%;
+    height: auto;
+    fill: var(--vz-body-bg);
+}
+.bgd_3 .shape > svg {
     width: 100%;
     height: auto;
     fill: var(--vz-body-bg);
